@@ -8,25 +8,56 @@ import { routeFeatures } from '../src/globe/routes';
 
 const catalog = buildCatalog(content, sources);
 
-describe('v2 pack', () => {
-  it('loads 47 populations', () => {
-    expect(catalog.species).toHaveLength(47);
-    expect(catalog.index.species).toHaveLength(47);
-    expect(new Set(catalog.species.map((item) => item.id)).size).toBe(47);
-    expect(new Set(catalog.species.map((item) => item.shortName)).size).toBe(47);
+describe('v3 pack', () => {
+  it('loads 58 populations', () => {
+    expect(catalog.species).toHaveLength(58);
+    expect(catalog.index.species).toHaveLength(58);
+    expect(new Set(catalog.species.map((item) => item.id)).size).toBe(58);
+    expect(new Set(catalog.species.map((item) => item.shortName)).size).toBe(58);
   });
 
-  it('keeps observed, estimated and no-data months distinct', () => {
-    const counts = { observed: 0, representative: 0, 'no-data': 0 };
+  it('keeps observed, sightings, estimated and no-data months distinct', () => {
+    const counts = { observed: 0, 'observed-sightings': 0, representative: 0, 'no-data': 0 };
     catalog.species.forEach((item) => {
       expect(item.months).toHaveLength(12);
       item.months.forEach((month) => {
         counts[month.status] += 1;
         if (month.status === 'no-data') expect(month.lat).toBeNull();
-        if (month.status === 'observed') expect(month.lat).not.toBeNull();
+        if (month.status === 'observed' || month.status === 'observed-sightings') expect(month.lat).not.toBeNull();
       });
     });
-    expect(counts).toEqual({ observed: 270, representative: 250, 'no-data': 44 });
+    expect(counts).toEqual({ observed: 370, 'observed-sightings': 12, representative: 250, 'no-data': 64 });
+  });
+
+  it('styles monarch sightings apart from tracked months and labels computed distances as minimums', () => {
+    const sightings = catalog.species.find((item) => item.id === 'monarch-sightings');
+    expect(sightings?.months.every((month) => month.status === 'observed-sightings')).toBe(true);
+    expect(sightings?.tracks.flatMap((track) => track.fixes).every((fix) => fix.sightings)).toBe(true);
+    expect(routeFeatures(sightings!).every((line) => line.properties?.stroke === 3)).toBe(true);
+    const computed = catalog.species.filter((item) => /minimum/i.test(item.distance));
+    expect(computed.length).toBeGreaterThan(30);
+    expect(catalog.species.find((item) => item.id === 'wildebeest-serengeti-obs')?.distance).toMatch(/minimum/i);
+    expect(catalog.species.find((item) => item.id === 'himalayan-griffon')?.distance).toMatch(/minimum/i);
+  });
+
+  it('shows CC BY-NC for every non-commercial entry and keeps Serengeti NDVI on the months', () => {
+    const restricted = catalog.species.filter((item) => item.nonCommercial);
+    expect(restricted.map((item) => item.id).sort()).toEqual([
+      'arctic-tern-obs',
+      'humpback-wap',
+      'leatherback-south-africa-nc',
+      'monarch-sightings',
+      'osprey-europe-birdmap',
+      'white-stork-birdmap',
+    ]);
+    restricted.forEach((item) => expect(item.datasetLicence).toBe('CC BY-NC 4.0'));
+    const herd = catalog.species.find((item) => item.id === 'wildebeest-serengeti-obs');
+    expect(herd?.months[0].ndvi).toBeCloseTo(0.485);
+    expect(herd?.months[0].nitrogen).toBeCloseTo(1.276);
+    expect(herd?.months.every((month) => month.ndvi != null)).toBe(true);
+    const licences = readFileSync(new URL('../data/LICENSES.md', import.meta.url), 'utf8');
+    expect(licences).toMatch(/paid version/i);
+    expect(licences).toMatch(/nonCommercial/);
   });
 
   it('labels the honey buzzard dataset CC BY-NC 4.0', () => {
@@ -74,6 +105,7 @@ describe('review follow-ups', () => {
     const css = readFileSync(new URL('../src/style.css', import.meta.url), 'utf8');
     expect(css).toMatch(/\.pin::before\s*\{[^}]*inset:\s*-6px/);
     expect(css).toMatch(/\.pin-label\s*\{[^}]*white-space:\s*nowrap/);
+    expect(css).toMatch(/\.month-option\.is-sightings/);
   });
 
   it('pins the pages workflow and splits maplibre into its own chunk', () => {

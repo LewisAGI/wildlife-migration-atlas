@@ -34,6 +34,11 @@ interface PackTemperature {
   n: number;
 }
 
+interface PackMonthlyValue {
+  month: string;
+  value: number;
+}
+
 interface PackSpecies {
   id: string;
   commonName: string;
@@ -52,6 +57,8 @@ interface PackSpecies {
     temperatureNote?: string | null;
     iucnStatus?: string | null;
     iucnNote?: string | null;
+    ndviMonthlyMedian?: PackMonthlyValue[] | null;
+    grassNitrogenMonthlyMedian?: PackMonthlyValue[] | null;
   };
   evidence?: string;
   inference?: string;
@@ -67,9 +74,11 @@ interface PackSource {
   url?: string;
   title?: string;
   authors?: string[];
+  creators?: string[];
   year?: number;
   journal?: string;
   licence?: string;
+  nonCommercial?: boolean;
 }
 
 interface PackContent {
@@ -99,6 +108,12 @@ const LEAD = [
   'humpback-hawaii',
   'humpback-east-australia',
   'honey-buzzard-finland',
+  'wildebeest-serengeti-obs',
+  'arctic-tern-obs',
+  'monarch-sightings',
+  'leatherback-south-africa',
+  'whale-shark-ningaloo-obs',
+  'himalayan-griffon',
 ];
 
 const COLOUR: Record<string, string> = {
@@ -108,6 +123,13 @@ const COLOUR: Record<string, string> = {
   'humpback-hawaii': '#5ec8c5',
   'humpback-east-australia': '#3d7ee8',
   'honey-buzzard-finland': '#c6a15b',
+  'wildebeest-serengeti-obs': '#c4842a',
+  'arctic-tern-obs': '#4aa3d8',
+  'monarch-sightings': '#d98a3a',
+  'leatherback-south-africa': '#6a8f72',
+  'leatherback-south-africa-nc': '#3f6b56',
+  'whale-shark-ningaloo-obs': '#3aa0b8',
+  'himalayan-griffon': '#8d6b4a',
 };
 
 const SHORT: Record<string, string> = {
@@ -157,6 +179,17 @@ const SHORT: Record<string, string> = {
   'steppe-eagle': 'Steppe eagle',
   'montagus-harrier': "Montagu's harrier",
   pronghorn: 'Pronghorn',
+  'arctic-tern-obs': 'Arctic tern, tracked',
+  'leatherback-south-africa': 'Leatherback, South Africa',
+  'leatherback-south-africa-nc': 'Leatherback, South Africa, restricted',
+  'humpback-wap': 'Humpback whale, Antarctic Peninsula',
+  'whale-shark-ningaloo-obs': 'Whale shark, Ningaloo',
+  'sockeye-smolts-otn': 'Sockeye smolts',
+  'white-stork-birdmap': 'White stork, BirdMap',
+  'osprey-europe-birdmap': 'Osprey, Europe',
+  'wildebeest-serengeti-obs': 'Wildebeest, Serengeti tracked',
+  'himalayan-griffon': 'Himalayan griffon',
+  'monarch-sightings': 'Monarch sightings',
 };
 
 const GENERATION: Record<string, string> = {
@@ -221,7 +254,11 @@ function orderSpecies(species: PackSpecies[]): PackSpecies[] {
 function toSpecies(entry: PackSpecies, index: number, sources: Map<string, PackSource>): Species {
   const migrationType = MIGRATION[entry.migrationType];
   if (!migrationType) throw new Error(`${entry.id} has unknown migrationType ${entry.migrationType}`);
-  const months = entry.monthlyPositions.map((month, monthIndex) => toMonth(entry.id, month, monthIndex));
+  const ndvi = monthlyValues(entry.environment.ndviMonthlyMedian);
+  const nitrogen = monthlyValues(entry.environment.grassNitrogenMonthlyMedian);
+  const months = entry.monthlyPositions.map((month, monthIndex) =>
+    toMonth(entry.id, month, monthIndex, ndvi[monthIndex], nitrogen[monthIndex]),
+  );
   const sourceIds = unique([...entry.sources, ...months.map((month) => month.source)]);
   const provenance = sourceIds.map((id) => toProvenance(id, sources));
   const placed = months.filter((month): month is MonthPoint & { lat: number; lng: number } => month.lat != null && month.lng != null);
@@ -231,6 +268,7 @@ function toSpecies(entry: PackSpecies, index: number, sources: Map<string, PackS
   const events = eventsFor(entry.id, months);
   const places = placesFor(months);
   const datasetLicence = strictLicence(sourceIds, sources);
+  const nonCommercial = sourceIds.some((id) => sources.get(id)?.nonCommercial === true);
   return {
     id: entry.id,
     names: { common: entry.commonName, scientific: entry.scientificName },
@@ -252,7 +290,8 @@ function toSpecies(entry: PackSpecies, index: number, sources: Map<string, PackS
       entry.environment.temperatureNote ||
       'No sourced temperature in this dataset. Tag readings, when present, are not air or water temperature.',
     citedKm: entry.id === 'arctic-tern' && entry.distanceStatus === 'cited' ? 70900 : null,
-    datasetLicence,
+    datasetLicence: nonCommercial ? 'CC BY-NC 4.0' : datasetLicence,
+    nonCommercial,
     evidence: entry.evidence || entry.summary,
     tracks,
     events,
@@ -261,11 +300,17 @@ function toSpecies(entry: PackSpecies, index: number, sources: Map<string, PackS
   };
 }
 
-function toMonth(speciesId: string, month: PackMonth, index: number): MonthPoint {
+function toMonth(
+  speciesId: string,
+  month: PackMonth,
+  index: number,
+  ndvi: number | null,
+  nitrogen: number | null,
+): MonthPoint {
   const name = MONTH_NAMES[index];
   if (month.month !== name) throw new Error(`${speciesId} month ${index} is ${month.month}, expected ${name}`);
   const status = month.status as MonthStatus;
-  if (status !== 'observed' && status !== 'representative' && status !== 'no-data') {
+  if (status !== 'observed' && status !== 'observed-sightings' && status !== 'representative' && status !== 'no-data') {
     throw new Error(`${speciesId} ${name} has status ${month.status}`);
   }
   const lat = month.lat ?? null;
@@ -287,6 +332,8 @@ function toMonth(speciesId: string, month: PackMonth, index: number): MonthPoint
     method: month.method || 'No method recorded.',
     note: month.uncertainty ?? '',
     source,
+    ndvi,
+    nitrogen,
   };
 }
 
@@ -302,7 +349,7 @@ function uncertaintyKm(month: PackMonth): number {
     const lonKm = Math.abs(month.iqrLon[1] - month.iqrLon[0]) * 111 * Math.cos((month.lat * Math.PI) / 180);
     return Math.max(15, Math.round(0.5 * Math.hypot(latKm, lonKm)));
   }
-  return month.status === 'observed' ? 80 : 250;
+  return month.status === 'representative' ? 250 : 80;
 }
 
 function toTracks(
@@ -331,10 +378,11 @@ function toFix(id: string, month: MonthPoint & { lat: number; lng: number }): Fi
     t: month.day,
     lat: month.lat,
     lng: month.lng,
-    status: month.status === 'observed' ? 'observed' : 'representative',
-    uncertaintyKm: month.uncertaintyKm ?? (month.status === 'observed' ? 80 : 250),
+    status: month.status === 'representative' ? 'representative' : 'observed',
+    uncertaintyKm: month.uncertaintyKm ?? (month.status === 'representative' ? 250 : 80),
     source: month.source,
     dispersed: month.dispersed || undefined,
+    sightings: month.status === 'observed-sightings' || undefined,
     colour: generation ? GENERATION[generation] : undefined,
     generation: generation ?? undefined,
   };
@@ -390,7 +438,7 @@ function toProvenance(id: string, sources: Map<string, PackSource>): Provenance 
 }
 
 function cite(source: PackSource): string {
-  const authors = (source.authors ?? []).slice(0, 4).join(', ');
+  const authors = (source.authors ?? source.creators ?? []).slice(0, 4).join(', ');
   const year = source.year ? ` ${source.year}.` : '';
   const title = source.title ? ` ${source.title}` : '';
   const journal = source.journal ? ` ${source.journal}.` : '';
@@ -449,8 +497,21 @@ function temperaturesOf(entry: PackSpecies): TagTemperature[] {
 
 function distanceOf(entry: PackSpecies): string {
   if (entry.id === 'blue-wildebeest') return '800–1,000 km for the circuit. The round changes from year to year.';
+  if (entry.distanceStatus === 'computed' && entry.distance?.trim()) {
+    const text = entry.distance.trim();
+    return /minimum/i.test(text) ? text : `${text} (minimum)`;
+  }
   if (entry.distance && entry.distance.trim()) return entry.distance;
   return 'Not computed from these positions.';
+}
+
+function monthlyValues(rows: PackMonthlyValue[] | null | undefined): (number | null)[] {
+  const values: (number | null)[] = Array.from({ length: 12 }, () => null);
+  (rows ?? []).forEach((row) => {
+    const month = MONTH_NAMES.indexOf(row.month as (typeof MONTH_NAMES)[number]);
+    if (month >= 0 && typeof row.value === 'number') values[month] = row.value;
+  });
+  return values;
 }
 
 function rangeOf(months: MonthPoint[], population: string): string {
@@ -465,12 +526,14 @@ function uncertaintyOf(entry: PackSpecies): string {
   if (entry.evidence) parts.push(entry.evidence);
   if (entry.inference) parts.push(entry.inference);
   const observed = entry.monthlyPositions.some((month) => month.status === 'observed');
+  const sightings = entry.monthlyPositions.some((month) => month.status === 'observed-sightings');
   const estimated = entry.monthlyPositions.some((month) => month.status === 'representative');
   const gaps = entry.monthlyPositions.some((month) => month.status === 'no-data' || month.lat == null);
   if (observed) parts.push('Observed months are pooled medians, not one animal.');
+  if (sightings) parts.push('Observed-sightings months are citizen-science medians, not tagged animals.');
   if (estimated) parts.push('Estimated months are representative regions from the cited seasonal cycle, not tracking fixes.');
   if (gaps) parts.push('Months with no position are no-data gaps and are not interpolated across.');
-  if (!observed) parts.push('Every stored place is representative.');
+  if (!observed && !sightings) parts.push('Every stored place is representative.');
   return parts.join(' ');
 }
 

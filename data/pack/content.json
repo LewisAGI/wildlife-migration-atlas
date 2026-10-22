@@ -1,9 +1,10 @@
 {
  "pack": "wildlife-migration-atlas",
- "version": "pack-v2",
+ "version": "pack-v3",
  "generated": "2026-10-22",
  "positionStatusValues": [
   "observed",
+  "observed-sightings",
   "representative",
   "interpolated",
   "simulated",
@@ -197,7 +198,7 @@
     "wp-blue-wildebeest",
     "doi-10-1086-597229"
    ],
-   "dataStatus": "representative (no public Movebank download used)"
+   "dataStatus": "superseded-by-observed: see wildebeest-serengeti-obs"
   },
   {
    "id": "arctic-tern",
@@ -386,7 +387,7 @@
     "wp-arctic-tern",
     "doi-10-1073-pnas-0909493107"
    ],
-   "dataStatus": "representative (no public Movebank download used)"
+   "dataStatus": "superseded-by-observed: see arctic-tern-obs"
   },
   {
    "id": "monarch",
@@ -2942,7 +2943,7 @@
     "wp-whale-shark",
     "doi-doi-10-1071-mf9960637"
    ],
-   "dataStatus": "representative (no public Movebank download used)"
+   "dataStatus": "superseded-by-observed: see whale-shark-ningaloo-obs"
   },
   {
    "id": "straw-coloured-fruit-bat",
@@ -3660,8 +3661,8 @@
    "scientificName": "Ciconia ciconia",
    "population": "Timing is critical: consequences of asynchronous migration for the performance and destination of a long-distance migrant",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "1,768 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 69 tagged animals, 1,667,881 fixes, 2016-2020. 4/12 months have observed data.",
    "trackingStats": {
     "nFixes": 1667881,
@@ -3909,7 +3910,8 @@
     "wp-white-stork",
     "movebank-10-5441-001-1-137cn005",
     "doi-10-1186-s40462-022-00328-3"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "wildebeest-kenya-mara",
@@ -3917,8 +3919,8 @@
    "scientificName": "Connochaetes taurinus albojubatus",
    "population": "15 collared animals; group assigned by INFERENCE from each animal's median position (study names three Kenyan populations)",
    "migrationType": "partial",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "92 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "GPS-collared wildebeest from one of three Kenyan populations in Stabach et al. 2022 (2010-2013). Movements are short and restricted relative to the Serengeti migration.",
    "monthlyPositions": [
     {
@@ -4207,7 +4209,8 @@
     "wp-blue-wildebeest",
     "movebank-10-5441-001-1-h0t27719",
     "doi-10-3389-fevo-2022-846171"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "wildebeest-kenya-athi-kaputiei",
@@ -4215,8 +4218,8 @@
    "scientificName": "Connochaetes taurinus albojubatus",
    "population": "12 collared animals; group assigned by INFERENCE from each animal's median position (study names three Kenyan populations)",
    "migrationType": "partial",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "44 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "GPS-collared wildebeest from one of three Kenyan populations in Stabach et al. 2022 (2010-2013). Movements are short and restricted relative to the Serengeti migration.",
    "monthlyPositions": [
     {
@@ -4505,7 +4508,8 @@
     "wp-blue-wildebeest",
     "movebank-10-5441-001-1-h0t27719",
     "doi-10-3389-fevo-2022-846171"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "wildebeest-kenya-amboseli",
@@ -4513,8 +4517,8 @@
    "scientificName": "Connochaetes taurinus albojubatus",
    "population": "9 collared animals; group assigned by INFERENCE from each animal's median position (study names three Kenyan populations)",
    "migrationType": "partial",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "77 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "GPS-collared wildebeest from one of three Kenyan populations in Stabach et al. 2022 (2010-2013). Movements are short and restricted relative to the Serengeti migration.",
    "monthlyPositions": [
     {
@@ -4803,7 +4807,8 @@
     "wp-blue-wildebeest",
     "movebank-10-5441-001-1-h0t27719",
     "doi-10-3389-fevo-2022-846171"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "humpback-east-australia",
@@ -4811,8 +4816,8 @@
    "scientificName": "Megaptera novaeangliae",
    "population": "Australia’s east coast humpback whales: satellite tag derived movements on breeding grounds, feeding grounds and along the northern and southern migration.",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "11,616 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 50 tagged animals, 30,029 fixes, 2008-2011. 11/12 months have observed data.",
    "trackingStats": {
     "nFixes": 30029,
@@ -5101,7 +5106,8 @@
     "wp-humpback-whale",
     "movebank-10-5441-001-1-294",
     "doi-10-3897-bdj-11-e114729"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "osprey-north-america",
@@ -5109,8 +5115,8 @@
    "scientificName": "Pandion haliaetus carolinensis",
    "population": "Fall migration routes, timing, and wintering sites of North American ospreys as determined by satellite telemetry",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "8,037 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 112 tagged animals, 44,995 fixes, 1995-2002. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 44995,
@@ -5409,7 +5415,8 @@
     "wp-osprey",
     "movebank-10-5441-001-1-sv6335t3",
     "doi-10-1650-0010-5422-2001-103-0715-fmrtaw-2-0-co-2"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "bar-tailed-godwit-mb",
@@ -5417,8 +5424,8 @@
    "scientificName": "Limosa lapponica baueri",
    "population": "Study \"Bar-tailed Godwit geolocator tracking New Zealand 2013-2014\"",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "27,642 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 18 tagged animals, 103 fixes, 2013-2014. 10/12 months have observed data.",
    "trackingStats": {
     "nFixes": 103,
@@ -5681,7 +5688,8 @@
     "wp-bar-tailed-godwit",
     "movebank-10-5441-001-1-327",
     "doi-10-1073-pnas-2311146121"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "common-cuckoo",
@@ -5689,8 +5697,8 @@
    "scientificName": "Cuculus canorus",
    "population": "Flying on their own wings: young and adult cuckoos respond similarly to long-distance displacement during migration",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "18,407 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 42 tagged animals, 7,432 fixes, 2015-2020. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 7432,
@@ -5989,7 +5997,8 @@
     "wp-common-cuckoo",
     "movebank-10-5441-001-1-vk36vq82",
     "doi-10-1038-s41598-020-64230-x"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "turkey-vulture",
@@ -5997,8 +6006,8 @@
    "scientificName": "Cathartes aura",
    "population": "Study \"Vultures Acopian Center USA GPS\" (2003-2021)",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "10,835 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 84 tagged animals, 1,759,698 fixes, 2003-2021. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 1759698,
@@ -6297,7 +6306,8 @@
     "wp-turkey-vulture",
     "movebank-10-5441-001-1-f3qt46r2",
     "doi-10-1186-s40462-021-00274-6"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "common-crane-sweden",
@@ -6305,8 +6315,8 @@
    "scientificName": "Grus grus",
    "population": "Study \"GPS telemetry of Common Cranes, Sweden\"",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "4,928 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 19 tagged animals, 603,756 fixes, 2013-2017. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 603756,
@@ -6605,7 +6615,8 @@
     "wp-common-crane",
     "movebank-10-5441-001-1-597",
     "doi-10-1073-pnas-2316827121"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "common-crane-russia",
@@ -6613,8 +6624,8 @@
    "scientificName": "Grus grus",
    "population": "Study \"1000 Cranes. Russia. Common Crane.\"",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "5,665 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 17 tagged animals, 13,921 fixes, 2018-2024. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 13921,
@@ -6913,7 +6924,8 @@
     "wp-common-crane",
     "movebank-10-5441-001-1-593",
     "doi-10-1073-pnas-2316827121"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "alpine-swift",
@@ -6921,8 +6933,8 @@
    "scientificName": "Tachymarptis melba",
    "population": "Study \"Switzerland Solothurn - Long term study on migratory movement of Alpine swifts (Apus melba)\"",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "6,247 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 9 tagged animals, 3,464 fixes, 2016-2017. 8/12 months have observed data.",
    "trackingStats": {
     "nFixes": 3464,
@@ -7181,7 +7193,8 @@
     "wp-alpine-swift",
     "movebank-10-5441-001-1-nn518dc4",
     "doi-10-1111-jav-02515"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "white-fronted-goose",
@@ -7189,8 +7202,8 @@
    "scientificName": "Anser albifrons",
    "population": "Goose parents lead migration V",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "3,650 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 13 tagged animals, 955,487 fixes, 2015-2015. 4/12 months have observed data.",
    "trackingStats": {
     "nFixes": 955487,
@@ -7409,7 +7422,8 @@
     "wp-greater-white-fronted-goose",
     "movebank-10-5441-001-1-ms87s2m6",
     "doi-10-1111-jav-02392"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "black-kite-gibraltar",
@@ -7417,8 +7431,8 @@
    "scientificName": "Milvus migrans",
    "population": "The gateway to Africa: what determines sea crossing performance of a migratory soaring bird at the strait of Gibraltar?",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "8 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 73 tagged animals, 27,630 fixes, 2012-2013. 2/12 months have observed data.",
    "trackingStats": {
     "nFixes": 27630,
@@ -7617,7 +7631,8 @@
     "wp-black-kite",
     "movebank-10-5441-001-1-r9g07dr8",
     "doi-10-1111-1365-2656-13201"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "elk-ya-ha-tinda",
@@ -7625,8 +7640,8 @@
    "scientificName": "Cervus canadensis",
    "population": "Study \"Ya Ha Tinda elk project, Banff National Park, 2001-2020 (females)\"",
    "migrationType": "partial",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "7 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 175 tagged animals, 1,585,430 fixes, 2001-2020. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 1585430,
@@ -7986,7 +8001,8 @@
     "wp-elk",
     "movebank-10-5441-001-1-5g4h5t6c",
     "doi-10-1111-1365-2656-12495"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "zebra-botswana",
@@ -7994,8 +8010,8 @@
    "scientificName": "Equus quagga burchellii",
    "population": "In search of greener pastures: using satellite images to predict the effects of environmental change on zebra migration",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "439 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 7 tagged animals, 53,776 fixes, 2007-2009. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 53776,
@@ -8294,7 +8310,8 @@
     "wp-plains-zebra",
     "movebank-10-5441-001-1-f3550b4f",
     "doi-10-1002-jgrg-20096"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "fruit-bat-ghana",
@@ -8302,8 +8319,8 @@
    "scientificName": "Eidolon helvum",
    "population": "Long-distance seed dispersal by straw-coloured fruit bats varies by season and landscape",
    "migrationType": "local",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "161 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 28 tagged animals, 5,060 fixes, 2009-2013. 5/12 months have observed data.",
    "trackingStats": {
     "nFixes": 5060,
@@ -8532,7 +8549,8 @@
     "wp-straw-coloured-fruit-bat",
     "movebank-10-5441-001-1-44183438",
     "doi-10-1016-j-gecco-2016-03-005"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "golden-eagle-hawkwatch",
@@ -8540,8 +8558,8 @@
    "scientificName": "Aquila chrysaetos",
    "population": "Study \"HawkWatch International Golden Eagles\"",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "6,872 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 33 tagged animals, 23,650 fixes, 1999-2009. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 23650,
@@ -8827,7 +8845,8 @@
    "sources": [
     "wp-golden-eagle",
     "movebank-10-5441-001-1-95r77m9k"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "barnacle-goose-greenland",
@@ -8835,8 +8854,8 @@
    "scientificName": "Branta leucopsis",
    "population": "Forecasting spring from afar? Timing of migration and predictability of phenology along different migration routes of an avian herbivore [Greenland data]",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "2,561 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 7 tagged animals, 6,853 fixes, 2008-2010. 5/12 months have observed data.",
    "trackingStats": {
     "nFixes": 6853,
@@ -9065,7 +9084,8 @@
     "wp-barnacle-goose",
     "movebank-10-5441-001-1-5d3f0664",
     "doi-10-1111-1365-2656-12281"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "loggerhead-med",
@@ -9073,8 +9093,8 @@
    "scientificName": "Caretta caretta",
    "population": "Study \"Satellite Tracking of Oceanic Loggerhead Turtles in the Mediterranean\"",
    "migrationType": "multiroute",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "1,287 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 11 tagged animals, 10,271 fixes, 2016-2018. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 10271,
@@ -9373,7 +9393,8 @@
     "wp-loggerhead-sea-turtle",
     "movebank-10-5441-001-1-1f1h87r8",
     "doi-10-1002-ece3-6370"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "green-turtle-chagos",
@@ -9381,8 +9402,8 @@
    "scientificName": "Chelonia mydas",
    "population": "Study \"Green turtles (Chelonia Mydas); Hays; Chagos Archipelago, Western Indian Ocean\"",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "3,633 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 33 tagged animals, 55,411 fixes, 2012-2019. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 55411,
@@ -9681,7 +9702,8 @@
     "wp-green-sea-turtle",
     "movebank-10-5441-001-1-313",
     "doi-10-1098-rspb-2016-2581"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "blue-whale-ne-pacific",
@@ -9689,8 +9711,8 @@
    "scientificName": "Balaenoptera musculus",
    "population": "Behavioural estimation of blue whale movements in the Northeast Pacific from state-space model analysis of satellite tracks",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "4,163 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 143 tagged animals, 15,778 fixes, 1993-2009. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 15778,
@@ -9989,7 +10011,8 @@
     "wp-blue-whale",
     "movebank-10-5441-001-1-5ph88fk2",
     "doi-10-3354-esr00239"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "honey-buzzard-finland",
@@ -9997,8 +10020,8 @@
    "scientificName": "Pernis apivorus",
    "population": "Study \"GPS tracking of honey buzzards in Finland\"",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "14,001 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 28 tagged animals, 72,804 fixes, 2011-2018. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 72804,
@@ -10297,7 +10320,8 @@
     "wp-european-honey-buzzard",
     "movebank-10-5441-001-1-335",
     "doi-10-1016-j-anbehav-2025-123366"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "egyptian-vulture",
@@ -10305,8 +10329,8 @@
    "scientificName": "Neophron percnopterus",
    "population": "Satellite tracking a wide‐ranging endangered vulture species to target conservation actions in the Middle East and East Africa",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "6,733 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 16 tagged animals, 576,354 fixes, 2012-2019. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 576354,
@@ -10666,7 +10690,8 @@
     "wp-egyptian-vulture",
     "movebank-10-5441-001-1-385gk270",
     "doi-10-1007-s10531-018-1538-6"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "steppe-eagle",
@@ -10674,8 +10699,8 @@
    "scientificName": "Aquila nipalensis",
    "population": "Age-dependent response to anthropogenic habitat during migration of an endangered raptor",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "4,379 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 21 tagged animals, 517,997 fixes, 2018-2024. 5/12 months have observed data.",
    "trackingStats": {
     "nFixes": 517997,
@@ -10904,7 +10929,8 @@
     "wp-steppe-eagle",
     "movebank-10-5441-001-1-695",
     "doi-10-1016-j-cub-2025-07-061"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "montagus-harrier",
@@ -10912,8 +10938,8 @@
    "scientificName": "Circus pygargus",
    "population": "Migratory connectivity and population specific migration routes in a long-distance migratory bird",
    "migrationType": "loop",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "9,517 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 34 tagged animals, 45,367 fixes, 2005-2011. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 45367,
@@ -11212,7 +11238,8 @@
     "wp-montagu-s-harrier",
     "movebank-10-5441-001-1-tb272jc1",
     "doi-10-1098-rspb-2013-2897"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
   },
   {
    "id": "pronghorn",
@@ -11220,8 +11247,8 @@
    "scientificName": "Antilocapra americana",
    "population": "Study \"Pronghorn (Antilocapra americana), Wyoming/Colorado, USA\"",
    "migrationType": "partial",
-   "distance": null,
-   "distanceStatus": "not computed",
+   "distance": "29 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
    "summary": "Monthly positions from 32 tagged animals, 99,673 fixes, 2017-2019. 12/12 months have observed data.",
    "trackingStats": {
     "nFixes": 99673,
@@ -11520,7 +11547,3081 @@
     "wp-pronghorn",
     "movebank-10-5441-001-1-74pf3n2p",
     "doi-10-1002-jwmg-22329"
-   ]
+   ],
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "arctic-tern-obs",
+   "commonName": "Arctic tern (Greenland & Iceland geolocator birds, Egevang et al.)",
+   "scientificName": "Sterna paradisaea",
+   "population": "Arctic tern (Greenland & Iceland geolocator birds, Egevang et al.)",
+   "migrationType": "loop",
+   "summary": "Observed monthly medians from the OBIS-SEAMAP tern tracking dataset (2007-08). NON-COMMERCIAL licence (CC BY-NC 4.0).",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": -64.44,
+     "lng": -17.85,
+     "status": "observed",
+     "nFixes": 145,
+     "nIndividuals": 7,
+     "iqrLat": [
+      -65.75,
+      -63.07
+     ],
+     "iqrLon": [
+      -21.895,
+      -14.845
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": -66.98,
+     "lng": -25.945,
+     "status": "observed",
+     "nFixes": 436,
+     "nIndividuals": 8,
+     "iqrLat": [
+      -68.448,
+      -65.67
+     ],
+     "iqrLon": [
+      -36.153,
+      -17.44
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": -64.6,
+     "lng": -41.03,
+     "status": "observed",
+     "nFixes": 179,
+     "nIndividuals": 8,
+     "iqrLat": [
+      -66.28,
+      -63.22
+     ],
+     "iqrLon": [
+      -46.43,
+      -32.18
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": -48.335,
+     "lng": -17.755,
+     "status": "observed",
+     "nFixes": 414,
+     "nIndividuals": 8,
+     "iqrLat": [
+      -64.793,
+      -20.385
+     ],
+     "iqrLon": [
+      -30.932,
+      -2.91
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": 37.66,
+     "lng": -41.16,
+     "status": "observed",
+     "nFixes": 416,
+     "nIndividuals": 8,
+     "iqrLat": [
+      11.485,
+      46.562
+     ],
+     "iqrLon": [
+      -47.157,
+      -35.388
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": 52.68,
+     "lng": -33.39,
+     "status": "observed",
+     "nFixes": 298,
+     "nIndividuals": 9,
+     "iqrLat": [
+      47.605,
+      65.393
+     ],
+     "iqrLon": [
+      -36.703,
+      -29.768
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": 45.68,
+     "lng": -31.365,
+     "status": "observed",
+     "nFixes": 314,
+     "nIndividuals": 9,
+     "iqrLat": [
+      40.142,
+      49.08
+     ],
+     "iqrLon": [
+      -36.153,
+      -27.0
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": -18.81,
+     "lng": -3.17,
+     "status": "observed",
+     "nFixes": 493,
+     "nIndividuals": 9,
+     "iqrLat": [
+      -32.6,
+      -9.725
+     ],
+     "iqrLon": [
+      -38.51,
+      9.97
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": -40.32,
+     "lng": 1.24,
+     "status": "observed",
+     "nFixes": 509,
+     "nIndividuals": 9,
+     "iqrLat": [
+      -56.76,
+      -37.815
+     ],
+     "iqrLon": [
+      -26.38,
+      16.22
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": -60.4,
+     "lng": -12.33,
+     "status": "observed",
+     "nFixes": 259,
+     "nIndividuals": 8,
+     "iqrLat": [
+      -61.21,
+      -59.47
+     ],
+     "iqrLon": [
+      -21.64,
+      -1.4
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Geolocator error ~185 km (Egevang et al. 2010). No fixes in Jun-Jul (breeding/equinox).",
+     "sources": [
+      "dataset-10-82144-f1e7b55e",
+      "doi-10-1073-pnas-0909493107"
+     ]
+    }
+   ],
+   "replacesV1": "arctic-tern",
+   "sources": [
+    "wp-arctic-tern",
+    "dataset-10-82144-f1e7b55e",
+    "doi-10-1073-pnas-0909493107"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-arctic-tern"
+    ]
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "partly observed",
+   "addedIn": "v3",
+   "distance": "28,447 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "leatherback-south-africa",
+   "commonName": "Leatherback turtle (South African nesters, CC BY dataset)",
+   "scientificName": "Dermochelys coriacea",
+   "population": "Leatherback turtle (South African nesters, CC BY dataset)",
+   "migrationType": "loop",
+   "summary": "Observed monthly medians from OBIS-SEAMAP dataset (Creative Commons Attribution 4.0 International). A different population from the v1 West Pacific entry.",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": -28.689,
+     "lng": 32.723,
+     "status": "observed",
+     "nFixes": 168,
+     "nIndividuals": 6,
+     "iqrLat": [
+      -32.681,
+      -27.387
+     ],
+     "iqrLon": [
+      28.832,
+      32.868
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": -30.723,
+     "lng": 32.302,
+     "status": "observed",
+     "nFixes": 952,
+     "nIndividuals": 9,
+     "iqrLat": [
+      -33.727,
+      -27.667
+     ],
+     "iqrLon": [
+      29.715,
+      33.319
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": -35.201,
+     "lng": 27.889,
+     "status": "observed",
+     "nFixes": 871,
+     "nIndividuals": 9,
+     "iqrLat": [
+      -36.905,
+      -27.496
+     ],
+     "iqrLon": [
+      21.572,
+      33.723
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": -35.366,
+     "lng": 25.971,
+     "status": "observed",
+     "nFixes": 481,
+     "nIndividuals": 8,
+     "iqrLat": [
+      -36.547,
+      -27.347
+     ],
+     "iqrLon": [
+      13.86,
+      27.246
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": -30.647,
+     "lng": 22.446,
+     "status": "observed",
+     "nFixes": 431,
+     "nIndividuals": 7,
+     "iqrLat": [
+      -36.127,
+      -27.807
+     ],
+     "iqrLon": [
+      13.564,
+      27.777
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": -32.1165,
+     "lng": 19.767,
+     "status": "observed",
+     "nFixes": 318,
+     "nIndividuals": 5,
+     "iqrLat": [
+      -34.504,
+      -31.75
+     ],
+     "iqrLon": [
+      14.487,
+      32.645
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": -34.0595,
+     "lng": 25.67,
+     "status": "observed",
+     "nFixes": 222,
+     "nIndividuals": 3,
+     "iqrLat": [
+      -35.571,
+      -33.383
+     ],
+     "iqrLon": [
+      15.892,
+      35.129
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": -34.383,
+     "lng": 35.191,
+     "status": "observed",
+     "nFixes": 101,
+     "nIndividuals": 2,
+     "iqrLat": [
+      -34.596,
+      -33.995
+     ],
+     "iqrLon": [
+      34.593,
+      35.555
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": -32.0025,
+     "lng": 30.6515,
+     "status": "observed",
+     "nFixes": 86,
+     "nIndividuals": 2,
+     "iqrLat": [
+      -34.781,
+      -31.628
+     ],
+     "iqrLon": [
+      24.511,
+      32.936
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-e379e535"
+     ]
+    }
+   ],
+   "replacesV1": null,
+   "sources": [
+    "wp-leatherback-sea-turtle",
+    "dataset-10-82144-e379e535"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-leatherback-sea-turtle"
+    ]
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "partly observed",
+   "addedIn": "v3",
+   "distance": "3,937 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "leatherback-south-africa-nc",
+   "commonName": "Leatherback turtle (South African nesters, CC BY-NC dataset)",
+   "scientificName": "Dermochelys coriacea",
+   "population": "Leatherback turtle (South African nesters, CC BY-NC dataset)",
+   "migrationType": "loop",
+   "summary": "Observed monthly medians from OBIS-SEAMAP dataset (Creative Commons Attribution Non Commercial 4.0 International). A different population from the v1 West Pacific entry.",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": -27.3587,
+     "lng": 32.8328,
+     "status": "observed",
+     "nFixes": 196,
+     "nIndividuals": 11,
+     "iqrLat": [
+      -28.99,
+      -27.064
+     ],
+     "iqrLon": [
+      32.716,
+      32.994
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": -27.569,
+     "lng": 33.283,
+     "status": "observed",
+     "nFixes": 364,
+     "nIndividuals": 17,
+     "iqrLat": [
+      -33.929,
+      -25.569
+     ],
+     "iqrLon": [
+      32.74,
+      35.407
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": -28.843,
+     "lng": 35.3593,
+     "status": "observed",
+     "nFixes": 464,
+     "nIndividuals": 15,
+     "iqrLat": [
+      -37.167,
+      -21.662
+     ],
+     "iqrLon": [
+      32.324,
+      36.309
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": -22.6112,
+     "lng": 35.4078,
+     "status": "observed",
+     "nFixes": 374,
+     "nIndividuals": 15,
+     "iqrLat": [
+      -34.233,
+      -20.425
+     ],
+     "iqrLon": [
+      32.499,
+      36.488
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": -19.7803,
+     "lng": 35.5413,
+     "status": "observed",
+     "nFixes": 276,
+     "nIndividuals": 11,
+     "iqrLat": [
+      -21.08,
+      -19.366
+     ],
+     "iqrLon": [
+      35.136,
+      36.088
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": -19.5563,
+     "lng": 35.7473,
+     "status": "observed",
+     "nFixes": 57,
+     "nIndividuals": 5,
+     "iqrLat": [
+      -19.727,
+      -19.391
+     ],
+     "iqrLon": [
+      35.56,
+      36.054
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": -19.6119,
+     "lng": 35.7049,
+     "status": "observed",
+     "nFixes": 2,
+     "nIndividuals": 1,
+     "iqrLat": null,
+     "iqrLon": null,
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": -19.8377,
+     "lng": 35.4399,
+     "status": "observed",
+     "nFixes": 2,
+     "nIndividuals": 1,
+     "iqrLat": null,
+     "iqrLon": null,
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": -26.791,
+     "lng": 33.1375,
+     "status": "observed",
+     "nFixes": 38,
+     "nIndividuals": 2,
+     "iqrLat": [
+      -27.699,
+      -25.86
+     ],
+     "iqrLon": [
+      32.855,
+      33.775
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": -27.7573,
+     "lng": 32.965,
+     "status": "observed",
+     "nFixes": 68,
+     "nIndividuals": 4,
+     "iqrLat": [
+      -28.704,
+      -27.124
+     ],
+     "iqrLon": [
+      32.718,
+      33.285
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Argos satellite fixes.",
+     "sources": [
+      "dataset-10-82144-cf4235bc"
+     ]
+    }
+   ],
+   "replacesV1": null,
+   "sources": [
+    "wp-leatherback-sea-turtle",
+    "dataset-10-82144-cf4235bc"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-leatherback-sea-turtle"
+    ]
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "partly observed",
+   "addedIn": "v3",
+   "distance": "2,301 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "humpback-wap",
+   "commonName": "Humpback whale (West Antarctic Peninsula feeding ground, Palmer LTER)",
+   "scientificName": "Megaptera novaeangliae",
+   "population": "Humpback whale (West Antarctic Peninsula feeding ground, Palmer LTER)",
+   "migrationType": "loop",
+   "summary": "Feeding-ground movements Jan-Jun only; NON-COMMERCIAL licence.",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": -64.822,
+     "lng": -64.217,
+     "status": "observed",
+     "nFixes": 687,
+     "nIndividuals": 5,
+     "iqrLat": [
+      -66.712,
+      -63.806
+     ],
+     "iqrLon": [
+      -68.833,
+      -63.08
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Feeding-season tags only.",
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": -64.241,
+     "lng": -62.398,
+     "status": "observed",
+     "nFixes": 2002,
+     "nIndividuals": 5,
+     "iqrLat": [
+      -66.101,
+      -63.27
+     ],
+     "iqrLon": [
+      -66.804,
+      -60.11
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Feeding-season tags only.",
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": -67.9175,
+     "lng": -67.3125,
+     "status": "observed",
+     "nFixes": 1286,
+     "nIndividuals": 5,
+     "iqrLat": [
+      -68.354,
+      -64.308
+     ],
+     "iqrLon": [
+      -68.201,
+      -61.87
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Feeding-season tags only.",
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": -66.3875,
+     "lng": -67.293,
+     "status": "observed",
+     "nFixes": 802,
+     "nIndividuals": 2,
+     "iqrLat": [
+      -67.757,
+      -64.832
+     ],
+     "iqrLon": [
+      -67.838,
+      -64.133
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Feeding-season tags only.",
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": -64.357,
+     "lng": -62.038,
+     "status": "observed",
+     "nFixes": 549,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -64.803,
+      -63.61
+     ],
+     "iqrLon": [
+      -62.779,
+      -60.955
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Feeding-season tags only.",
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": -64.2775,
+     "lng": -63.1465,
+     "status": "observed",
+     "nFixes": 258,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -64.404,
+      -64.153
+     ],
+     "iqrLon": [
+      -63.288,
+      -62.916
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Feeding-season tags only.",
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-82144-a67782d6"
+     ]
+    }
+   ],
+   "replacesV1": null,
+   "sources": [
+    "wp-humpback-whale",
+    "dataset-10-82144-a67782d6"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-humpback-whale"
+    ]
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "partly observed",
+   "addedIn": "v3",
+   "distance": "1,129 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "whale-shark-ningaloo-obs",
+   "commonName": "Whale shark (Western Australia, ECOCEAN)",
+   "scientificName": "Rhincodon typus",
+   "population": "Whale shark (Western Australia, ECOCEAN)",
+   "migrationType": "multiroute",
+   "summary": "Observed monthly medians from the ECOCEAN Western Australia dataset (CC BY 4.0).",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": -25.6,
+     "lng": 113.0,
+     "status": "observed",
+     "nFixes": 376,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -26.4,
+      -25.6
+     ],
+     "iqrLon": [
+      112.9,
+      113.2
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": -26.0,
+     "lng": 113.0,
+     "status": "observed",
+     "nFixes": 244,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -31.089,
+      -25.6
+     ],
+     "iqrLon": [
+      112.9,
+      113.3
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": -22.9,
+     "lng": 113.6,
+     "status": "observed",
+     "nFixes": 218,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -25.8,
+      -22.3
+     ],
+     "iqrLon": [
+      113.0,
+      113.9
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": -22.7,
+     "lng": 113.7,
+     "status": "observed",
+     "nFixes": 343,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -22.9,
+      -22.38
+     ],
+     "iqrLon": [
+      113.6,
+      113.8
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": -22.0,
+     "lng": 113.9,
+     "status": "observed",
+     "nFixes": 279,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -22.3,
+      -22.0
+     ],
+     "iqrLon": [
+      113.8,
+      113.9
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": -22.0,
+     "lng": 113.9,
+     "status": "observed",
+     "nFixes": 274,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -22.1,
+      -21.692
+     ],
+     "iqrLon": [
+      113.8,
+      114.171
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": -21.809,
+     "lng": 114.0,
+     "status": "observed",
+     "nFixes": 693,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -22.0,
+      -21.104
+     ],
+     "iqrLon": [
+      113.9,
+      114.548
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": -19.8056,
+     "lng": 114.9,
+     "status": "observed",
+     "nFixes": 1023,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -21.342,
+      -19.006
+     ],
+     "iqrLon": [
+      113.935,
+      115.733
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": -20.2648,
+     "lng": 113.8,
+     "status": "observed",
+     "nFixes": 1010,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -22.055,
+      -15.662
+     ],
+     "iqrLon": [
+      113.316,
+      114.627
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": -22.4,
+     "lng": 113.4983,
+     "status": "observed",
+     "nFixes": 985,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -22.9,
+      -15.332
+     ],
+     "iqrLon": [
+      110.533,
+      113.7
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": -22.4,
+     "lng": 113.0,
+     "status": "observed",
+     "nFixes": 357,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -25.012,
+      -15.721
+     ],
+     "iqrLon": [
+      112.168,
+      113.6
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": -22.9,
+     "lng": 113.2,
+     "status": "observed",
+     "nFixes": 85,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -26.8,
+      -22.56
+     ],
+     "iqrLon": [
+      112.833,
+      113.6
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Individual IDs not exposed in GBIF records; record type per dataset.",
+     "sources": [
+      "dataset-10-15468-raejtm"
+     ]
+    }
+   ],
+   "replacesV1": "whale-shark",
+   "sources": [
+    "wp-whale-shark",
+    "dataset-10-15468-raejtm"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-whale-shark"
+    ]
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "observed",
+   "addedIn": "v3",
+   "distance": "1,240 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "sockeye-smolts-otn",
+   "commonName": "Sockeye salmon smolts (acoustic receivers, Ocean Tracking Network)",
+   "scientificName": "Oncorhynchus nerka",
+   "population": "Sockeye salmon smolts (acoustic receivers, Ocean Tracking Network)",
+   "migrationType": "oneway",
+   "summary": "Juvenile out-migration detections Apr-Aug. Not the adult return migration shown in the v1 entry.",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": 51.6415,
+     "lng": -124.1124,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 124,
+     "iqrLat": [
+      51.626,
+      51.716
+     ],
+     "iqrLon": [
+      -124.142,
+      -124.107
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. Positions are fixed acoustic RECEIVER locations that detected tags, not free-swimming fixes.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Up to 1500 detections per month sampled.",
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": 51.6267,
+     "lng": -124.1124,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 209,
+     "iqrLat": [
+      51.626,
+      51.641
+     ],
+     "iqrLon": [
+      -124.142,
+      -124.112
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. Positions are fixed acoustic RECEIVER locations that detected tags, not free-swimming fixes.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Up to 1500 detections per month sampled.",
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": 50.0833,
+     "lng": -125.1366,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 136,
+     "iqrLat": [
+      50.072,
+      50.29
+     ],
+     "iqrLon": [
+      -125.298,
+      -125.108
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. Positions are fixed acoustic RECEIVER locations that detected tags, not free-swimming fixes.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Up to 1500 detections per month sampled.",
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": 51.6262,
+     "lng": -124.1421,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 20,
+     "iqrLat": [
+      51.626,
+      51.641
+     ],
+     "iqrLon": [
+      -124.142,
+      -124.112
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. Positions are fixed acoustic RECEIVER locations that detected tags, not free-swimming fixes.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Up to 1500 detections per month sampled.",
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": 50.0943,
+     "lng": -125.0483,
+     "status": "observed",
+     "nFixes": 8,
+     "nIndividuals": 1,
+     "iqrLat": [
+      50.094,
+      50.094
+     ],
+     "iqrLon": [
+      -125.048,
+      -125.048
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. Positions are fixed acoustic RECEIVER locations that detected tags, not free-swimming fixes.",
+     "uncertainty": "IQR in iqrLat/iqrLon. Up to 1500 detections per month sampled.",
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": null,
+     "lng": null,
+     "status": "no-data",
+     "method": "No records this month in the dataset.",
+     "uncertainty": null,
+     "sources": [
+      "dataset-10-14286-bjkpp5"
+     ]
+    }
+   ],
+   "replacesV1": null,
+   "sources": [
+    "wp-sockeye-salmon",
+    "dataset-10-14286-bjkpp5"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-sockeye-salmon"
+    ]
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "partly observed",
+   "addedIn": "v3",
+   "distance": "555 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians. A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "white-stork-birdmap",
+   "commonName": "White stork (northern & eastern Europe, BirdMap)",
+   "scientificName": "Ciconia ciconia",
+   "population": "White stork (northern & eastern Europe, BirdMap)",
+   "migrationType": "loop",
+   "summary": "Full-year GPS medians; fills the Jan-Jun gap left by the v2 Flack et al. stork data at species level (different population). CC BY-NC 4.0.",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": 10.2494,
+     "lng": 38.1438,
+     "status": "observed",
+     "nFixes": 278,
+     "nIndividuals": 2,
+     "iqrLat": [
+      9.033,
+      11.284
+     ],
+     "iqrLon": [
+      15.215,
+      38.826
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": -6.3537,
+     "lng": 35.5203,
+     "status": "observed",
+     "nFixes": 130,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -6.372,
+      -4.812
+     ],
+     "iqrLon": [
+      35.428,
+      35.611
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": -6.3706,
+     "lng": 35.5217,
+     "status": "observed",
+     "nFixes": 135,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -6.375,
+      -6.361
+     ],
+     "iqrLon": [
+      35.519,
+      35.531
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": 14.535,
+     "lng": 34.8351,
+     "status": "observed",
+     "nFixes": 121,
+     "nIndividuals": 1,
+     "iqrLat": [
+      -3.568,
+      28.571
+     ],
+     "iqrLon": [
+      32.81,
+      35.538
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": 38.5146,
+     "lng": 33.7606,
+     "status": "observed",
+     "nFixes": 196,
+     "nIndividuals": 1,
+     "iqrLat": [
+      38.5,
+      38.526
+     ],
+     "iqrLon": [
+      33.75,
+      33.764
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": 40.8683,
+     "lng": 30.2612,
+     "status": "observed",
+     "nFixes": 302,
+     "nIndividuals": 1,
+     "iqrLat": [
+      39.115,
+      40.873
+     ],
+     "iqrLon": [
+      30.249,
+      33.13
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": 40.8764,
+     "lng": 30.2476,
+     "status": "observed",
+     "nFixes": 359,
+     "nIndividuals": 2,
+     "iqrLat": [
+      40.87,
+      45.942
+     ],
+     "iqrLon": [
+      14.644,
+      30.257
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": 39.0955,
+     "lng": 30.3955,
+     "status": "observed",
+     "nFixes": 771,
+     "nIndividuals": 3,
+     "iqrLat": [
+      26.942,
+      44.062
+     ],
+     "iqrLon": [
+      23.018,
+      32.574
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": 14.5138,
+     "lng": 21.6898,
+     "status": "observed",
+     "nFixes": 1020,
+     "nIndividuals": 3,
+     "iqrLat": [
+      14.291,
+      14.93
+     ],
+     "iqrLon": [
+      19.941,
+      24.419
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": 13.4012,
+     "lng": 19.9087,
+     "status": "observed",
+     "nFixes": 486,
+     "nIndividuals": 3,
+     "iqrLat": [
+      13.006,
+      14.08
+     ],
+     "iqrLon": [
+      17.229,
+      22.728
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": 10.2468,
+     "lng": 28.8735,
+     "status": "observed",
+     "nFixes": 373,
+     "nIndividuals": 3,
+     "iqrLat": [
+      9.562,
+      10.833
+     ],
+     "iqrLon": [
+      16.338,
+      34.332
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": 10.4555,
+     "lng": 37.5325,
+     "status": "observed",
+     "nFixes": 290,
+     "nIndividuals": 2,
+     "iqrLat": [
+      10.287,
+      10.848
+     ],
+     "iqrLon": [
+      15.156,
+      38.136
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    }
+   ],
+   "replacesV1": null,
+   "sources": [
+    "wp-white-stork",
+    "dataset-10-15468-vnwmrx"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-white-stork"
+    ]
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "observed",
+   "addedIn": "v3",
+   "distance": "12,609 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "osprey-europe-birdmap",
+   "commonName": "Osprey (northern & eastern Europe, BirdMap)",
+   "scientificName": "Pandion haliaetus",
+   "population": "Osprey (northern & eastern Europe, BirdMap)",
+   "migrationType": "loop",
+   "summary": "Full-year GPS medians; fills the Jan-Jun gap left by the v2 Flack et al. stork data at species level (different population). CC BY-NC 4.0.",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": 17.635,
+     "lng": 15.667,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 6,
+     "iqrLat": [
+      6.23,
+      17.719
+     ],
+     "iqrLon": [
+      -16.038,
+      16.299
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": 17.6378,
+     "lng": 15.6702,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 5,
+     "iqrLat": [
+      6.251,
+      17.726
+     ],
+     "iqrLon": [
+      -16.035,
+      16.303
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": 18.7938,
+     "lng": 16.3072,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 4,
+     "iqrLat": [
+      14.3,
+      32.037
+     ],
+     "iqrLon": [
+      -10.544,
+      20.997
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": 47.5806,
+     "lng": 25.5553,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 5,
+     "iqrLat": [
+      39.548,
+      50.506
+     ],
+     "iqrLon": [
+      14.358,
+      76.706
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": 58.419,
+     "lng": 27.8749,
+     "status": "observed",
+     "nFixes": 189,
+     "nIndividuals": 1,
+     "iqrLat": [
+      57.589,
+      58.731
+     ],
+     "iqrLon": [
+      27.491,
+      28.052
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": 58.7448,
+     "lng": 27.8874,
+     "status": "observed",
+     "nFixes": 212,
+     "nIndividuals": 2,
+     "iqrLat": [
+      58.662,
+      58.771
+     ],
+     "iqrLon": [
+      27.821,
+      28.011
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": 52.1837,
+     "lng": 26.9514,
+     "status": "observed",
+     "nFixes": 995,
+     "nIndividuals": 6,
+     "iqrLat": [
+      50.367,
+      58.675
+     ],
+     "iqrLon": [
+      25.898,
+      27.813
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": 48.1997,
+     "lng": 26.4299,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 4,
+     "iqrLat": [
+      46.199,
+      50.848
+     ],
+     "iqrLon": [
+      25.143,
+      29.827
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": 21.6629,
+     "lng": 19.4298,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 5,
+     "iqrLat": [
+      6.293,
+      47.038
+     ],
+     "iqrLon": [
+      16.293,
+      26.717
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": 17.6182,
+     "lng": 15.667,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 5,
+     "iqrLat": [
+      -2.45,
+      17.719
+     ],
+     "iqrLon": [
+      -15.972,
+      16.301
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": 6.3009,
+     "lng": 15.6743,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 4,
+     "iqrLat": [
+      -2.456,
+      17.694
+     ],
+     "iqrLon": [
+      -15.979,
+      16.298
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": 17.6628,
+     "lng": 15.6672,
+     "status": "observed",
+     "nFixes": 1500,
+     "nIndividuals": 5,
+     "iqrLat": [
+      6.281,
+      17.722
+     ],
+     "iqrLon": [
+      -16.038,
+      16.313
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "DISPERSED: individuals spread widely; median may fall between groups. NON-COMMERCIAL licence.",
+     "sources": [
+      "dataset-10-15468-vnwmrx"
+     ]
+    }
+   ],
+   "replacesV1": null,
+   "sources": [
+    "wp-osprey",
+    "dataset-10-15468-vnwmrx"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-osprey"
+    ]
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "observed",
+   "addedIn": "v3",
+   "distance": "12,021 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "wildebeest-serengeti-obs",
+   "commonName": "Blue wildebeest (Serengeti-Mara, GPS collars, Hopcraft/Torney data)",
+   "scientificName": "Connochaetes taurinus",
+   "population": "Blue wildebeest (Serengeti-Mara, GPS collars, Hopcraft/Torney data)",
+   "migrationType": "loop",
+   "summary": "94,007 GPS fixes from 43 animals. Southern plains Jan-Apr, north to the Mara Jul-Sep, back south Oct-Dec.",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": -3.1226,
+     "lng": 34.9288,
+     "status": "observed",
+     "nFixes": 7527,
+     "nIndividuals": 27,
+     "iqrLat": [
+      -3.258,
+      -2.885
+     ],
+     "iqrLon": [
+      34.723,
+      35.109
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": -3.1433,
+     "lng": 34.8156,
+     "status": "observed",
+     "nFixes": 5585,
+     "nIndividuals": 25,
+     "iqrLat": [
+      -3.271,
+      -2.972
+     ],
+     "iqrLon": [
+      34.58,
+      34.995
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": -3.1455,
+     "lng": 34.997,
+     "status": "observed",
+     "nFixes": 8367,
+     "nIndividuals": 28,
+     "iqrLat": [
+      -3.275,
+      -2.959
+     ],
+     "iqrLon": [
+      34.865,
+      35.137
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": -2.9909,
+     "lng": 35.0277,
+     "status": "observed",
+     "nFixes": 8099,
+     "nIndividuals": 28,
+     "iqrLat": [
+      -3.149,
+      -2.746
+     ],
+     "iqrLon": [
+      34.737,
+      35.194
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": -2.739,
+     "lng": 34.8721,
+     "status": "observed",
+     "nFixes": 8780,
+     "nIndividuals": 40,
+     "iqrLat": [
+      -2.955,
+      -2.307
+     ],
+     "iqrLon": [
+      34.668,
+      35.094
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": -2.1481,
+     "lng": 34.6045,
+     "status": "observed",
+     "nFixes": 8226,
+     "nIndividuals": 42,
+     "iqrLat": [
+      -2.349,
+      -1.99
+     ],
+     "iqrLon": [
+      34.408,
+      34.975
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": -1.5832,
+     "lng": 35.0056,
+     "status": "observed",
+     "nFixes": 7766,
+     "nIndividuals": 35,
+     "iqrLat": [
+      -1.813,
+      -1.492
+     ],
+     "iqrLon": [
+      34.85,
+      35.121
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": -1.5511,
+     "lng": 34.959,
+     "status": "observed",
+     "nFixes": 9090,
+     "nIndividuals": 33,
+     "iqrLat": [
+      -1.621,
+      -1.451
+     ],
+     "iqrLon": [
+      34.843,
+      35.109
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": -1.6981,
+     "lng": 34.9086,
+     "status": "observed",
+     "nFixes": 8970,
+     "nIndividuals": 32,
+     "iqrLat": [
+      -2.018,
+      -1.537
+     ],
+     "iqrLon": [
+      34.762,
+      35.043
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": -2.0205,
+     "lng": 34.8188,
+     "status": "observed",
+     "nFixes": 8907,
+     "nIndividuals": 32,
+     "iqrLat": [
+      -2.253,
+      -1.632
+     ],
+     "iqrLon": [
+      34.429,
+      35.027
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": -2.2676,
+     "lng": 34.6435,
+     "status": "observed",
+     "nFixes": 6140,
+     "nIndividuals": 32,
+     "iqrLat": [
+      -2.705,
+      -2.096
+     ],
+     "iqrLon": [
+      34.339,
+      34.879
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": -2.8492,
+     "lng": 34.7471,
+     "status": "observed",
+     "nFixes": 6550,
+     "nIndividuals": 28,
+     "iqrLat": [
+      -3.104,
+      -2.46
+     ],
+     "iqrLon": [
+      34.541,
+      34.968
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years. UTM zone 36S coordinates converted to WGS84 with pyproj (EPSG:32736→4326).",
+     "uncertainty": "IQR in iqrLat/iqrLon. README says 1999-2016; parsed timestamps span 2013-2019 (date format issue on some rows, see gaps).",
+     "sources": [
+      "dataset-10-5061-dryad-5tb2rbp76"
+     ]
+    }
+   ],
+   "replacesV1": "blue-wildebeest",
+   "sources": [
+    "wp-blue-wildebeest",
+    "dataset-10-5061-dryad-5tb2rbp76"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-blue-wildebeest"
+    ],
+    "ndviMonthlyMedian": [
+     {
+      "month": "Jan",
+      "value": 0.485
+     },
+     {
+      "month": "Feb",
+      "value": 0.503
+     },
+     {
+      "month": "Mar",
+      "value": 0.529
+     },
+     {
+      "month": "Apr",
+      "value": 0.54
+     },
+     {
+      "month": "May",
+      "value": 0.473
+     },
+     {
+      "month": "Jun",
+      "value": 0.381
+     },
+     {
+      "month": "Jul",
+      "value": 0.349
+     },
+     {
+      "month": "Aug",
+      "value": 0.34
+     },
+     {
+      "month": "Sep",
+      "value": 0.369
+     },
+     {
+      "month": "Oct",
+      "value": 0.37
+     },
+     {
+      "month": "Nov",
+      "value": 0.442
+     },
+     {
+      "month": "Dec",
+      "value": 0.497
+     }
+    ],
+    "grassNitrogenMonthlyMedian": [
+     {
+      "month": "Jan",
+      "value": 1.276
+     },
+     {
+      "month": "Feb",
+      "value": 1.184
+     },
+     {
+      "month": "Mar",
+      "value": 1.315
+     },
+     {
+      "month": "Apr",
+      "value": 1.258
+     },
+     {
+      "month": "May",
+      "value": 1.037
+     },
+     {
+      "month": "Jun",
+      "value": 0.833
+     },
+     {
+      "month": "Jul",
+      "value": 1.041
+     },
+     {
+      "month": "Aug",
+      "value": 1.067
+     },
+     {
+      "month": "Sep",
+      "value": 0.848
+     },
+     {
+      "month": "Oct",
+      "value": 0.88
+     },
+     {
+      "month": "Nov",
+      "value": 0.902
+     },
+     {
+      "month": "Dec",
+      "value": 1.057
+     }
+    ],
+    "environmentNote": "NDVI and grass nitrogen are the per-fix covariates supplied in the dataset (Paun et al.), summarised as monthly medians at the animals' locations."
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "observed",
+   "addedIn": "v3",
+   "distance": "429 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "himalayan-griffon",
+   "commonName": "Himalayan griffon (Bhutan-tagged, MPIAB)",
+   "scientificName": "Gyps himalayensis",
+   "population": "Himalayan griffon (Bhutan-tagged, MPIAB)",
+   "migrationType": "loop",
+   "summary": "6,038,113 GPS fixes from 17 birds: winter in Bhutan, summer on the Tibetan Plateau.",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": 27.6899,
+     "lng": 91.5688,
+     "status": "observed",
+     "nFixes": 95230,
+     "nIndividuals": 17,
+     "iqrLat": [
+      27.547,
+      28.344
+     ],
+     "iqrLon": [
+      90.228,
+      100.14
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": 27.6056,
+     "lng": 90.3631,
+     "status": "observed",
+     "nFixes": 116764,
+     "nIndividuals": 17,
+     "iqrLat": [
+      27.557,
+      28.554
+     ],
+     "iqrLon": [
+      90.21,
+      92.388
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": 27.5805,
+     "lng": 90.2933,
+     "status": "observed",
+     "nFixes": 499412,
+     "nIndividuals": 17,
+     "iqrLat": [
+      27.517,
+      27.679
+     ],
+     "iqrLon": [
+      90.191,
+      90.923
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": 27.6667,
+     "lng": 90.3625,
+     "status": "observed",
+     "nFixes": 559234,
+     "nIndividuals": 17,
+     "iqrLat": [
+      27.545,
+      29.607
+     ],
+     "iqrLon": [
+      90.145,
+      92.905
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": 30.4235,
+     "lng": 94.1886,
+     "status": "observed",
+     "nFixes": 421668,
+     "nIndividuals": 17,
+     "iqrLat": [
+      28.258,
+      32.161
+     ],
+     "iqrLon": [
+      90.226,
+      99.351
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": 34.2935,
+     "lng": 99.1129,
+     "status": "observed",
+     "nFixes": 607424,
+     "nIndividuals": 17,
+     "iqrLat": [
+      32.545,
+      37.115
+     ],
+     "iqrLon": [
+      98.487,
+      101.584
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": 34.6005,
+     "lng": 100.6447,
+     "status": "observed",
+     "nFixes": 1159590,
+     "nIndividuals": 17,
+     "iqrLat": [
+      33.405,
+      36.045
+     ],
+     "iqrLon": [
+      98.793,
+      102.491
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": 34.3036,
+     "lng": 100.7199,
+     "status": "observed",
+     "nFixes": 927910,
+     "nIndividuals": 17,
+     "iqrLat": [
+      31.998,
+      37.269
+     ],
+     "iqrLon": [
+      96.943,
+      102.331
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": 33.4394,
+     "lng": 98.506,
+     "status": "observed",
+     "nFixes": 542956,
+     "nIndividuals": 16,
+     "iqrLat": [
+      31.04,
+      34.676
+     ],
+     "iqrLon": [
+      93.924,
+      101.966
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": 33.1452,
+     "lng": 97.4865,
+     "status": "observed",
+     "nFixes": 459122,
+     "nIndividuals": 16,
+     "iqrLat": [
+      29.927,
+      34.553
+     ],
+     "iqrLon": [
+      93.954,
+      100.672
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": 29.1469,
+     "lng": 93.378,
+     "status": "observed",
+     "nFixes": 325212,
+     "nIndividuals": 16,
+     "iqrLat": [
+      28.909,
+      32.43
+     ],
+     "iqrLon": [
+      92.293,
+      98.581
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": 27.8895,
+     "lng": 91.7369,
+     "status": "observed",
+     "nFixes": 323591,
+     "nIndividuals": 17,
+     "iqrLat": [
+      27.577,
+      29.113
+     ],
+     "iqrLon": [
+      90.287,
+      92.605
+     ],
+     "method": "Median latitude and median longitude of all records in this calendar month, pooled across individuals and years.",
+     "uncertainty": "IQR in iqrLat/iqrLon. ",
+     "sources": [
+      "movebank-10-5441-001-1-4n2501f5",
+      "doi-10-1111-1365-2656-13484"
+     ]
+    }
+   ],
+   "replacesV1": null,
+   "sources": [
+    "wp-himalayan-vulture",
+    "movebank-10-5441-001-1-4n2501f5",
+    "doi-10-1111-1365-2656-13484"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": "NT",
+    "iucnNote": "Global species status from Wikipedia infobox.",
+    "iucnSources": [
+     "wp-himalayan-vulture"
+    ],
+    "iucnSystem": "IUCN3.1"
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "observed",
+   "addedIn": "v3",
+   "distance": "2,589 km (minimum, between monthly medians)",
+   "distanceStatus": "computed",
+   "distanceMethod": "Sum of great-circle distances between consecutive observed monthly medians (closed annual loop). A minimum: real paths are longer and medians smooth individual routes."
+  },
+  {
+   "id": "monarch-sightings",
+   "commonName": "Monarch butterfly (eastern N. America, iNaturalist sightings 2023)",
+   "scientificName": "Danaus plexippus",
+   "population": "Monarch butterfly (eastern N. America, iNaturalist sightings 2023)",
+   "migrationType": "multigenerational",
+   "summary": "Monthly medians of citizen-science sightings: a proxy for the generational wave. Not individual tracking. Mixed licences incl. non-commercial.",
+   "monthlyPositions": [
+    {
+     "month": "Jan",
+     "lat": 27.3791,
+     "lng": -82.8172,
+     "status": "observed-sightings",
+     "nFixes": 221,
+     "nIndividuals": 157,
+     "iqrLat": [
+      25.459,
+      28.587
+     ],
+     "iqrLon": [
+      -98.076,
+      -81.575
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Feb",
+     "lat": 27.6907,
+     "lng": -81.7352,
+     "status": "observed-sightings",
+     "nFixes": 151,
+     "nIndividuals": 114,
+     "iqrLat": [
+      26.063,
+      29.717
+     ],
+     "iqrLon": [
+      -90.509,
+      -80.58
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Mar",
+     "lat": 29.7172,
+     "lng": -95.0969,
+     "status": "observed-sightings",
+     "nFixes": 666,
+     "nIndividuals": 403,
+     "iqrLat": [
+      28.068,
+      30.574
+     ],
+     "iqrLon": [
+      -97.716,
+      -82.034
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Apr",
+     "lat": 30.1821,
+     "lng": -95.5172,
+     "status": "observed-sightings",
+     "nFixes": 1449,
+     "nIndividuals": 878,
+     "iqrLat": [
+      29.551,
+      33.037
+     ],
+     "iqrLon": [
+      -97.512,
+      -82.176
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "May",
+     "lat": 33.1143,
+     "lng": -91.053,
+     "status": "observed-sightings",
+     "nFixes": 1131,
+     "nIndividuals": 777,
+     "iqrLat": [
+      30.052,
+      37.487
+     ],
+     "iqrLon": [
+      -96.747,
+      -82.228
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Jun",
+     "lat": 42.2436,
+     "lng": -89.3277,
+     "status": "observed-sightings",
+     "nFixes": 1696,
+     "nIndividuals": 1170,
+     "iqrLat": [
+      37.485,
+      45.223
+     ],
+     "iqrLon": [
+      -94.296,
+      -82.374
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Jul",
+     "lat": 42.9886,
+     "lng": -81.6044,
+     "status": "observed-sightings",
+     "nFixes": 3000,
+     "nIndividuals": 1805,
+     "iqrLat": [
+      40.893,
+      44.721
+     ],
+     "iqrLon": [
+      -87.909,
+      -77.965
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Aug",
+     "lat": 43.1318,
+     "lng": -79.3119,
+     "status": "observed-sightings",
+     "nFixes": 3000,
+     "nIndividuals": 1818,
+     "iqrLat": [
+      40.892,
+      44.629
+     ],
+     "iqrLon": [
+      -84.217,
+      -76.432
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Sep",
+     "lat": 41.4782,
+     "lng": -79.935,
+     "status": "observed-sightings",
+     "nFixes": 3000,
+     "nIndividuals": 1900,
+     "iqrLat": [
+      38.665,
+      43.654
+     ],
+     "iqrLon": [
+      -87.621,
+      -76.418
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Oct",
+     "lat": 34.9277,
+     "lng": -86.9013,
+     "status": "observed-sightings",
+     "nFixes": 2888,
+     "nIndividuals": 1866,
+     "iqrLat": [
+      30.687,
+      39.642
+     ],
+     "iqrLon": [
+      -97.01,
+      -79.464
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Nov",
+     "lat": 29.7198,
+     "lng": -97.1457,
+     "status": "observed-sightings",
+     "nFixes": 1059,
+     "nIndividuals": 662,
+     "iqrLat": [
+      27.715,
+      30.651
+     ],
+     "iqrLon": [
+      -98.191,
+      -86.497
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    },
+    {
+     "month": "Dec",
+     "lat": 28.818,
+     "lng": -97.3502,
+     "status": "observed-sightings",
+     "nFixes": 559,
+     "nIndividuals": 376,
+     "iqrLat": [
+      26.187,
+      29.796
+     ],
+     "iqrLon": [
+      -98.267,
+      -83.065
+     ],
+     "method": "Median lat/lon of research-grade iNaturalist sightings in 2023 within 14-55°N, 100-60°W (up to 3000 per month).",
+     "uncertainty": "IQR in iqrLat/iqrLon. SIGHTINGS, not tracking: biased toward where people look. Jan-Feb medians reflect Florida/Gulf Coast monarchs, NOT the Mexican overwintering colonies, which are under-reported.",
+     "sources": [
+      "dataset-10-15468-ab3s5x"
+     ]
+    }
+   ],
+   "replacesV1": null,
+   "sources": [
+    "wp-monarch-butterfly",
+    "dataset-10-15468-ab3s5x"
+   ],
+   "environment": {
+    "drivers_food": null,
+    "breeding": null,
+    "threats": null,
+    "temperature": null,
+    "temperatureNote": "No sourced temperature in this dataset; left empty.",
+    "iucnStatus": null,
+    "iucnNote": "See the species' main entry.",
+    "iucnSources": [
+     "wp-monarch-butterfly"
+    ]
+   },
+   "evidence": "Monthly medians computed from the cited public dataset.",
+   "inference": "Treating pooled medians as a population route.",
+   "uncertainty": "See per-month uncertainty.",
+   "dataStatus": "observed-sightings (proxy)",
+   "addedIn": "v3",
+   "distance": null,
+   "distanceStatus": "not computed",
+   "distanceMethod": "fewer than 2 observed months"
   }
  ],
  "furtherReading": [

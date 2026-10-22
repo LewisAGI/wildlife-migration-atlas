@@ -455,6 +455,11 @@ html, body {
   border: 2px dashed currentColor;
 }
 
+.month-option.is-sightings .mark-glyph {
+  background: radial-gradient(circle, currentColor 0 2px, transparent 2.6px);
+  border: 2px solid currentColor;
+}
+
 .month-option.is-no-data .mark-glyph {
   background: transparent;
   border: 2px solid currentColor;

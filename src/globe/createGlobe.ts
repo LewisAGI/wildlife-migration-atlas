@@ -128,6 +128,10 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
   const ensureSpecies = (item: Species) => {
     const id = sourceId(item.id);
     if (sourceIds.has(id)) return;
+    if (map.getSource(id)) {
+      sourceIds.add(id);
+      return;
+    }
     addArrow(map, item.id, item.colour);
     map.addSource(id, { type: 'geojson', data: EMPTY });
     map.addLayer({
@@ -147,6 +151,19 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
         'line-color': ['get', 'colour'],
         'line-width': 2.2,
         'line-dasharray': [1.4, 1.6],
+        'line-opacity': 0.9,
+      },
+      layout: { 'line-cap': 'butt', 'line-join': 'round' },
+    });
+    map.addLayer({
+      id: `route-sight-${item.id}`,
+      type: 'line',
+      source: id,
+      filter: ['all', ['==', ['get', 'role'], 'line'], ['==', ['get', 'stroke'], 3]],
+      paint: {
+        'line-color': ['get', 'colour'],
+        'line-width': 2.2,
+        'line-dasharray': [1.6, 1.1, 0.35, 1.1],
         'line-opacity': 0.9,
       },
       layout: { 'line-cap': 'butt', 'line-join': 'round' },
@@ -205,6 +222,8 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
           ['get', 'mark'],
           'observed',
           0.95,
+          'sightings',
+          0.12,
           'estimated',
           0.08,
           'dispersed',
@@ -214,8 +233,8 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
           0.6,
         ],
         'circle-stroke-color': '#f4efe6',
-        'circle-stroke-width': ['match', ['get', 'mark'], 'estimated', 2.4, 'dispersed', 2.2, 1.5],
-        'circle-stroke-opacity': ['match', ['get', 'mark'], 'observed', 0.35, 'estimated', 0.95, 'dispersed', 0.85, 0.45],
+        'circle-stroke-width': ['match', ['get', 'mark'], 'sightings', 2.6, 'estimated', 2.4, 'dispersed', 2.2, 1.5],
+        'circle-stroke-opacity': ['match', ['get', 'mark'], 'sightings', 0.95, 'observed', 0.35, 'estimated', 0.95, 'dispersed', 0.85, 0.45],
         'circle-blur': ['match', ['get', 'mark'], 'observed', 0, 'interpolated', 0.35, 0.05],
       },
     });
@@ -241,22 +260,11 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     [...sourceIds].forEach((id) => {
       if (keep.has(id)) return;
       const speciesId = id.replace('species-', '');
-      [
-        `route-hit-${speciesId}`,
-        `route-dash-${speciesId}`,
-        `route-dot-${speciesId}`,
-        `route-solid-${speciesId}`,
-        `trail-${speciesId}`,
-        `halo-${speciesId}`,
-        `marker-${speciesId}`,
-        `head-${speciesId}`,
-      ].forEach(
-        (layerId) => {
-          if (map.getLayer(layerId)) map.removeLayer(layerId);
-        },
-      );
+      speciesLayerIds(speciesId).forEach((layerId) => {
+        if (map.getLayer(layerId)) map.removeLayer(layerId);
+      });
       if (map.getSource(id)) map.removeSource(id);
-      sourceIds.delete(id);
+      if (!map.getSource(id)) sourceIds.delete(id);
     });
   };
 
@@ -302,7 +310,10 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     }
     extra.textContent = text;
   };
+  // Source attribution refreshes rewrite the control and drop the notice.
   map.on('idle', paintNotice);
+  map.on('sourcedata', paintNotice);
+  map.on('styledata', paintNotice);
 
   window.addEventListener('resize', () => map.resize());
 
@@ -377,6 +388,20 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
 
 function sourceId(speciesId: string): string {
   return `species-${speciesId}`;
+}
+
+function speciesLayerIds(speciesId: string): string[] {
+  return [
+    `route-hit-${speciesId}`,
+    `route-dash-${speciesId}`,
+    `route-sight-${speciesId}`,
+    `route-dot-${speciesId}`,
+    `route-solid-${speciesId}`,
+    `trail-${speciesId}`,
+    `halo-${speciesId}`,
+    `marker-${speciesId}`,
+    `head-${speciesId}`,
+  ];
 }
 
 /** Observed monthly NDVI for 2023. Not a climatology, and not stored in this repo. */

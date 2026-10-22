@@ -11,7 +11,7 @@ describe('species files', () => {
   const species = catalog.species;
 
   it('matches the index and parses every population', () => {
-    expect(species.length).toBe(47);
+    expect(species.length).toBe(58);
     expect(catalog.index.species.map((entry) => entry.id)).toEqual(species.map((item) => item.id));
   });
 

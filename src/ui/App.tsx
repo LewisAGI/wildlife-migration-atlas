@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { loadCatalog } from '../data/load';
-import { monthIndexForDay } from '../data/months';
+import { licenceNotice, monthIndexForDay } from '../data/months';
 import type { Species } from '../data/schema';
 import { unionBBox } from '../globe/camera';
 import { createGlobe, type GlobeController } from '../globe/createGlobe';
@@ -125,9 +125,14 @@ export function App() {
 
   useEffect(() => {
     const names = [selectedId, partnerId].filter((id): id is string => Boolean(id));
-    const parts = catalog
-      .filter((item) => names.includes(item.id) && item.datasetLicence)
-      .map((item) => `${item.shortName}: ${item.datasetLicence}`);
+    const parts = catalog.flatMap((item) => {
+      if (!names.includes(item.id)) return [];
+      const licence = licenceNotice(item.shortName, item.datasetLicence, item.nonCommercial);
+      return licence ? [licence] : [];
+    });
+    const selected = catalog.find((item) => item.id === selectedId);
+    const herdNdvi = overlay ? selected?.months[monthIndexForDay(day)]?.ndvi : null;
+    if (herdNdvi != null) parts.push(`Herd NDVI median ${herdNdvi} at the animals`);
     globeRef.current?.setNotice(parts);
     const root = document.querySelector<HTMLElement>('#app');
     if (!root) return;
@@ -136,7 +141,7 @@ export function App() {
     root.dataset.overlay = overlay ? 'ndvi' : 'off';
     if (partnerId) root.dataset.compare = partnerId;
     else delete root.dataset.compare;
-  }, [catalog, selectedId, partnerId, filter, overlay]);
+  }, [catalog, selectedId, partnerId, filter, overlay, day]);
 
   useEffect(() => {
     const item = catalog.find((entry) => entry.id === selectedId);

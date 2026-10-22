@@ -9,15 +9,16 @@ export interface RoutePoint {
   lat: number;
 }
 
-/** 0 solid observed, 1 dashed estimated, 2 dotted dispersed. */
-export function segmentStroke(start: Fix, end: Fix): 0 | 1 | 2 {
+/** 0 solid observed, 1 dashed estimated, 2 dotted dispersed, 3 dash-dot sightings. */
+export function segmentStroke(start: Fix, end: Fix): 0 | 1 | 2 | 3 {
   const kind = segmentKind(start, end);
   if (kind === 'dispersed') return 2;
+  if (kind === 'sightings') return 3;
   if (kind === 'observed') return 0;
   return 1;
 }
 
-export function strokeVisible(stroke: 0 | 1 | 2, filter: StatusFilter): boolean {
+export function strokeVisible(stroke: 0 | 1 | 2 | 3, filter: StatusFilter): boolean {
   if (filter === 'all') return true;
   if (filter === 'observed') return stroke !== 1;
   return stroke === 1;

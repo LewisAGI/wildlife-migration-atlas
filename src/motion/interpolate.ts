@@ -4,10 +4,10 @@ import type { Waypoint } from '../types';
 import { YEAR_LENGTH } from '../time/yearClock';
 
 /** How a moving point is drawn. Estimated months are stored as `representative`. */
-export type DrawMark = 'observed' | 'estimated' | 'dispersed' | 'interpolated';
+export type DrawMark = 'observed' | 'sightings' | 'estimated' | 'dispersed' | 'interpolated';
 
 /** Which month-to-month style the sample sits on. Dispersed months stay with observed data. */
-export type SegmentKind = 'observed' | 'estimated' | 'dispersed';
+export type SegmentKind = 'observed' | 'sightings' | 'estimated' | 'dispersed';
 
 export interface PositionSample {
   lat: number;
@@ -141,7 +141,7 @@ function fromFix(fix: Fix, trackId: string, direction: number): PositionSample {
     trackId,
     bearing: direction,
     mark,
-    segment: mark === 'estimated' ? 'estimated' : mark === 'dispersed' ? 'dispersed' : 'observed',
+    segment: segmentOfMark(mark),
     colour: fix.colour,
     generation: fix.generation,
   };
@@ -149,14 +149,23 @@ function fromFix(fix: Fix, trackId: string, direction: number): PositionSample {
 
 export function markOf(fix: Fix): DrawMark {
   if (fix.dispersed) return 'dispersed';
+  if (fix.sightings) return 'sightings';
   if (fix.status === 'observed') return 'observed';
   return 'estimated';
 }
 
 export function segmentKind(start: Fix, end: Fix): SegmentKind {
   if (start.dispersed || end.dispersed) return 'dispersed';
+  if (start.sightings || end.sightings) return 'sightings';
   if (start.status === 'observed' && end.status === 'observed') return 'observed';
   return 'estimated';
+}
+
+function segmentOfMark(mark: DrawMark): SegmentKind {
+  if (mark === 'estimated') return 'estimated';
+  if (mark === 'dispersed') return 'dispersed';
+  if (mark === 'sightings') return 'sightings';
+  return 'observed';
 }
 
 export type StatusFilter = 'all' | 'observed' | 'estimated';

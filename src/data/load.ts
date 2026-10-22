@@ -9,7 +9,7 @@ export function loadIndex(): SpeciesIndex {
   return catalog.index;
 }
 
-/** The globe reads the v2 pack. Adding a population means extending that pack, not a new code path. */
+/** The globe reads the v3 pack. Adding a population means extending that pack, not a new code path. */
 export async function loadSpecies(id: string): Promise<Species> {
   const species = catalog.species.find((item) => item.id === id);
   if (!species) throw new Error(`No data file for ${id}`);

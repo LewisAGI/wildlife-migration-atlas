@@ -22,8 +22,30 @@ export function citedProgressKm(citedKm: number, day: number): number {
   return Math.round(citedKm * fraction);
 }
 
-export function monthWord(status: 'observed' | 'representative' | 'no-data'): 'observed' | 'estimated' | 'no data' {
+export function monthWord(status: 'observed' | 'observed-sightings' | 'representative' | 'no-data'): string {
   if (status === 'observed') return 'observed';
+  if (status === 'observed-sightings') return 'observed sightings';
   if (status === 'no-data') return 'no data';
   return 'estimated';
+}
+
+/** Class token for a month glyph. Sightings stay distinct from tracked observations. */
+export function monthGlyph(status: 'observed' | 'observed-sightings' | 'representative' | 'no-data'): string {
+  if (status === 'observed-sightings') return 'sightings';
+  if (status === 'no-data') return 'no-data';
+  if (status === 'representative') return 'estimated';
+  return 'observed';
+}
+
+/** Line shown on the map while this population is selected. */
+export function licenceNotice(shortName: string, datasetLicence: string | null, nonCommercial: boolean): string | null {
+  if (nonCommercial) return `${shortName}: CC BY-NC 4.0, not for a paid version`;
+  if (datasetLicence) return `${shortName}: ${datasetLicence}`;
+  return null;
+}
+
+/** Line in the sheet and the comparison. Non-commercial entries say they are not for a paid version. */
+export function licenceMark(datasetLicence: string | null, nonCommercial: boolean): string | null {
+  if (nonCommercial) return 'CC BY-NC 4.0. Not for a paid version.';
+  return datasetLicence;
 }

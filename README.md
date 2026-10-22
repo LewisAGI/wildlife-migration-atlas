@@ -2,7 +2,7 @@
 
 An interactive globe of animal migration through the year. Positions come from the day of the year, not from a constant speed along the line.
 
-Phase 2 draws 47 populations from the v2 content pack: the Serengeti wildebeest and the Arctic tern, then the monarch, both humpback routes, and the rest of the tracked and representative populations. Observed months, estimated months, and months with no data are drawn differently. A MODIS vegetation overlay can be switched on. Two populations can be compared side by side.
+Phase 2 draws 58 populations from the v3 content pack: the Serengeti wildebeest and the Arctic tern, then the monarch, humpback routes, and the tracked and representative populations, including observed tracks for the Serengeti herd, the Arctic tern, leatherbacks, the whale shark, and the Himalayan griffon. Observed months, citizen-science sightings, estimated months, and months with no data are drawn differently. A MODIS vegetation overlay can be switched on. The Serengeti tracking file also carries a monthly NDVI median at the animals. Two populations can be compared side by side. Distances computed between monthly medians are labelled as minimums.
 
 Estimated months are representative sketches from the literature. They are not tracked animals. Points between monthly fixes are interpolated, and the panel marks them approximate. Observed months are pooled medians from public tracking datasets, not one animal's path.
 
@@ -25,7 +25,7 @@ npm run test:e2e
 
 Populations come from `data/pack/content.json`, with citations in `data/pack/sources.json`. Licences, and what was deliberately left out, are in [`data/LICENSES.md`](data/LICENSES.md).
 
-Each stored month is `observed`, `representative` (shown as estimated), or `no-data`. A fix between months is `interpolated`. `simulated` is reserved for a later model. Nothing here is simulated.
+Each stored month is `observed`, `observed-sightings` (citizen-science medians), `representative` (shown as estimated), or `no-data`. A fix between months is `interpolated`. `simulated` is reserved for a later model. Nothing here is simulated. Entries whose source sets `nonCommercial` show CC BY-NC and are not for a paid version; see `data/LICENSES.md`.
 
 ## Controls
 

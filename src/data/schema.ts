@@ -5,8 +5,8 @@ import type { Waypoint } from '../types';
 export const POINT_STATUSES = ['observed', 'representative', 'interpolated', 'simulated'] as const;
 export type PointStatus = (typeof POINT_STATUSES)[number];
 
-/** `representative` is the stored status for an estimated month. `no-data` has no coordinates. */
-export const MONTH_STATUSES = ['observed', 'representative', 'no-data'] as const;
+/** `representative` is the stored status for an estimated month. `observed-sightings` is a citizen-science median. `no-data` has no coordinates. */
+export const MONTH_STATUSES = ['observed', 'observed-sightings', 'representative', 'no-data'] as const;
 export type MonthStatus = (typeof MONTH_STATUSES)[number];
 
 export const MIGRATION_TYPES = ['loop', 'oneWay', 'multigenerational', 'multiRoute', 'partial', 'local', 'nomadic'] as const;
@@ -34,6 +34,8 @@ export interface Fix extends Waypoint {
   via?: Waypoint[];
   /** Median falls between groups. The halo is the interquartile spread. */
   dispersed?: boolean;
+  /** Citizen-science median, not a tagged animal. Drawn apart from tracked `observed`. */
+  sightings?: boolean;
   /** Generation wave colour. Falls back to the species colour. */
   colour?: string;
   generation?: string;
@@ -56,6 +58,10 @@ export interface MonthPoint {
   method: string;
   note: string;
   source: string;
+  /** NDVI median at the animals this month, from the tracking file. Not the map composite. */
+  ndvi: number | null;
+  /** Grass-nitrogen median at the animals this month, from the tracking file. */
+  nitrogen: number | null;
 }
 
 export interface TagTemperature {
@@ -110,6 +116,8 @@ export interface Species {
   citedKm: number | null;
   /** Short dataset licence, for example `CC BY-NC 4.0`. */
   datasetLicence: string | null;
+  /** A cited dataset set `nonCommercial`. These positions are not for a paid version. */
+  nonCommercial: boolean;
   evidence: string;
   tracks: Track[];
   events: SpeciesEvent[];
@@ -172,6 +180,7 @@ function speciesErrors(value: unknown): string[] {
   }
   const datasetLicence = record.datasetLicence;
   if (datasetLicence != null && typeof datasetLicence !== 'string') errors.push('species.datasetLicence must be a string or null');
+  if (typeof record.nonCommercial !== 'boolean') errors.push('species.nonCommercial must be boolean');
   const provenance = needArray(record, 'provenance', errors);
   const provenanceIds = new Set<string>();
   provenance?.forEach((item, index) => {
@@ -227,6 +236,9 @@ function trackErrors(value: unknown, index: number, provenanceIds: Set<string>, 
     if ('dispersed' in fix && fix.dispersed != null && typeof fix.dispersed !== 'boolean') {
       errors.push(`${fixPrefix}.dispersed must be boolean`);
     }
+    if ('sightings' in fix && fix.sightings != null && typeof fix.sightings !== 'boolean') {
+      errors.push(`${fixPrefix}.sightings must be boolean`);
+    }
     if ('colour' in fix && fix.colour != null) {
       const colour = needString(fix, 'colour', errors, fixPrefix);
       if (colour && !/^#[0-9a-fA-F]{6}$/.test(colour)) errors.push(`${fixPrefix}.colour must be a #rrggbb hex`);
@@ -269,7 +281,9 @@ function monthListErrors(record: Record<string, unknown>, provenanceIds: Set<str
     const lat = month.lat;
     const lng = month.lng;
     const missing = lat == null && lng == null;
-    if (missing && status === 'observed') errors.push(`${prefix} observed months need coordinates`);
+    if (missing && (status === 'observed' || status === 'observed-sightings')) {
+      errors.push(`${prefix} observed months need coordinates`);
+    }
     if (!missing) {
       if (typeof lat !== 'number' || typeof lng !== 'number') {
         errors.push(`${prefix} lat and lng must both be numbers or both be null`);
@@ -280,6 +294,8 @@ function monthListErrors(record: Record<string, unknown>, provenanceIds: Set<str
     if (status === 'no-data' && !missing) errors.push(`${prefix} no-data months have no coordinates`);
     if (typeof month.dispersed !== 'boolean') errors.push(`${prefix}.dispersed must be boolean`);
     if (month.region != null && typeof month.region !== 'string') errors.push(`${prefix}.region must be a string`);
+    optionalFinite(month, 'ndvi', prefix, errors);
+    optionalFinite(month, 'nitrogen', prefix, errors);
     optionalCount(month, 'nFixes', prefix, errors);
     optionalCount(month, 'nIndividuals', prefix, errors);
     optionalCount(month, 'uncertaintyKm', prefix, errors);
@@ -308,6 +324,13 @@ function temperatureErrors(record: Record<string, unknown>, errors: string[]): v
     const n = needNumber(entry, 'n', errors, prefix);
     if (n != null && n < 0) errors.push(`${prefix}.n must be >= 0`);
   });
+}
+
+function optionalFinite(record: Record<string, unknown>, key: string, prefix: string, errors: string[]): void {
+  if (!(key in record) || record[key] == null) return;
+  if (typeof record[key] !== 'number' || !Number.isFinite(record[key] as number)) {
+    errors.push(`${prefix}.${key} must be a number or null`);
+  }
 }
 
 function optionalCount(record: Record<string, unknown>, key: string, prefix: string, errors: string[]): void {

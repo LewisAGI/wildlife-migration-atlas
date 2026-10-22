@@ -1,6 +1,160 @@
 {
  "sources": [
   {
+   "id": "dataset-10-14286-bjkpp5",
+   "type": "dataset",
+   "doi": "10.14286/bjkpp5",
+   "url": "https://doi.org/10.14286/bjkpp5",
+   "title": "OTN Canada Pacific Sockeye Salmon Tagging Project 2",
+   "creators": [
+    "Ocean Tracking Network Data Centre"
+   ],
+   "year": 2012,
+   "licence": "Creative Commons Attribution 4.0 International",
+   "nonCommercial": false,
+   "repository": "GBIF / Ocean Tracking Network",
+   "publisher": "Ocean Tracking Network",
+   "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+   "reliability": "primary data"
+  },
+  {
+   "id": "dataset-10-15468-ab3s5x",
+   "type": "dataset",
+   "doi": "10.15468/ab3s5x",
+   "url": "https://doi.org/10.15468/ab3s5x",
+   "title": "iNaturalist Research-grade Observations (GBIF dataset 50c9509d-22c7-4a22-a47d-8c48425ef4a7)",
+   "licence": "CC BY-NC 4.0 (dataset-level, DataCite); individual records CC0/CC BY/CC BY-NC",
+   "nonCommercial": true,
+   "repository": "GBIF",
+   "verified": "DataCite API 2026-10-22: DOI resolves (title iNaturalist Research-grade Observations); records retrieved via GBIF occurrence search API",
+   "reliability": "citizen-science observations"
+  },
+  {
+   "id": "dataset-10-15468-raejtm",
+   "type": "dataset",
+   "doi": "10.15468/raejtm",
+   "url": "https://doi.org/10.15468/raejtm",
+   "title": "ECOCEAN Western Australia Whale Shark Tracking",
+   "creators": [
+    "ECOCEAN"
+   ],
+   "year": 2026,
+   "licence": "Creative Commons Attribution 4.0 International",
+   "nonCommercial": false,
+   "repository": "GBIF / ECOCEAN",
+   "publisher": "ECOCEAN",
+   "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+   "reliability": "primary data"
+  },
+  {
+   "id": "dataset-10-15468-vnwmrx",
+   "type": "dataset",
+   "doi": "10.15468/vnwmrx",
+   "url": "https://doi.org/10.15468/vnwmrx",
+   "title": "BirdMap Data - GPS tracking of Storks, Cranes and birds of prey, breeding in Northern and Eastern Europe",
+   "creators": [
+    "Adojaan",
+    "Sellis",
+    "Väli",
+    "Ojaste"
+   ],
+   "year": 2025,
+   "licence": "Creative Commons Attribution Non Commercial 4.0 International",
+   "nonCommercial": true,
+   "repository": "GBIF / PlutoF (BirdMap)",
+   "publisher": "PlutoF",
+   "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+   "reliability": "primary data"
+  },
+  {
+   "id": "dataset-10-5061-dryad-5tb2rbp76",
+   "type": "dataset",
+   "doi": "10.5061/dryad.5tb2rbp76",
+   "url": "https://doi.org/10.5061/dryad.5tb2rbp76",
+   "title": "Data for: Inferring spatially-varying animal movement characteristics using a hierarchical continuous-time velocity model",
+   "creators": [
+    "Torney"
+   ],
+   "year": 2022,
+   "licence": "Creative Commons Zero v1.0 Universal",
+   "nonCommercial": false,
+   "repository": "Dryad (via Zenodo mirror)",
+   "publisher": "Dryad",
+   "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via Dryad (via Zenodo mirror)",
+   "reliability": "primary data"
+  },
+  {
+   "id": "dataset-10-82144-a67782d6",
+   "type": "dataset",
+   "doi": "10.82144/a67782d6",
+   "url": "https://doi.org/10.82144/a67782d6",
+   "title": "LTER Antarctic satellite telemetry of humpback whales",
+   "creators": [
+    "Curtice",
+    "Friedlaender",
+    "Ducklow",
+    "Gales"
+   ],
+   "year": 2025,
+   "licence": "Creative Commons Attribution Non Commercial 4.0 International",
+   "nonCommercial": true,
+   "repository": "GBIF / OBIS-SEAMAP",
+   "publisher": "OBIS-SEAMAP",
+   "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+   "reliability": "primary data"
+  },
+  {
+   "id": "dataset-10-82144-cf4235bc",
+   "type": "dataset",
+   "doi": "10.82144/cf4235bc",
+   "url": "https://doi.org/10.82144/cf4235bc",
+   "title": "Revealing migratory behaviour of South African leatherback turtles",
+   "creators": [
+    "Robinson"
+   ],
+   "year": 2025,
+   "licence": "Creative Commons Attribution Non Commercial 4.0 International",
+   "nonCommercial": true,
+   "repository": "GBIF / OBIS-SEAMAP",
+   "publisher": "OBIS-SEAMAP",
+   "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+   "reliability": "primary data"
+  },
+  {
+   "id": "dataset-10-82144-e379e535",
+   "type": "dataset",
+   "doi": "10.82144/e379e535",
+   "url": "https://doi.org/10.82144/e379e535",
+   "title": "Leatherback Tracking in South Africa",
+   "creators": [
+    "Luschi"
+   ],
+   "year": 2025,
+   "licence": "Creative Commons Attribution 4.0 International",
+   "nonCommercial": false,
+   "repository": "GBIF / OBIS-SEAMAP",
+   "publisher": "OBIS-SEAMAP",
+   "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+   "reliability": "primary data"
+  },
+  {
+   "id": "dataset-10-82144-f1e7b55e",
+   "type": "dataset",
+   "doi": "10.82144/f1e7b55e",
+   "url": "https://doi.org/10.82144/f1e7b55e",
+   "title": "Tracking of Arctic tern migrations 2007-2008",
+   "creators": [
+    "Egevang"
+   ],
+   "year": 2025,
+   "licence": "Creative Commons Attribution Non Commercial 4.0 International",
+   "nonCommercial": true,
+   "repository": "GBIF / OBIS-SEAMAP",
+   "publisher": "OBIS-SEAMAP",
+   "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+   "reliability": "primary data"
+  },
+  {
    "id": "doi-10-1002-ece3-6370",
    "type": "journal-article",
    "doi": "10.1002/ece3.6370",
@@ -300,6 +454,22 @@
     "Muñoz"
    ],
    "year": 2020,
+   "journal": "Journal of Animal Ecology",
+   "verified": "Crossref API 2026-10-22",
+   "reliability": "primary/peer-reviewed"
+  },
+  {
+   "id": "doi-10-1111-1365-2656-13484",
+   "type": "journal-article",
+   "doi": "10.1111/1365-2656.13484",
+   "url": "https://doi.org/10.1111/1365-2656.13484",
+   "title": "Longer days enable higher diurnal activity for migratory birds",
+   "authors": [
+    "Pokrovsky",
+    "Kölzsch",
+    "Sherub"
+   ],
+   "year": 2021,
    "journal": "Journal of Animal Ecology",
    "verified": "Crossref API 2026-10-22",
    "reliability": "primary/peer-reviewed"
@@ -875,6 +1045,23 @@
    "licence": "CC0 1.0 Universal",
    "repository": "Movebank Data Repository",
    "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+   "reliability": "primary data"
+  },
+  {
+   "id": "movebank-10-5441-001-1-4n2501f5",
+   "type": "dataset",
+   "doi": "10.5441/001/1.4n2501f5",
+   "url": "https://doi.org/10.5441/001/1.4n2501f5",
+   "title": "Data from: Longer days enable higher diurnal activity for migratory birds [Himalayan griffons]",
+   "creators": [
+    "Sherub",
+    "Wikelski"
+   ],
+   "year": 2021,
+   "licence": "CC0 1.0 Universal",
+   "nonCommercial": false,
+   "repository": "Movebank Data Repository",
+   "verified": "DataCite API 2026-10-22; zipped GPS CSV downloaded anonymously and unzipped",
    "reliability": "primary data"
   },
   {
@@ -1685,6 +1872,16 @@
    "revision": 1372184487,
    "retrieved": "2026-10-22",
    "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+   "reliability": "tertiary"
+  },
+  {
+   "id": "wp-himalayan-vulture",
+   "type": "encyclopedia",
+   "title": "Wikipedia: Himalayan vulture",
+   "url": "https://en.wikipedia.org/wiki/Himalayan_vulture",
+   "revision": 1333870528,
+   "retrieved": "2026-10-22",
+   "verified": "Wikipedia API: page exists; infobox status NT (IUCN 3.1)",
    "reliability": "tertiary"
   },
   {

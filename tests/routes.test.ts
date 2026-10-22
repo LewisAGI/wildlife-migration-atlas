@@ -50,4 +50,22 @@ describe('route lines', () => {
     const strokes = routeFeatures(species).map((line) => line.properties?.stroke);
     expect(strokes).toEqual([0, 1, 2]);
   });
+
+  it('draws citizen-science sightings with their own stroke', () => {
+    const species = {
+      id: 'sightings',
+      colour: '#d98a3a',
+      tracks: [
+        {
+          id: 'year',
+          loop: false,
+          fixes: [
+            { t: 15, lat: 27, lng: -82, status: 'observed', uncertaintyKm: 80, source: 's', sightings: true },
+            { t: 45, lat: 28, lng: -81, status: 'observed', uncertaintyKm: 80, source: 's', sightings: true },
+          ],
+        },
+      ],
+    } as Species;
+    expect(routeFeatures(species).map((line) => line.properties?.stroke)).toEqual([3]);
+  });
 });

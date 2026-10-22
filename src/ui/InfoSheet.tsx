@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 're
 import { createPortal } from 'react-dom';
 import { Popup, type Map as MapLibreMap } from 'maplibre-gl';
 import type { Species, SpeciesEvent } from '../data/schema';
-import { citedProgressKm, monthIndexForDay, monthWord } from '../data/months';
+import { citedProgressKm, licenceMark, monthIndexForDay, monthWord } from '../data/months';
 import type { PositionSample } from '../motion/interpolate';
 import { formatDay, YEAR_LENGTH } from '../time/yearClock';
 import { clearSheetChrome, placeSheet, prefersSheet } from './sheetLayout';
@@ -42,7 +42,8 @@ function SpeciesBody({ species, trackId, eventId, day, sample }: InfoSheetProps)
   const month = species.months[monthIndexForDay(day)];
   const reading = species.temperature.find((item) => item.month === month?.month);
   const status = statusLabel(sample, month?.status);
-  const approximate = status !== 'Observed' && status !== 'No data';
+  const licence = licenceMark(species.datasetLicence, species.nonCommercial);
+  const approximate = status !== 'Observed' && status !== 'Observed sightings' && status !== 'No data';
   return (
     <div className="sheet-copy" data-species={species.id}>
       <h2 className="popup-title">{species.names.common}</h2>
@@ -57,7 +58,7 @@ function SpeciesBody({ species, trackId, eventId, day, sample }: InfoSheetProps)
         {status}
         {approximate && <span className="approx-mark">approximate</span>}
       </p>
-      {species.datasetLicence && <p className="licence-mark">{species.datasetLicence}</p>}
+      {licence && <p className="licence-mark">{licence}</p>}
       {species.iucn && <p className="iucn-mark">{species.iucn}</p>}
       <p className="popup-summary">{species.summary}</p>
       <dl className="popup-facts">
@@ -85,7 +86,9 @@ function SpeciesBody({ species, trackId, eventId, day, sample }: InfoSheetProps)
           {month.name}: {monthWord(month.status)}
           {month.region ? ` · ${month.region}` : ''}
           {month.nFixes != null ? ` · ${month.nFixes.toLocaleString('en-US')} fixes` : ''}
-          {month.dispersed ? ' · dispersed' : ''}. {month.method}
+          {month.dispersed ? ' · dispersed' : ''}
+          {month.ndvi != null ? ` · NDVI median at the animals ${month.ndvi}` : ''}
+          {month.nitrogen != null ? ` · grass nitrogen median ${month.nitrogen}` : ''}. {month.method}
         </p>
       )}
       {reading && (
@@ -229,6 +232,7 @@ function statusLabel(sample: PositionSample | null, monthStatus: Species['months
   if (monthStatus === 'no-data' && !sample) return 'No data';
   if (!sample) return monthStatus ? capital(monthWord(monthStatus)) : 'Estimated';
   if (sample.mark === 'observed') return 'Observed';
+  if (sample.mark === 'sightings') return 'Observed sightings';
   if (sample.mark === 'dispersed') return 'Observed, dispersed';
   if (sample.mark === 'interpolated') return 'Interpolated';
   if (sample.status === 'simulated') return 'Simulated';
