@@ -64,7 +64,7 @@ test('globe, land, and icon labels', async ({ page }) => {
     return attrib.bottom <= time.top + 1;
   });
   expect(attributionClear).toBe(true);
-  for (const name of ['Play', 'Zoom in', 'Zoom out', 'Species', 'Playback', 'Previous day', 'Next day']) {
+  for (const name of ['Play', 'Zoom in', 'Zoom out', 'Species', 'Compare', 'Months', 'Layers', 'Playback', 'Previous day', 'Next day']) {
     const button = page.getByRole('button', { name, exact: true });
     await expect(button).toHaveAttribute('aria-label', name);
     await expect(button).toHaveAttribute('title', name);
@@ -112,8 +112,6 @@ test('scrubber, keyboard, play, and loop', async ({ page }) => {
 });
 
 test('markers move, tern winters south, compare and the info sheet', async ({ page }, testInfo) => {
-  // Software WebGL on the CI runner is slower than a local GPU. The click itself no longer scans the framebuffer.
-  test.setTimeout(150_000);
   await page.locator('#slider').fill('30');
   const early = await herd(page);
   await page.locator('#slider').fill('200');
@@ -121,29 +119,35 @@ test('markers move, tern winters south, compare and the info sheet', async ({ pa
   expect(Math.abs(early.lat - later.lat) + Math.abs(early.lng - later.lng)).toBeGreaterThan(0.4);
 
   await page.getByRole('button', { name: 'Species' }).click();
-  await page.getByRole('button', { name: 'Arctic tern' }).click();
+  await page.getByRole('button', { name: 'Arctic tern', exact: true }).click();
   await page.locator('#slider').fill('15');
   await expect.poll(async () => ternLats(page)).toEqual(expect.arrayContaining([expect.any(Number)]));
   const lats = await ternLats(page);
-  expect(lats.length).toBe(2);
+  expect(lats.length).toBe(1);
   lats.forEach((lat) => expect(lat).toBeLessThan(-50));
 
   const before = await centerOf(page);
   await page.getByRole('button', { name: 'Species' }).click();
-  await page.getByRole('button', { name: 'Wildebeest' }).click();
+  await page.getByRole('button', { name: 'Blue wildebeest', exact: true }).click();
   await expect.poll(async () => {
     const center = await centerOf(page);
     return Math.abs(center.lng - before.lng) > 4 || Math.abs(center.zoom - before.zoom) > 0.4;
   }).toBe(true);
   await page.waitForFunction(() => !window.__atlas.map.isMoving());
 
-  await page.getByRole('button', { name: 'Species' }).click();
   await page.getByRole('button', { name: 'Compare' }).click();
-  await expect.poll(async () => idsOf(page)).toEqual(expect.arrayContaining(['wildebeest', 'arctic-tern']));
+  await page.getByRole('button', { name: 'Arctic tern', exact: true }).click();
+  await expect(page.locator('#compare-panel')).toBeVisible();
+  await expect(page.locator('#compare-panel')).toContainText('Arctic tern');
+  await expect(page.locator('#compare-panel')).toContainText('Blue wildebeest');
+  await expect.poll(async () => idsOf(page)).toEqual(expect.arrayContaining(['blue-wildebeest', 'arctic-tern']));
+  await page.keyboard.press('Escape');
 
-  await page.locator('#slider').fill('15');
+  await page.getByRole('button', { name: 'Species' }).click();
+  await page.getByRole('button', { name: 'Blue wildebeest', exact: true }).click();
   await page.waitForFunction(() => !window.__atlas.map.isMoving());
-  await clickSpecies(page, 'wildebeest');
+  await scrubToClearMarker(page, 'blue-wildebeest');
+  await clickSpecies(page, 'blue-wildebeest');
   const sheet = testInfo.project.name !== 'desktop';
   const card = sheet ? page.locator('.event-sheet') : page.locator('.maplibregl-popup');
   await expect(card).toBeVisible();
@@ -152,9 +156,33 @@ test('markers move, tern winters south, compare and the info sheet', async ({ pa
   await page.locator(sheet ? '.sheet-close' : '.maplibregl-popup-close-button').click();
   await expect(card).toHaveCount(0);
 
-  await clickRoute(page, 'wildebeest');
+  await page.getByRole('button', { name: 'Calving', exact: true }).click();
   await expect(card).toBeVisible();
-  await expect(card).toContainText('Connochaetes taurinus');
+  await expect(card).toContainText('short-grass plains');
+  await page.locator(sheet ? '.sheet-close' : '.maplibregl-popup-close-button').click();
+});
+
+test('monarch, humpback, honey buzzard licence, and vegetation overlay', async ({ page }) => {
+  await page.getByRole('button', { name: 'Species' }).click();
+  await page.locator('#species-panel').getByRole('button', { name: 'European honey buzzard', exact: true }).click();
+  await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('CC BY-NC 4.0');
+
+  await page.getByRole('button', { name: 'Species' }).click();
+  await page.locator('#species-panel').getByRole('button', { name: 'Monarch butterfly', exact: true }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-species', 'monarch');
+
+  await page.getByRole('button', { name: 'Species' }).click();
+  await page.locator('#species-panel').getByRole('button', { name: 'Humpback whale, Hawaii', exact: true }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-species', 'humpback-hawaii');
+
+  await page.getByRole('button', { name: 'Months' }).click();
+  await expect(page.locator('#months-panel .month-option.is-estimated')).not.toHaveCount(0);
+  await expect(page.locator('#months-panel .month-option.is-observed')).toHaveCount(0);
+
+  await page.getByRole('button', { name: 'Layers' }).click();
+  await page.getByRole('button', { name: 'MODIS NDVI, observed monthly' }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-overlay', 'ndvi');
+  await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('MODIS Terra NDVI');
 });
 
 async function dayOf(page: Page): Promise<number> {
@@ -164,7 +192,7 @@ async function dayOf(page: Page): Promise<number> {
 
 async function herd(page: Page): Promise<{ lat: number; lng: number }> {
   return page.evaluate(() => {
-    const position = window.__atlas.positions.find((item) => item.speciesId === 'wildebeest');
+    const position = window.__atlas.positions.find((item) => item.speciesId === 'blue-wildebeest');
     if (!position) throw new Error('missing wildebeest');
     return { lat: position.lat, lng: position.lng };
   });
@@ -198,34 +226,48 @@ async function dragSlider(page: Page, fraction: number) {
   await page.mouse.up();
 }
 
-async function clickSpecies(page: Page, speciesId: string) {
-  const target = await page.evaluate((id) => {
-    const position = window.__atlas.positions.find((item) => item.speciesId === id);
-    if (!position) return null;
-    const origin = window.__atlas.map.project([position.lng, position.lat]);
-    // A grid of queryRenderedFeatures stalls software WebGL (one readback per pixel).
-    // Let the click fall through labels onto the canvas instead.
-    document.querySelectorAll<HTMLElement>('.maplibregl-marker').forEach((node) => {
-      node.style.pointerEvents = 'none';
-    });
-    return { x: origin.x, y: origin.y };
-  }, speciesId);
-  if (!target) throw new Error(`missing ${speciesId}`);
-  await page.locator('#map canvas').click({ position: target });
+async function scrubToClearMarker(page: Page, speciesId: string) {
+  for (const day of [90, 120, 150, 60, 180, 250, 300, 15]) {
+    await page.locator('#slider').fill(String(day));
+    const clear = await page
+      .waitForFunction(
+        (id) => {
+          const position = window.__atlas.positions.find((item) => item.speciesId === id);
+          const canvas = document.querySelector('#map canvas');
+          if (!position || !(canvas instanceof HTMLCanvasElement)) return false;
+          const origin = window.__atlas.map.project([position.lng, position.lat]);
+          const rect = canvas.getBoundingClientRect();
+          return document.elementFromPoint(rect.left + origin.x, rect.top + origin.y) === canvas;
+        },
+        speciesId,
+        { timeout: 2_000 },
+      )
+      .then(() => true)
+      .catch(() => false);
+    if (clear) return;
+  }
+  throw new Error(`no clear day for ${speciesId}`);
 }
 
-async function clickRoute(page: Page, speciesId: string) {
-  const point = await page.evaluate((id) => {
-    const route = window.__atlas.routePoint(id);
-    if (!route) return null;
-    const origin = window.__atlas.map.project([route.lng, route.lat]);
-    document.querySelectorAll<HTMLElement>('.maplibregl-marker').forEach((node) => {
-      node.style.pointerEvents = 'none';
-    });
-    return { x: origin.x, y: origin.y };
+async function markerHit(page: Page, speciesId: string): Promise<{ x: number; y: number; clear: boolean } | null> {
+  return page.evaluate((id) => {
+    const position = window.__atlas.positions.find((item) => item.speciesId === id);
+    const canvas = document.querySelector('#map canvas');
+    if (!position || !(canvas instanceof HTMLCanvasElement)) return null;
+    const origin = window.__atlas.map.project([position.lng, position.lat]);
+    const rect = canvas.getBoundingClientRect();
+    const x = rect.left + origin.x;
+    const y = rect.top + origin.y;
+    const top = document.elementFromPoint(x, y);
+    return { x, y, clear: top === canvas };
   }, speciesId);
-  if (!point) throw new Error(`missing route ${speciesId}`);
-  await page.locator('#map canvas').click({ position: point });
+}
+
+async function clickSpecies(page: Page, speciesId: string) {
+  const target = await markerHit(page, speciesId);
+  if (!target) throw new Error(`missing ${speciesId}`);
+  expect(target.clear, 'marker should sit on the canvas, clear of a pin').toBe(true);
+  await page.mouse.click(target.x, target.y);
 }
 
 async function expectNoHorizontalScroll(page: Page) {

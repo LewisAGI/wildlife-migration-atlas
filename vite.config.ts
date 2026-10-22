@@ -5,6 +5,15 @@ export default defineConfig({
   plugins: [react()],
   server: { host: '127.0.0.1' },
   preview: { host: '127.0.0.1' },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('maplibre-gl')) return 'maplibre';
+        },
+      },
+    },
+  },
   test: {
     include: ['tests/**/*.test.ts'],
   },

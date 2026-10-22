@@ -8,10 +8,13 @@ export const COLOCATION_KM = 20;
  * Centre-to-centre gap, in screen pixels, after a co-located group is opened
  * into a ring. The stored coordinates are not moved.
  */
-export const SPREAD_SEPARATION_PX = 36;
+export const SPREAD_SEPARATION_PX = 48;
 
-/** Two pins whose dots overlap on screen are spread, even when they are more than 20 km apart. */
-export const PIN_DIAMETER_PX = 32;
+/**
+ * Hit size of an event pin, in screen pixels. The dot is 32 px; the click
+ * target extends to 44 px. Pins whose targets would overlap are spread.
+ */
+export const PIN_DIAMETER_PX = 44;
 
 export interface ScreenPosition extends Waypoint {
   offsetX: number;
@@ -85,8 +88,8 @@ export function displayPositions<T extends Waypoint & { id: string }>(events: T[
 
 /**
  * Extra screen offset for pins whose current screen positions fall within one
- * pin diameter. Offsets are pixels. The stored coordinates are not moved.
- * A pair already 36 px apart is left alone.
+ * hit target. Offsets are pixels. The stored coordinates are not moved.
+ * A pair already a full target apart is left alone.
  */
 export function spreadOverlaps(
   points: { id: string; x: number; y: number }[],

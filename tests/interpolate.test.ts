@@ -53,4 +53,31 @@ describe('positionAt', () => {
     expect(mid?.lat).toBeGreaterThan(8);
     expect(mid?.status).toBe('interpolated');
   });
+
+  it('interpolates uncertainty halfway between the fixes', () => {
+    const fixes = [
+      { ...fix(0, 0, 0), uncertaintyKm: 100 },
+      { ...fix(10, 0, 10), uncertaintyKm: 300 },
+    ];
+    expect(positionAt(fixes, 5, false)?.uncertaintyKm).toBeCloseTo(200);
+  });
+
+  it('follows the January fix via on the wrap leg', () => {
+    const january = fix(10, 0, 0, [{ lat: 40, lng: 5 }]);
+    const december = fix(350, 0, 20);
+    const wrapped = positionAt([january, december], 0, true);
+    expect(wrapped?.lat).toBeGreaterThan(8);
+    expect(wrapped?.status).toBe('interpolated');
+  });
+
+  it('points the heading along the direction of travel', () => {
+    const mid = positionAt([fix(0, 0, 0), fix(10, 0, 20)], 5, false);
+    expect(mid?.bearing).toBeGreaterThan(80);
+    expect(mid?.bearing).toBeLessThan(100);
+  });
+
+  it('returns the start of a zero-duration segment instead of dropping the marker', () => {
+    const at = positionAt([fix(10, 5, 6), fix(10, 7, 8)], 10, false);
+    expect(at).toMatchObject({ lat: 5, lng: 6, status: 'observed' });
+  });
 });

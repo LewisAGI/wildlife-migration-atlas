@@ -2,6 +2,10 @@ import type { Map as MapLibreMap } from 'maplibre-gl';
 
 export type BBox = [number, number, number, number];
 
+export function unionBBox(a: BBox, b: BBox): BBox {
+  return [Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[2], b[2]), Math.max(a[3], b[3])];
+}
+
 /**
  * One ease onto a species bbox. Padding keeps the time bar, the title, and an
  * open sheet out of the framed globe — the same inset idea as the history map.

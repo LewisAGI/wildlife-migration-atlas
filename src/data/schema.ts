@@ -1,11 +1,20 @@
+import { arcRadians } from '../geo';
 import type { Waypoint } from '../types';
 
 /** Reserved for a future simulation. Nothing emits this in Phase 1. */
 export const POINT_STATUSES = ['observed', 'representative', 'interpolated', 'simulated'] as const;
 export type PointStatus = (typeof POINT_STATUSES)[number];
 
-export const MIGRATION_TYPES = ['loop', 'oneWay', 'multigenerational', 'multiRoute'] as const;
+/** `representative` is the stored status for an estimated month. `no-data` has no coordinates. */
+export const MONTH_STATUSES = ['observed', 'representative', 'no-data'] as const;
+export type MonthStatus = (typeof MONTH_STATUSES)[number];
+
+export const MIGRATION_TYPES = ['loop', 'oneWay', 'multigenerational', 'multiRoute', 'partial', 'local', 'nomadic'] as const;
 export type MigrationType = (typeof MIGRATION_TYPES)[number];
+
+/** Great-circle hops longer than this make `slerp` unstable near the antipode. */
+export const MAX_LEG_DEGREES = 170;
+const MAX_LEG_RADIANS = (MAX_LEG_DEGREES * Math.PI) / 180;
 
 export interface Provenance {
   id: string;
@@ -23,6 +32,36 @@ export interface Fix extends Waypoint {
   source: string;
   /** Coast-following points from the previous fix to this one. Not timed. */
   via?: Waypoint[];
+  /** Median falls between groups. The halo is the interquartile spread. */
+  dispersed?: boolean;
+  /** Generation wave colour. Falls back to the species colour. */
+  colour?: string;
+  generation?: string;
+}
+
+export interface MonthPoint {
+  /** 0 = January. */
+  month: number;
+  name: string;
+  /** Day of year the month is drawn on. */
+  day: number;
+  status: MonthStatus;
+  lat: number | null;
+  lng: number | null;
+  region: string;
+  dispersed: boolean;
+  nFixes: number | null;
+  nIndividuals: number | null;
+  uncertaintyKm: number | null;
+  method: string;
+  note: string;
+  source: string;
+}
+
+export interface TagTemperature {
+  month: number;
+  medianC: number;
+  n: number;
 }
 
 export interface Track {
@@ -59,6 +98,19 @@ export interface Species {
   timing: string;
   summary: string;
   uncertaintyNote: string;
+  /** Compact name for icon labels. */
+  shortName: string;
+  months: MonthPoint[];
+  iucn: string | null;
+  threats: string | null;
+  /** Tag or near-body sensor, not air or water temperature. */
+  temperature: TagTemperature[];
+  temperatureNote: string;
+  /** Set only when a paper cites an annual distance we can scale by the day. */
+  citedKm: number | null;
+  /** Short dataset licence, for example `CC BY-NC 4.0`. */
+  datasetLicence: string | null;
+  evidence: string;
   tracks: Track[];
   events: SpeciesEvent[];
   places: Place[];
@@ -107,6 +159,19 @@ function speciesErrors(value: unknown): string[] {
   needString(record, 'timing', errors);
   needString(record, 'summary', errors);
   needString(record, 'uncertaintyNote', errors);
+  needString(record, 'shortName', errors);
+  needString(record, 'evidence', errors);
+  needString(record, 'temperatureNote', errors);
+  const iucn = record.iucn;
+  if (iucn != null && (typeof iucn !== 'string' || iucn.trim() === '')) errors.push('species.iucn must be a string or null');
+  const threats = record.threats;
+  if (threats != null && typeof threats !== 'string') errors.push('species.threats must be a string or null');
+  const cited = record.citedKm;
+  if (cited != null && (typeof cited !== 'number' || !Number.isFinite(cited) || cited < 0)) {
+    errors.push('species.citedKm must be a non-negative number or null');
+  }
+  const datasetLicence = record.datasetLicence;
+  if (datasetLicence != null && typeof datasetLicence !== 'string') errors.push('species.datasetLicence must be a string or null');
   const provenance = needArray(record, 'provenance', errors);
   const provenanceIds = new Set<string>();
   provenance?.forEach((item, index) => {
@@ -120,12 +185,11 @@ function speciesErrors(value: unknown): string[] {
   });
   const tracks = needArray(record, 'tracks', errors);
   if (tracks && tracks.length === 0) errors.push('tracks must not be empty');
-  if (migrationType === 'multiRoute' && tracks && tracks.length < 2) {
-    errors.push('multiRoute species need at least two tracks');
-  }
   tracks?.forEach((item, index) => trackErrors(item, index, provenanceIds, errors));
   needArray(record, 'events', errors)?.forEach((item, index) => eventErrors(item, index, errors));
   needArray(record, 'places', errors)?.forEach((item, index) => placeErrors(item, index, errors));
+  monthListErrors(record, provenanceIds, errors);
+  temperatureErrors(record, errors);
   if (id && record.id !== id) errors.push('id mismatch');
   return errors;
 }
@@ -139,7 +203,7 @@ function trackErrors(value: unknown, index: number, provenanceIds: Set<string>, 
   if ('generation' in record && record.generation != null) needString(record, 'generation', errors, prefix);
   if (typeof record.loop !== 'boolean') errors.push(`${prefix}.loop must be boolean`);
   const fixes = needArray(record, 'fixes', errors, prefix);
-  if (fixes && fixes.length < 2) errors.push(`${prefix}.fixes need at least two points`);
+  if (fixes && fixes.length < 1) errors.push(`${prefix}.fixes need at least one point`);
   let previous = -1;
   fixes?.forEach((item, fixIndex) => {
     const fixPrefix = `${prefix}.fixes[${fixIndex}]`;
@@ -160,6 +224,14 @@ function trackErrors(value: unknown, index: number, provenanceIds: Set<string>, 
     if (source && provenanceIds.size > 0 && !provenanceIds.has(source)) {
       errors.push(`${fixPrefix}.source "${source}" is not in provenance`);
     }
+    if ('dispersed' in fix && fix.dispersed != null && typeof fix.dispersed !== 'boolean') {
+      errors.push(`${fixPrefix}.dispersed must be boolean`);
+    }
+    if ('colour' in fix && fix.colour != null) {
+      const colour = needString(fix, 'colour', errors, fixPrefix);
+      if (colour && !/^#[0-9a-fA-F]{6}$/.test(colour)) errors.push(`${fixPrefix}.colour must be a #rrggbb hex`);
+    }
+    if ('generation' in fix && fix.generation != null) needString(fix, 'generation', errors, fixPrefix);
     if ('via' in fix && fix.via != null) {
       const via = needArray(fix, 'via', errors, fixPrefix);
       via?.forEach((point, viaIndex) => {
@@ -168,6 +240,105 @@ function trackErrors(value: unknown, index: number, provenanceIds: Set<string>, 
       });
     }
   });
+  const blocked = errors.some((error) => error.startsWith(`${prefix}.`) || error.startsWith(`${prefix} `));
+  if (fixes && fixes.length > 0 && !blocked) longLegErrors(fixes, record.loop === true, prefix, errors);
+}
+
+function monthListErrors(record: Record<string, unknown>, provenanceIds: Set<string>, errors: string[]): void {
+  const months = needArray(record, 'months', errors);
+  if (!months) return;
+  if (months.length !== 12) errors.push('species.months must list 12 months');
+  const seen = new Set<number>();
+  months.forEach((item, index) => {
+    const prefix = `months[${index}]`;
+    const month = asRecord(item, prefix, errors);
+    if (!month) return;
+    const monthIndex = needNumber(month, 'month', errors, prefix);
+    if (monthIndex != null && (monthIndex !== index || monthIndex < 0 || monthIndex > 11)) {
+      errors.push(`${prefix}.month must be ${index}`);
+    }
+    if (monthIndex != null && seen.has(monthIndex)) errors.push(`${prefix}.month is duplicated`);
+    if (monthIndex != null) seen.add(monthIndex);
+    needString(month, 'name', errors, prefix);
+    const day = needNumber(month, 'day', errors, prefix);
+    if (day != null && (day < 0 || day >= 365)) errors.push(`${prefix}.day must be in [0, 365)`);
+    const status = needString(month, 'status', errors, prefix);
+    if (status && !MONTH_STATUSES.includes(status as MonthStatus)) {
+      errors.push(`${prefix}.status must be one of ${MONTH_STATUSES.join(', ')}`);
+    }
+    const lat = month.lat;
+    const lng = month.lng;
+    const missing = lat == null && lng == null;
+    if (missing && status === 'observed') errors.push(`${prefix} observed months need coordinates`);
+    if (!missing) {
+      if (typeof lat !== 'number' || typeof lng !== 'number') {
+        errors.push(`${prefix} lat and lng must both be numbers or both be null`);
+      } else {
+        needLatLng(month as Record<string, unknown>, prefix, errors);
+      }
+    }
+    if (status === 'no-data' && !missing) errors.push(`${prefix} no-data months have no coordinates`);
+    if (typeof month.dispersed !== 'boolean') errors.push(`${prefix}.dispersed must be boolean`);
+    if (month.region != null && typeof month.region !== 'string') errors.push(`${prefix}.region must be a string`);
+    optionalCount(month, 'nFixes', prefix, errors);
+    optionalCount(month, 'nIndividuals', prefix, errors);
+    optionalCount(month, 'uncertaintyKm', prefix, errors);
+    needString(month, 'method', errors, prefix);
+    if (month.note != null && typeof month.note !== 'string') errors.push(`${prefix}.note must be a string`);
+    const source = needString(month, 'source', errors, prefix);
+    if (source && provenanceIds.size > 0 && !provenanceIds.has(source)) {
+      errors.push(`${prefix}.source "${source}" is not in provenance`);
+    }
+  });
+}
+
+function temperatureErrors(record: Record<string, unknown>, errors: string[]): void {
+  const temperature = record.temperature;
+  if (!Array.isArray(temperature)) {
+    errors.push('species.temperature must be an array');
+    return;
+  }
+  temperature.forEach((item, index) => {
+    const prefix = `temperature[${index}]`;
+    const entry = asRecord(item, prefix, errors);
+    if (!entry) return;
+    const month = needNumber(entry, 'month', errors, prefix);
+    if (month != null && (month < 0 || month > 11)) errors.push(`${prefix}.month must be in 0..11`);
+    needNumber(entry, 'medianC', errors, prefix);
+    const n = needNumber(entry, 'n', errors, prefix);
+    if (n != null && n < 0) errors.push(`${prefix}.n must be >= 0`);
+  });
+}
+
+function optionalCount(record: Record<string, unknown>, key: string, prefix: string, errors: string[]): void {
+  if (!(key in record) || record[key] == null) return;
+  const value = record[key];
+  if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) {
+    errors.push(`${prefix}.${key} must be a non-negative number or null`);
+  }
+}
+
+function longLegErrors(fixes: unknown[], loop: boolean, prefix: string, errors: string[]): void {
+  const points = fixes.map((item) => {
+    const fix = item as Record<string, unknown>;
+    const via = Array.isArray(fix.via) ? (fix.via as Waypoint[]) : [];
+    return { lat: fix.lat as number, lng: fix.lng as number, via };
+  });
+  const hop = (from: Waypoint, to: Waypoint, label: string) => {
+    if (arcRadians(from, to) > MAX_LEG_RADIANS) errors.push(`${label} is longer than ${MAX_LEG_DEGREES}°`);
+  };
+  for (let index = 0; index < points.length - 1; index += 1) {
+    const path = [points[index], ...points[index + 1].via, points[index + 1]];
+    for (let step = 0; step < path.length - 1; step += 1) {
+      hop(path[step], path[step + 1], `${prefix}.fixes[${index}]`);
+    }
+  }
+  if (loop && points.length > 1) {
+    const path = [points[points.length - 1], ...points[0].via, points[0]];
+    for (let step = 0; step < path.length - 1; step += 1) {
+      hop(path[step], path[step + 1], `${prefix} wrap`);
+    }
+  }
 }
 
 function eventErrors(value: unknown, index: number, errors: string[]): void {
@@ -227,7 +398,8 @@ function needBBox(record: Record<string, unknown>, errors: string[], prefix = 's
   }
   const [west, south, east, north] = bbox as number[];
   if (south < -90 || north > 90 || south > north) errors.push(`${prefix}.bbox latitudes are invalid`);
-  if (west < -180 || east > 180) errors.push(`${prefix}.bbox longitudes are invalid`);
+  // East may pass 180 when the route crosses the antimeridian and the box is unwrapped.
+  if (west < -180 || east > 540 || east < west) errors.push(`${prefix}.bbox longitudes are invalid`);
 }
 
 function needLatLng(record: Record<string, unknown>, prefix: string, errors: string[]): void {

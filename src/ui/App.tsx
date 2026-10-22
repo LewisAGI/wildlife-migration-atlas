@@ -1,15 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { loadCatalog } from '../data/load';
+import { monthIndexForDay } from '../data/months';
 import type { Species } from '../data/schema';
+import { unionBBox } from '../globe/camera';
 import { createGlobe, type GlobeController } from '../globe/createGlobe';
 import type { PickHit } from '../globe/labels';
 import type { FramePosition } from '../globe/markers';
-import { createTrackProvider, type PositionProvider, type PositionSample } from '../motion/interpolate';
+import { createTrackProvider, sampleVisible, type PositionProvider, type PositionSample, type StatusFilter } from '../motion/interpolate';
 import { createYearClock, type YearClock } from '../time/yearClock';
+import { ComparePopout } from './ComparePopout';
 import { IconButton } from './IconButton';
 import { IconMinus, IconPlus } from './icons';
 import { InfoSheet } from './InfoSheet';
+import { LayerPopout } from './LayerPopout';
 import { bindLongPress } from './longPress';
+import { MonthsPopout } from './MonthsPopout';
 import { SpeciesPopout } from './SpeciesPopout';
 import { TimeBar } from './TimeBar';
 
@@ -21,20 +26,34 @@ export function App() {
   const globeRef = useRef<GlobeController | null>(null);
   const visibleRef = useRef<Species[]>([]);
   const providersRef = useRef<Map<string, PositionProvider>>(new Map());
+  const filterRef = useRef<StatusFilter>('all');
 
   const [catalog, setCatalog] = useState<Species[]>([]);
-  const [selectedId, setSelectedId] = useState('wildebeest');
-  const [compare, setCompare] = useState(false);
+  const [selectedId, setSelectedId] = useState('blue-wildebeest');
+  const [partnerId, setPartnerId] = useState<string | null>(null);
   const [day, setDay] = useState(() => Math.floor(clock.day));
   const [playing, setPlaying] = useState(false);
   const [loop, setLoop] = useState(clock.loop);
   const [speed, setSpeed] = useState(clock.speed);
   const [speciesOpen, setSpeciesOpen] = useState(false);
+  const [compareOpen, setCompareOpen] = useState(false);
+  const [layersOpen, setLayersOpen] = useState(false);
+  const [monthsOpen, setMonthsOpen] = useState(false);
   const [playbackOpen, setPlaybackOpen] = useState(false);
+  const [overlay, setOverlay] = useState(false);
+  const [filter, setFilter] = useState<StatusFilter>('all');
+  const [threats, setThreats] = useState(false);
   const [info, setInfo] = useState<PickHit | null>(null);
   const [snapshot, setSnapshot] = useState<FramePosition[]>([]);
-  const openRef = useRef({ species: false, playback: false });
-  openRef.current = { species: speciesOpen, playback: playbackOpen };
+  const closeAtlas = () => {
+    setSpeciesOpen(false);
+    setCompareOpen(false);
+    setLayersOpen(false);
+    setMonthsOpen(false);
+  };
+  const openRef = useRef({ species: false, compare: false, layers: false, months: false, playback: false });
+  openRef.current = { species: speciesOpen, compare: compareOpen, layers: layersOpen, months: monthsOpen, playback: playbackOpen };
+  filterRef.current = filter;
 
   const providers = useMemo(() => {
     const map = new Map<string, PositionProvider>();
@@ -45,9 +64,10 @@ export function App() {
   }, [catalog]);
   providersRef.current = providers;
 
-  const visible = compare ? catalog : catalog.filter((item) => item.id === selectedId);
+  const visible = catalog.filter((item) => item.id === selectedId || item.id === partnerId);
   visibleRef.current = visible;
   const visibleKey = visible.map((item) => item.id).join(',');
+  const selectedSpecies = catalog.find((item) => item.id === selectedId) ?? null;
 
   useEffect(() => {
     let cancel = false;
@@ -77,7 +97,7 @@ export function App() {
       routePoint: (id) => globe.routePoint(id),
     };
     globe.onPick((hit) => {
-      setSpeciesOpen(false);
+      closeAtlas();
       setPlaybackOpen(false);
       setInfo(hit);
     });
@@ -91,13 +111,39 @@ export function App() {
   useEffect(() => {
     globeRef.current?.setSpecies(visibleRef.current, providersRef.current);
     globeRef.current?.setSelected(selectedId);
-  }, [visibleKey, providers, selectedId]);
+    globeRef.current?.setThreats(threats);
+  }, [visibleKey, providers, selectedId, threats]);
+
+  useEffect(() => {
+    globeRef.current?.setFilter(filter);
+  }, [filter]);
+
+  useEffect(() => {
+    const month = overlay ? monthIndexForDay(day) : null;
+    globeRef.current?.setOverlay(month);
+  }, [overlay, day]);
+
+  useEffect(() => {
+    const names = [selectedId, partnerId].filter((id): id is string => Boolean(id));
+    const parts = catalog
+      .filter((item) => names.includes(item.id) && item.datasetLicence)
+      .map((item) => `${item.shortName}: ${item.datasetLicence}`);
+    globeRef.current?.setNotice(parts);
+    const root = document.querySelector<HTMLElement>('#app');
+    if (!root) return;
+    root.dataset.species = selectedId;
+    root.dataset.filter = filter;
+    root.dataset.overlay = overlay ? 'ndvi' : 'off';
+    if (partnerId) root.dataset.compare = partnerId;
+    else delete root.dataset.compare;
+  }, [catalog, selectedId, partnerId, filter, overlay]);
 
   useEffect(() => {
     const item = catalog.find((entry) => entry.id === selectedId);
     if (!item) return;
-    globeRef.current?.flyTo(item.bbox);
-  }, [catalog, selectedId]);
+    const partner = catalog.find((entry) => entry.id === partnerId);
+    globeRef.current?.flyTo(partner ? unionBBox(item.bbox, partner.bbox) : item.bbox);
+  }, [catalog, selectedId, partnerId]);
 
   useEffect(() => {
     return clock.subscribe(() => {
@@ -121,8 +167,8 @@ export function App() {
       visibleRef.current.forEach((item) => {
         item.tracks.forEach((track) => {
           const sample = providersRef.current.get(`${item.id}:${track.id}`)?.positionAt(dayNow);
-          if (!sample) return;
-          positions.push({ ...sample, speciesId: item.id, colour: item.colour });
+          if (!sample || !sampleVisible(sample, filterRef.current)) return;
+          positions.push({ ...sample, speciesId: item.id, colour: sample.colour ?? item.colour });
         });
       });
       globeRef.current?.setFrame(positions, dayNow);
@@ -154,6 +200,9 @@ export function App() {
       if (!element?.closest('#play')) clock.pause();
       if (!element) return;
       if (openRef.current.species && !element.closest('#species-panel, #species-button')) setSpeciesOpen(false);
+      if (openRef.current.compare && !element.closest('#compare-picker, #compare-panel, #compare-button')) setCompareOpen(false);
+      if (openRef.current.layers && !element.closest('#layer-popout, #layer-button')) setLayersOpen(false);
+      if (openRef.current.months && !element.closest('#months-panel, #months-button')) setMonthsOpen(false);
       if (
         openRef.current.playback &&
         !element.closest('#playback-popout, #playback-button, #tools-button, #day-button')
@@ -173,7 +222,7 @@ export function App() {
         clock.pause();
         clock.step(-1);
       } else if (event.key === 'Escape') {
-        setSpeciesOpen(false);
+        closeAtlas();
         setPlaybackOpen(false);
         setInfo(null);
       }
@@ -198,6 +247,12 @@ export function App() {
     (info && snapshot.find((item) => item.speciesId === info.speciesId && (info.trackId === '' || item.trackId === info.trackId))) ||
     null;
   const anchor = anchorFor(info, selected, sample);
+  const stages =
+    selectedSpecies?.migrationType === 'oneWay'
+      ? selectedSpecies.months
+          .filter((month) => month.lat != null)
+          .map((month) => ({ day: month.day, label: month.region || month.name }))
+      : [];
 
   return (
     <>
@@ -211,22 +266,87 @@ export function App() {
           <IconMinus />
         </IconButton>
       </div>
-      <SpeciesPopout
-        species={catalog}
-        selectedId={selectedId}
-        compare={compare}
-        open={speciesOpen}
-        onToggle={() => {
-          setPlaybackOpen(false);
-          setSpeciesOpen((open) => !open);
-        }}
-        onSelect={(id) => {
-          setSelectedId(id);
-          setSpeciesOpen(false);
-          setInfo(null);
-        }}
-        onCompare={() => setCompare((value) => !value)}
-      />
+      <div className="key-wrap">
+        <div className="key-stack">
+          <LayerPopout
+            open={layersOpen}
+            overlay={overlay}
+            filter={filter}
+            threats={threats}
+            stages={stages}
+            onToggle={() => {
+              setSpeciesOpen(false);
+              setCompareOpen(false);
+              setMonthsOpen(false);
+              setPlaybackOpen(false);
+              setLayersOpen((open) => !open);
+            }}
+            onOverlay={() => setOverlay((value) => !value)}
+            onFilter={setFilter}
+            onThreats={() => setThreats((value) => !value)}
+            onStage={(next) => {
+              clock.pause();
+              clock.setDay(next);
+            }}
+          />
+          <MonthsPopout
+            species={selectedSpecies}
+            open={monthsOpen}
+            day={day}
+            onToggle={() => {
+              setSpeciesOpen(false);
+              setCompareOpen(false);
+              setLayersOpen(false);
+              setPlaybackOpen(false);
+              setMonthsOpen((open) => !open);
+            }}
+            onDay={(next) => {
+              clock.pause();
+              clock.setDay(next);
+            }}
+          />
+          <ComparePopout
+            species={catalog}
+            selectedId={selectedId}
+            partnerId={partnerId}
+            open={compareOpen}
+            day={day}
+            onToggle={() => {
+              setSpeciesOpen(false);
+              setLayersOpen(false);
+              setMonthsOpen(false);
+              setPlaybackOpen(false);
+              setCompareOpen((open) => !open);
+            }}
+            onPick={(id) => {
+              setPartnerId((current) => (current === id ? null : id));
+              setInfo(null);
+            }}
+            onDay={(next) => {
+              clock.pause();
+              clock.setDay(next);
+            }}
+          />
+          <SpeciesPopout
+            species={catalog}
+            selectedId={selectedId}
+            open={speciesOpen}
+            onToggle={() => {
+              setCompareOpen(false);
+              setLayersOpen(false);
+              setMonthsOpen(false);
+              setPlaybackOpen(false);
+              setSpeciesOpen((open) => !open);
+            }}
+            onSelect={(id) => {
+              setSelectedId(id);
+              setPartnerId(null);
+              setSpeciesOpen(false);
+              setInfo(null);
+            }}
+          />
+        </div>
+      </div>
       <TimeBar
         day={day}
         playing={playing}
@@ -252,7 +372,7 @@ export function App() {
         onSpeed={(daysPerSecond) => clock.setSpeed(daysPerSecond)}
         onLoop={() => clock.setLoop(!clock.loop)}
         onTogglePlayback={() => {
-          setSpeciesOpen(false);
+          closeAtlas();
           setPlaybackOpen((open) => !open);
         }}
       />

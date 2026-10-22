@@ -1,34 +1,40 @@
 # Data licences
 
-Checked 22 October 2026. The application code is MIT (see `LICENSE`) and is separate from these data terms. No species photographs are shipped in Phase 1.
+Checked 22 October 2026. The application code is MIT (see `LICENSE`) and is separate from these data terms. No species photographs are shipped.
+
+The catalog is Shisui's v2 pack: `data/pack/content.json` and `data/pack/sources.json`. It holds 47 populations. Monthly positions are either observed medians, representative (estimated) regions, or no-data gaps. Raw tracking rows are not in this repository.
 
 ## Basemap
 
 - **NASA GIBS Blue Marble** (`BlueMarble_ShadedRelief_Bathymetry`). NASA imagery is not subject to copyright. The map attribution reads “NASA Blue Marble · Natural Earth”.
 - **Natural Earth** 1:110m land (`public/ne_110m_land.geojson`). Public domain.
 
-## Wildebeest — `data/species/wildebeest.json`
+## Vegetation overlay
 
-Representative monthly positions for the Serengeti–Mara circuit. They are a schematic of the seasonal round described in the literature (southern plains in the rains, western corridor, Mara in the dry season), not digitised tracks.
+MODIS Terra L3 NDVI monthly composites for 2023, streamed from NASA GIBS (`MODIS_Terra_L3_NDVI_Monthly`). They are observed monthly composites, not a climatology, and they are not stored in this repository. NASA imagery is not subject to copyright. The attribution names the layer while it is on.
 
-- Source: Thirgood, S. et al. 2004. *Can parks protect migratory ungulates? The case of the Serengeti wildebeest.* Animal Conservation 7:113–120. https://doi.org/10.1017/S1367943004001404
-- The paper reports GPS collars from 1999–2000. Those tracks are **not** in this repository, and no Movebank study file is redistributed. A public Serengeti–Mara collar study with a verified open licence was not available for Phase 1.
-- Every fix is `status: "representative"`. Positions between fixes are `interpolated`. Both are approximate and vary from year to year.
-- The paper itself is © Cambridge University Press.
+## Movebank datasets
 
-## Arctic tern — `data/species/arctic-tern.json`
+Observed months are median latitude and median longitude of publicly downloadable Movebank Data Repository fixes, pooled across individuals and years, with an interquartile range. The medians are derived data. The CSV files are not redistributed.
 
-Two representative routes (West Africa and Brazil) for the high-Arctic Greenland and Iceland birds, plus the Newfoundland Basin stopover and Weddell Sea wintering area. Drawn from the published description, not from copied geolocator rows.
+Licences, from DataCite, are carried on each dataset's provenance entry:
 
-- Source: Egevang, C. et al. 2010. *Tracking of Arctic terns Sterna paradisaea reveals longest animal migration.* PNAS 107:2078–2081. https://doi.org/10.1073/pnas.0909493107
-- The paper’s geolocators were accurate to about 185 km. These schematics use a wider uncertainty because they are not those fixes.
-- OBIS-SEAMAP “Tracking of Arctic tern migrations 2007-2008” (GBIF `767f57dd-…`) is CC BY-NC 4.0. **That dataset was not copied** into this repository. If a later file is derived from it, that file must carry CC BY-NC 4.0 on its own, separate from the MIT code.
-- Every stored fix is `status: "representative"`. Nothing here is an observed location.
-- One published bird reached about 106°E. These two lines stay in the Atlantic and do not draw that Indian Ocean leg.
-- Cited figures from the paper, not measured off this schematic: mean annual distance 70,900 km (range 59,500–81,600 km).
+- Most datasets are CC0.
+- Some are CC BY 4.0. Those entries name the dataset.
+- **European honey buzzard (Finland), DOI `10.5441/001/1.335`, is Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).** The monthly medians for `honey-buzzard-finland` are under that licence. Non-commercial use only. The sheet and the map attribution show `CC BY-NC 4.0` while that population is selected.
+
+Months flagged dispersed are medians that fall between groups. Months with no fixes are `no-data` and are not filled in.
+
+Tag `external-temperature` readings exist for the tracked white stork, the Ya Ha Tinda elk, and the Egyptian vulture. They are tag or near-body temperature, not air or water temperature, and the sheet says so.
+
+## Representative populations
+
+Where the pack has no anonymous Movebank download, months are estimated regions from the cited seasonal cycle. Coordinates are named places, not copied tracks. Every such fix is `representative`. The Arctic tern paper (Egevang et al. 2010, PNAS) is free to read and is not under an open licence. OBIS-SEAMAP “Tracking of Arctic tern migrations 2007-2008” is CC BY-NC 4.0 and was **not** copied. The cited annual mean used for the tern distance clock is 70,900 km from that paper.
+
+The Serengeti wildebeest circuit is given as 800–1,000 km. It is a representative seasonal round, not the 1999–2000 GPS tracks.
 
 ## Not used
 
-- **eBird Status and Trends.** Left out of Phase 1. The October 2023 terms require an access request, citation, a disclaimer, and non-commercial use, and they restrict redistribution of modified products.
-- **Environmental overlays** (NDVI, sea temperature, sea ice, rainfall). Phase 2. No placeholder layers are drawn.
-- **Monarch and humpback.** Phase 2. No invented routes.
+- **eBird Status and Trends.** Still left out. The terms require an access request and restrict redistribution.
+- **CHIRPS rainfall, a sea-surface temperature grid, and a sea-ice grid** are not drawn. The one environmental overlay is the MODIS NDVI layer above.
+- Nothing in the catalog is `simulated`.

@@ -1,8 +1,10 @@
 # Wildlife migration atlas
 
-An interactive globe of animal migration through the year. Phase 1 draws the Serengeti–Mara wildebeest and the Arctic tern. Positions come from the day of the year, not from a constant speed along the line.
+An interactive globe of animal migration through the year. Positions come from the day of the year, not from a constant speed along the line.
 
-The wildebeest round and both tern routes are **representative** sketches from the literature. They are not tracked animals. Points between the monthly or seasonal fixes are interpolated, and the panel marks them approximate.
+Phase 2 draws 47 populations from the v2 content pack: the Serengeti wildebeest and the Arctic tern, then the monarch, both humpback routes, and the rest of the tracked and representative populations. Observed months, estimated months, and months with no data are drawn differently. A MODIS vegetation overlay can be switched on. Two populations can be compared side by side.
+
+Estimated months are representative sketches from the literature. They are not tracked animals. Points between monthly fixes are interpolated, and the panel marks them approximate. Observed months are pooled medians from public tracking datasets, not one animal's path.
 
 ## Develop
 
@@ -21,17 +23,19 @@ npm run test:e2e
 
 ## Data
 
-Species files live in `data/species/` and are listed in `data/index.json`. Adding a species is a new JSON file plus an index entry. Licences, and what was deliberately left out, are in [`data/LICENSES.md`](data/LICENSES.md).
+Populations come from `data/pack/content.json`, with citations in `data/pack/sources.json`. Licences, and what was deliberately left out, are in [`data/LICENSES.md`](data/LICENSES.md).
 
-Each fix has a status (`observed`, `representative`, `interpolated`, or `simulated`) and a source id. `simulated` is reserved for a later model. Nothing in Phase 1 is simulated, and the literature routes are `representative`.
+Each stored month is `observed`, `representative` (shown as estimated), or `no-data`. A fix between months is `interpolated`. `simulated` is reserved for a later model. Nothing here is simulated.
 
 ## Controls
 
-The controls are icons. A name shows on hover, and on a long press. The species list, playback speed, and loop sit in pop-outs. Arrow keys step one day.
+The controls are icons. A name shows on hover, and on a long press. The species list, comparison, months, layers, playback speed, and loop sit in pop-outs. Arrow keys step one day.
 
 ## Deploy
 
 Cloudflare Pages, project `wildlife-migration-atlas`. The workflow in `.github/workflows/pages.yml` runs the tests and the production build. Pushes to `main` deploy production. Pushes to any other branch deploy a preview and do not publish production. The deploy steps read `CF_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. If either secret is missing, that deploy is skipped and the workflow still passes.
+
+If Cloudflare secrets are ever added to this repo, the atlas `pages.yml` and the HOHM bridge would both deploy `wildlife-migration-atlas`. Pick the bridge and remove the deploy jobs here.
 
 ## Licence
 
