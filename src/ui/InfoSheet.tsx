@@ -59,6 +59,9 @@ function SpeciesBody({ species, trackId, eventId, day, sample }: InfoSheetProps)
         {approximate && <span className="approx-mark">approximate</span>}
       </p>
       {licence && <p className="licence-mark">{licence}</p>}
+      {species.nonCommercialSources.length > 0 && (
+        <p className="licence-sources">nonCommercialSources: {species.nonCommercialSources.join(', ')}</p>
+      )}
       {species.iucn && <p className="iucn-mark">{species.iucn}</p>}
       <p className="popup-summary">{species.summary}</p>
       <dl className="popup-facts">

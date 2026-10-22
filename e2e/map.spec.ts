@@ -162,7 +162,7 @@ test('markers move, tern winters south, compare and the info sheet', async ({ pa
   await page.locator(sheet ? '.sheet-close' : '.maplibregl-popup-close-button').click();
 });
 
-test('monarch, humpback, honey buzzard licence, and vegetation overlay', async ({ page }) => {
+test('monarch, humpback, honey buzzard licence, and vegetation overlay', async ({ page }, testInfo) => {
   const ndviStatuses: number[] = [];
   page.on('response', (response) => {
     if (response.url().includes('MODIS_Terra_L3_NDVI_Monthly')) ndviStatuses.push(response.status());
@@ -171,6 +171,16 @@ test('monarch, humpback, honey buzzard licence, and vegetation overlay', async (
   await page.locator('#species-panel').getByRole('button', { name: 'European honey buzzard', exact: true }).click();
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('CC BY-NC 4.0');
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('not for a paid version');
+  await expect(page.locator('#app')).toHaveAttribute('data-species', 'honey-buzzard-finland');
+  await page.waitForFunction(() => !window.__atlas.map.isMoving());
+  await scrubToClearMarker(page, 'honey-buzzard-finland');
+  await clickSpecies(page, 'honey-buzzard-finland');
+  const sheet = testInfo.project.name !== 'desktop';
+  const card = sheet ? page.locator('.event-sheet') : page.locator('.maplibregl-popup');
+  await expect(card).toContainText('Not for a paid version');
+  await expect(card).toContainText('nonCommercialSources: movebank-10-5441-001-1-335');
+  await page.locator(sheet ? '.sheet-close' : '.maplibregl-popup-close-button').click();
+  await expect(card).toHaveCount(0);
 
   await page.getByRole('button', { name: 'Species' }).click();
   await page.locator('#species-panel').getByRole('button', { name: 'Monarch butterfly', exact: true }).click();

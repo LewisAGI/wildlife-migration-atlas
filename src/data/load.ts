@@ -3,7 +3,7 @@ import type { Species, SpeciesIndex } from './schema';
 
 let catalogPromise: Promise<{ index: SpeciesIndex; species: Species[] }> | null = null;
 
-/** The globe reads the v3 pack. Adding a population means extending that pack, not a new code path. */
+/** The globe reads the v3.1 pack. Adding a population means extending that pack, not a new code path. */
 export function loadCatalog(): Promise<{ index: SpeciesIndex; species: Species[] }> {
   catalogPromise ??= Promise.all([
     import('../../data/pack/content.json'),

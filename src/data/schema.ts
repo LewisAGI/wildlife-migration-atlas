@@ -116,8 +116,10 @@ export interface Species {
   citedKm: number | null;
   /** Short dataset licence, for example `CC BY-NC 4.0`. */
   datasetLicence: string | null;
-  /** A cited dataset set `nonCommercial`. These positions are not for a paid version. */
+  /** A cited dataset set `nonCommercial`, or its licence short form contains NC. Not for a paid version. */
   nonCommercial: boolean;
+  /** Dataset ids that made this entry non-commercial. */
+  nonCommercialSources: string[];
   evidence: string;
   tracks: Track[];
   events: SpeciesEvent[];
@@ -181,6 +183,12 @@ function speciesErrors(value: unknown): string[] {
   const datasetLicence = record.datasetLicence;
   if (datasetLicence != null && typeof datasetLicence !== 'string') errors.push('species.datasetLicence must be a string or null');
   if (typeof record.nonCommercial !== 'boolean') errors.push('species.nonCommercial must be boolean');
+  const nonCommercialSources = needArray(record, 'nonCommercialSources', errors);
+  nonCommercialSources?.forEach((item, index) => {
+    if (typeof item !== 'string' || item.trim() === '') {
+      errors.push(`species.nonCommercialSources[${index}] must be a non-empty string`);
+    }
+  });
   const provenance = needArray(record, 'provenance', errors);
   const provenanceIds = new Set<string>();
   provenance?.forEach((item, index) => {

@@ -2,7 +2,7 @@
 
 Checked 22 October 2026. The application code is MIT (see `LICENSE`) and is separate from these data terms. No species photographs are shipped.
 
-The catalog is Shisui's v3 pack: `data/pack/content.json` and `data/pack/sources.json`. It holds 58 populations. Monthly positions are observed medians, citizen-science `observed-sightings`, representative (estimated) regions, or no-data gaps. Raw tracking rows are not in this repository. Distances computed as the sum of haversine legs between monthly medians are minimums: the animal's path between those points is longer.
+The catalog is Shisui's v3.1 pack: `data/pack/content.json` and `data/pack/sources.json`. It holds 58 populations. Monthly positions are observed medians, citizen-science `observed-sightings`, representative (estimated) regions, or no-data gaps. Raw tracking rows are not in this repository. Distances computed as the sum of haversine legs between monthly medians are minimums: the animal's path between those points is longer.
 
 ## Basemap
 
@@ -27,9 +27,9 @@ Licences, from DataCite, are carried on each dataset's provenance entry:
 
 ## Non-commercial entries
 
-An entry is non-commercial when a linked source sets `nonCommercial: true`, or when that source's licence short form contains `NC` (for example `CC BY-NC 4.0`). **These entries cannot be used in a paid version** of this atlas. The sheet and the map attribution say `CC BY-NC 4.0. Not for a paid version.` while one of them is selected.
+Every dataset source carries a boolean `nonCommercial`. An entry is non-commercial when one of those flags is true, or when a linked licence's short form contains `NC` (for example `CC BY-NC 4.0`) even if the flag were absent. **These entries cannot be used in a paid version** of this atlas. The sheet and the map attribution say `CC BY-NC 4.0. Not for a paid version.` while one of them is selected. The sheet also lists `nonCommercialSources`, the dataset ids that triggered the flag.
 
-- `honey-buzzard-finland` — Movebank DOI `10.5441/001/1.335`, source `movebank-10-5441-001-1-335`. That source has no `nonCommercial` flag. Its licence is Creative Commons Attribution-NonCommercial 4.0 International, short form CC BY-NC 4.0, so the atlas treats the entry as non-commercial.
+- `honey-buzzard-finland` — Movebank DOI `10.5441/001/1.335`, source `movebank-10-5441-001-1-335`. That dataset sets `nonCommercial: true`. The sheet lists it in `nonCommercialSources`.
 - `arctic-tern-obs` — OBIS-SEAMAP geolocators, `dataset-10-82144-f1e7b55e`
 - `leatherback-south-africa-nc` — `dataset-10-82144-cf4235bc`
 - `humpback-wap` — Palmer LTER, `dataset-10-82144-a67782d6`

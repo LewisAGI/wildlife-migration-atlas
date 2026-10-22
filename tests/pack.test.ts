@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import content from '../data/pack/content.json';
 import sources from '../data/pack/sources.json';
-import { buildCatalog } from '../src/data/fromPack';
+import { buildCatalog, sourceIsNonCommercial } from '../src/data/fromPack';
 import { positionAt } from '../src/motion/interpolate';
 import { routeFeatures } from '../src/globe/routes';
 
@@ -41,6 +41,18 @@ describe('v3 pack', () => {
   });
 
   it('shows CC BY-NC for every non-commercial entry and keeps Serengeti NDVI on the months', () => {
+    expect(content.version).toBe('pack-v3.1');
+    const datasets = sources.sources.filter((item) => item.type === 'dataset');
+    expect(datasets).toHaveLength(35);
+    expect(datasets.every((item) => typeof item.nonCommercial === 'boolean')).toBe(true);
+    expect(datasets.filter((item) => item.nonCommercial === true).map((item) => item.id).sort()).toEqual([
+      'dataset-10-15468-ab3s5x',
+      'dataset-10-15468-vnwmrx',
+      'dataset-10-82144-a67782d6',
+      'dataset-10-82144-cf4235bc',
+      'dataset-10-82144-f1e7b55e',
+      'movebank-10-5441-001-1-335',
+    ]);
     const restricted = catalog.species.filter((item) => item.nonCommercial);
     expect(restricted.map((item) => item.id).sort()).toEqual([
       'arctic-tern-obs',
@@ -51,6 +63,17 @@ describe('v3 pack', () => {
       'osprey-europe-birdmap',
       'white-stork-birdmap',
     ]);
+    expect(restricted).toHaveLength(7);
+    expect(Object.fromEntries(restricted.map((item) => [item.id, item.nonCommercialSources]))).toEqual({
+      'arctic-tern-obs': ['dataset-10-82144-f1e7b55e'],
+      'honey-buzzard-finland': ['movebank-10-5441-001-1-335'],
+      'humpback-wap': ['dataset-10-82144-a67782d6'],
+      'leatherback-south-africa-nc': ['dataset-10-82144-cf4235bc'],
+      'monarch-sightings': ['dataset-10-15468-ab3s5x'],
+      'osprey-europe-birdmap': ['dataset-10-15468-vnwmrx'],
+      'white-stork-birdmap': ['dataset-10-15468-vnwmrx'],
+    });
+    expect(catalog.species.filter((item) => !item.nonCommercial).every((item) => item.nonCommercialSources.length === 0)).toBe(true);
     restricted.forEach((item) => expect(item.datasetLicence).toBe('CC BY-NC 4.0'));
     const herd = catalog.species.find((item) => item.id === 'wildebeest-serengeti-obs');
     expect(herd?.months[0].ndvi).toBeCloseTo(0.485);
@@ -64,6 +87,7 @@ describe('v3 pack', () => {
   it('labels the honey buzzard dataset CC BY-NC 4.0', () => {
     const buzzard = catalog.species.find((item) => item.id === 'honey-buzzard-finland');
     expect(buzzard?.nonCommercial).toBe(true);
+    expect(buzzard?.nonCommercialSources).toEqual(['movebank-10-5441-001-1-335']);
     expect(buzzard?.datasetLicence).toBe('CC BY-NC 4.0');
     const dataset = buzzard?.provenance.find((item) => item.id === 'movebank-10-5441-001-1-335');
     expect(dataset?.licence).toContain('CC BY-NC 4.0');
@@ -110,6 +134,20 @@ describe('v3 pack', () => {
       expect(species?.migrationType).toBe('oneWay');
       expect(species?.tracks.every((track) => track.loop === false)).toBe(true);
     }
+  });
+});
+
+describe('non-commercial backstop', () => {
+  it('treats an NC licence short form as non-commercial when the flag is false', () => {
+    expect(
+      sourceIsNonCommercial({
+        nonCommercial: false,
+        licence: 'Creative Commons Attribution Non Commercial 4.0 International',
+      }),
+    ).toBe(true);
+    expect(sourceIsNonCommercial({ nonCommercial: true, licence: 'CC0 1.0' })).toBe(true);
+    expect(sourceIsNonCommercial({ nonCommercial: false, licence: 'CC0 1.0 Universal' })).toBe(false);
+    expect(sourceIsNonCommercial(undefined)).toBe(false);
   });
 });
 

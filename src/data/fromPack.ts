@@ -65,6 +65,8 @@ interface PackSpecies {
   uncertainty?: string;
   sources: string[];
   dataStatus?: string;
+  nonCommercial?: boolean;
+  nonCommercialSources?: string[];
 }
 
 interface PackSource {
@@ -268,7 +270,11 @@ function toSpecies(entry: PackSpecies, index: number, sources: Map<string, PackS
   const events = eventsFor(entry.id, months);
   const places = placesFor(months);
   const datasetLicence = strictLicence(sourceIds, sources);
-  const nonCommercial = sourceIds.some((id) => sourceIsNonCommercial(sources.get(id)));
+  const nonCommercialSources = nonCommercialSourceIds(entry, sourceIds, sources);
+  const nonCommercial =
+    entry.nonCommercial === true ||
+    nonCommercialSources.length > 0 ||
+    sourceIds.some((id) => sourceIsNonCommercial(sources.get(id)));
   return {
     id: entry.id,
     names: { common: entry.commonName, scientific: entry.scientificName },
@@ -292,6 +298,7 @@ function toSpecies(entry: PackSpecies, index: number, sources: Map<string, PackS
     citedKm: entry.id === 'arctic-tern' && entry.distanceStatus === 'cited' ? 70900 : null,
     datasetLicence: nonCommercial ? 'CC BY-NC 4.0' : datasetLicence,
     nonCommercial,
+    nonCommercialSources,
     evidence: entry.evidence || entry.summary,
     tracks,
     events,
@@ -473,12 +480,21 @@ export function shortLicence(licence: string | undefined): string | null {
   return null;
 }
 
-/** Pack flag, or a dataset licence whose short form contains NC, such as CC BY-NC 4.0. */
-function sourceIsNonCommercial(source: PackSource | undefined): boolean {
+/** Pack flag, or a licence whose short form contains NC, such as CC BY-NC 4.0. */
+export function sourceIsNonCommercial(source: { nonCommercial?: boolean; licence?: string } | undefined): boolean {
   if (!source) return false;
   if (source.nonCommercial === true) return true;
   const code = shortLicence(source.licence);
   return code != null && code.includes('NC');
+}
+
+function nonCommercialSourceIds(entry: PackSpecies, sourceIds: string[], sources: Map<string, PackSource>): string[] {
+  const listed = (entry.nonCommercialSources ?? []).filter((id) => id.trim().length > 0);
+  const triggered = sourceIds.filter((id) => {
+    const source = sources.get(id);
+    return source?.type === 'dataset' && sourceIsNonCommercial(source);
+  });
+  return unique([...listed, ...triggered]);
 }
 
 function strictLicence(ids: string[], sources: Map<string, PackSource>): string | null {
