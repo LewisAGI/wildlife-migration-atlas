@@ -1,0 +1,16 @@
+{
+  "species": [
+    {
+      "id": "wildebeest",
+      "names": { "common": "Wildebeest", "scientific": "Connochaetes taurinus" },
+      "colour": "#e2a04a",
+      "bbox": [33.9, -3.25, 35.55, -1.25]
+    },
+    {
+      "id": "arctic-tern",
+      "names": { "common": "Arctic tern", "scientific": "Sterna paradisaea" },
+      "colour": "#79c7e8",
+      "bbox": [-50, -75, 20, 76]
+    }
+  ]
+}

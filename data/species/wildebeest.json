@@ -1,0 +1,81 @@
+{
+  "id": "wildebeest",
+  "names": { "common": "Wildebeest", "scientific": "Connochaetes taurinus" },
+  "population": "Serengeti–Mara",
+  "colour": "#e2a04a",
+  "migrationType": "loop",
+  "bbox": [33.9, -3.25, 35.55, -1.25],
+  "range": "Southern Serengeti plains to the Masai Mara, through the western corridor.",
+  "distance": "On the order of 800 km from the southern plains to the Mara. The circuit changes from year to year.",
+  "timing": "Calving on the short-grass plains from January to March. North through the western corridor by June. On the Mara in the dry season. South again with the short rains in November.",
+  "summary": "The Serengeti–Mara herds walk a rough circle after rain and fresh grass. River crossings at the Grumeti and the Mara are the dangerous days. This line is a representative seasonal round, not a tracked herd.",
+  "uncertaintyNote": "Monthly positions are a literature sketch of the seasonal round. They are not the 1999–2000 GPS tracks. Every point is representative or interpolated, and approximate.",
+  "tracks": [
+    {
+      "id": "serengeti-mara",
+      "loop": true,
+      "fixes": [
+        { "t": 15, "lat": -2.98, "lng": 34.92, "status": "representative", "uncertaintyKm": 160, "source": "thirgood-2004" },
+        { "t": 46, "lat": -3.05, "lng": 35.08, "status": "representative", "uncertaintyKm": 160, "source": "thirgood-2004" },
+        { "t": 74, "lat": -2.72, "lng": 34.7, "status": "representative", "uncertaintyKm": 160, "source": "thirgood-2004" },
+        { "t": 105, "lat": -2.42, "lng": 34.35, "status": "representative", "uncertaintyKm": 160, "source": "thirgood-2004" },
+        { "t": 135, "lat": -2.2, "lng": 34.15, "status": "representative", "uncertaintyKm": 160, "source": "thirgood-2004" },
+        { "t": 166, "lat": -2.08, "lng": 34.28, "status": "representative", "uncertaintyKm": 140, "source": "thirgood-2004" },
+        { "t": 196, "lat": -1.72, "lng": 34.72, "status": "representative", "uncertaintyKm": 150, "source": "thirgood-2004" },
+        { "t": 227, "lat": -1.48, "lng": 35.0, "status": "representative", "uncertaintyKm": 140, "source": "thirgood-2004" },
+        { "t": 258, "lat": -1.36, "lng": 35.2, "status": "representative", "uncertaintyKm": 150, "source": "thirgood-2004" },
+        { "t": 288, "lat": -1.55, "lng": 35.05, "status": "representative", "uncertaintyKm": 150, "source": "thirgood-2004" },
+        { "t": 319, "lat": -2.15, "lng": 35.38, "status": "representative", "uncertaintyKm": 170, "source": "thirgood-2004" },
+        { "t": 349, "lat": -2.62, "lng": 35.15, "status": "representative", "uncertaintyKm": 170, "source": "thirgood-2004" }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "day": 40,
+      "lat": -3.0,
+      "lng": 34.95,
+      "kind": "calving",
+      "label": "Calving",
+      "text": "Calves are born on the southern short-grass plains, roughly January to March."
+    },
+    {
+      "day": 166,
+      "lat": -2.15,
+      "lng": 34.22,
+      "kind": "crossing",
+      "label": "Grumeti",
+      "text": "Herds cross the Grumeti on the way north. The exact crossing shifts with the rain."
+    },
+    {
+      "day": 220,
+      "lat": -1.5,
+      "lng": 35.02,
+      "kind": "crossing",
+      "label": "Mara River",
+      "text": "The Mara crossing, in the dry season, is the best-known hazard on the circuit."
+    },
+    {
+      "day": 319,
+      "lat": -2.2,
+      "lng": 35.3,
+      "kind": "return",
+      "label": "Short rains",
+      "text": "When the short rains reach the south, the herds leave the Mara."
+    }
+  ],
+  "places": [
+    { "id": "ndutu", "name": "Ndutu plains", "lat": -3.0, "lng": 34.95 },
+    { "id": "grumeti", "name": "Grumeti River", "lat": -2.15, "lng": 34.25 },
+    { "id": "mara", "name": "Mara River", "lat": -1.5, "lng": 35.0 },
+    { "id": "masai-mara", "name": "Masai Mara", "lat": -1.45, "lng": 35.15 }
+  ],
+  "provenance": [
+    {
+      "id": "thirgood-2004",
+      "source": "Thirgood, S. et al. 2004. Can parks protect migratory ungulates? The case of the Serengeti wildebeest. Animal Conservation 7:113–120.",
+      "licence": "Literature-derived representative route. The GPS tracks from that study are not included. The paper is © Cambridge University Press.",
+      "url": "https://doi.org/10.1017/S1367943004001404"
+    }
+  ]
+}

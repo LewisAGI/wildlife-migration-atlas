@@ -1,0 +1,122 @@
+{
+  "id": "arctic-tern",
+  "names": { "common": "Arctic tern", "scientific": "Sterna paradisaea" },
+  "population": "High-Arctic Greenland and Iceland",
+  "colour": "#79c7e8",
+  "migrationType": "multiRoute",
+  "bbox": [-50, -75, 20, 76],
+  "range": "Arctic breeding colonies to the Weddell Sea, by way of the North Atlantic.",
+  "distance": "About 70,900 km a year on average for the birds tracked by Egevang et al. 2010 (range 59,500–81,600 km). The drawn lines are shorter because they are simplified.",
+  "timing": "Leave the colonies in August, pause in the Newfoundland Basin, then split south of Cape Verde. Winter (December–March) is south of 58°S in the Weddell Sea sector. Northbound from April, back on the breeding grounds in late May.",
+  "summary": "Two representative routes — West Africa and Brazil — for the Greenland and Iceland birds, not the path of one tern. Both use the North Atlantic stopover and winter in the Weddell Sea sector. A few tracked birds also wandered east into the Indian Ocean; that leg is not drawn.",
+  "uncertaintyNote": "Geolocators on the published birds were accurate to about 185 km. These points are a schematic of that paper, so the band is wider. Every position is representative or interpolated, and approximate.",
+  "tracks": [
+    {
+      "id": "west-africa",
+      "branch": "West Africa",
+      "loop": true,
+      "fixes": [
+        { "t": 15, "lat": -68, "lng": -35, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 46, "lat": -66, "lng": -18, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 75, "lat": -60, "lng": -8, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 105, "lat": -38, "lng": -18, "status": "representative", "uncertaintyKm": 450, "source": "egevang-2010" },
+        { "t": 122, "lat": 0, "lng": -24, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 145, "lat": 62, "lng": -28, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 152, "lat": 74.7, "lng": -20.5, "status": "representative", "uncertaintyKm": 250, "source": "egevang-2010" },
+        { "t": 210, "lat": 74.7, "lng": -20.5, "status": "representative", "uncertaintyKm": 200, "source": "egevang-2010" },
+        { "t": 227, "lat": 66, "lng": -32, "status": "representative", "uncertaintyKm": 350, "source": "egevang-2010" },
+        { "t": 236, "lat": 50, "lng": -36, "status": "representative", "uncertaintyKm": 300, "source": "egevang-2010" },
+        { "t": 258, "lat": 44, "lng": -32, "status": "representative", "uncertaintyKm": 300, "source": "egevang-2010" },
+        { "t": 275, "lat": 22, "lng": -18, "status": "representative", "uncertaintyKm": 350, "source": "egevang-2010" },
+        { "t": 292, "lat": 8, "lng": -17, "status": "representative", "uncertaintyKm": 350, "source": "egevang-2010" },
+        {
+          "t": 312,
+          "lat": -18,
+          "lng": 10,
+          "status": "representative",
+          "uncertaintyKm": 400,
+          "source": "egevang-2010",
+          "via": [
+            { "lat": 0, "lng": 5 },
+            { "lat": -8, "lng": 12 }
+          ]
+        },
+        { "t": 332, "lat": -40, "lng": 12, "status": "representative", "uncertaintyKm": 450, "source": "egevang-2010" },
+        { "t": 350, "lat": -60, "lng": -15, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" }
+      ]
+    },
+    {
+      "id": "brazil",
+      "branch": "Brazil",
+      "loop": true,
+      "fixes": [
+        { "t": 10, "lat": -71, "lng": -48, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 50, "lat": -65, "lng": -40, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 80, "lat": -55, "lng": -32, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 108, "lat": -28, "lng": -30, "status": "representative", "uncertaintyKm": 450, "source": "egevang-2010" },
+        { "t": 125, "lat": 2, "lng": -32, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 148, "lat": 55, "lng": -34, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 156, "lat": 74.7, "lng": -20.5, "status": "representative", "uncertaintyKm": 250, "source": "egevang-2010" },
+        { "t": 212, "lat": 74.7, "lng": -20.5, "status": "representative", "uncertaintyKm": 200, "source": "egevang-2010" },
+        { "t": 228, "lat": 64, "lng": -34, "status": "representative", "uncertaintyKm": 350, "source": "egevang-2010" },
+        { "t": 238, "lat": 47, "lng": -34, "status": "representative", "uncertaintyKm": 280, "source": "egevang-2010" },
+        { "t": 260, "lat": 42, "lng": -30, "status": "representative", "uncertaintyKm": 300, "source": "egevang-2010" },
+        { "t": 278, "lat": 18, "lng": -20, "status": "representative", "uncertaintyKm": 350, "source": "egevang-2010" },
+        { "t": 294, "lat": 6, "lng": -22, "status": "representative", "uncertaintyKm": 350, "source": "egevang-2010" },
+        {
+          "t": 312,
+          "lat": -8,
+          "lng": -35,
+          "status": "representative",
+          "uncertaintyKm": 400,
+          "source": "egevang-2010",
+          "via": [
+            { "lat": 2, "lng": -28 },
+            { "lat": -2, "lng": -33 }
+          ]
+        },
+        { "t": 330, "lat": -28, "lng": -42, "status": "representative", "uncertaintyKm": 400, "source": "egevang-2010" },
+        { "t": 348, "lat": -42, "lng": -38, "status": "representative", "uncertaintyKm": 450, "source": "egevang-2010" }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "day": 245,
+      "lat": 47,
+      "lng": -34,
+      "kind": "stopover",
+      "label": "Newfoundland Basin",
+      "text": "Southbound birds pause here for about three weeks, over deep water where cold and warm Atlantic water meet."
+    },
+    {
+      "day": 15,
+      "lat": -68,
+      "lng": -40,
+      "kind": "wintering",
+      "label": "Weddell Sea",
+      "text": "December to March is spent south of 58°S, in the Weddell Sea sector."
+    },
+    {
+      "day": 160,
+      "lat": 74.7,
+      "lng": -20.5,
+      "kind": "breeding",
+      "label": "Sand Island",
+      "text": "Breeding colony at Sand Island, Young Sound, northeast Greenland. Birds from Iceland take a similar route."
+    }
+  ],
+  "places": [
+    { "id": "sand-island", "name": "Sand Island", "lat": 74.7, "lng": -20.5 },
+    { "id": "newfoundland-basin", "name": "Newfoundland Basin", "lat": 47, "lng": -34 },
+    { "id": "weddell-sea", "name": "Weddell Sea", "lat": -68, "lng": -40 }
+  ],
+  "provenance": [
+    {
+      "id": "egevang-2010",
+      "source": "Egevang, C. et al. 2010. Tracking of Arctic terns Sterna paradisaea reveals longest animal migration. PNAS 107:2078–2081.",
+      "licence": "Literature-derived representative routes. Geolocator locations from OBIS-SEAMAP (CC BY-NC 4.0) were not copied into this file. The paper is open access via PNAS.",
+      "url": "https://doi.org/10.1073/pnas.0909493107"
+    }
+  ]
+}
