@@ -40,11 +40,6 @@ test.beforeEach(async ({ page }) => {
     if (!isAppAsset(url)) return;
     faults.push(`failed: ${url} ${request.failure()?.errorText ?? ''}`);
   });
-  await page.goto('/');
-  await page.locator('#app[data-ready="true"]').waitFor();
-  await page.waitForFunction(() => window.__atlas.map.getProjection().type === 'globe');
-  await page.waitForFunction(() => window.__atlas.map.isSourceLoaded('land'));
-  await page.waitForFunction(() => !window.__atlas.map.isMoving());
 });
 
 test.afterEach(() => {
@@ -52,7 +47,9 @@ test.afterEach(() => {
 });
 
 test('globe, land, and icon labels', async ({ page }) => {
+  await openAtlas(page);
   await expect(page.locator('#map canvas')).toBeVisible();
+  await expect(page.locator('#app')).not.toHaveAttribute('data-overlay-tile', 'degraded');
   await expect(page.locator('#app')).toHaveAttribute('data-projection', 'globe');
   await expect(page.locator('.maplibregl-ctrl-attrib')).toBeVisible();
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('NASA Blue Marble');
@@ -84,6 +81,7 @@ test('globe, land, and icon labels', async ({ page }) => {
 });
 
 test('scrubber, keyboard, play, and loop', async ({ page }) => {
+  await openAtlas(page);
   await page.locator('#slider').fill('20');
   await expect.poll(() => dayOf(page)).toBe(20);
   await dragSlider(page, 0.72);
@@ -111,21 +109,23 @@ test('scrubber, keyboard, play, and loop', async ({ page }) => {
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
 });
 
-test('markers move, tern winters south, compare and the info sheet', async ({ page }, testInfo) => {
+test('markers move between seasons', async ({ page }) => {
+  await openAtlas(page);
   const early = await herdOnDay(page, 30);
   const later = await herdOnDay(page, 200);
   expect(Math.abs(early.lat - later.lat) + Math.abs(early.lng - later.lng)).toBeGreaterThan(0.4);
+});
 
-  await page.getByRole('button', { name: 'Species' }).click();
-  await page.getByRole('button', { name: 'Arctic tern', exact: true }).click();
-  await page.locator('#slider').fill('15');
-  // WebKit can return from fill before the frame that publishes the winter position.
-  await expect.poll(() => dayOf(page)).toBe(15);
+test('arctic tern winters south', async ({ page }) => {
+  await openAtlas(page, 'species=arctic-tern&day=15');
   await expect.poll(async () => ternLats(page)).toEqual(expect.arrayContaining([expect.any(Number)]));
   const lats = await ternLats(page);
   expect(lats.length).toBe(1);
   lats.forEach((lat) => expect(lat).toBeLessThan(-50));
+});
 
+test('compare frames wildebeest and the tern together', async ({ page }) => {
+  await openAtlas(page, 'species=arctic-tern&day=15');
   const before = await centerOf(page);
   await page.getByRole('button', { name: 'Species' }).click();
   await page.getByRole('button', { name: 'Blue wildebeest', exact: true }).click();
@@ -141,47 +141,49 @@ test('markers move, tern winters south, compare and the info sheet', async ({ pa
   await expect(page.locator('#compare-panel')).toContainText('Arctic tern');
   await expect(page.locator('#compare-panel')).toContainText('Blue wildebeest');
   await expect.poll(async () => idsOf(page)).toEqual(expect.arrayContaining(['blue-wildebeest', 'arctic-tern']));
-  await page.keyboard.press('Escape');
+});
 
-  await page.getByRole('button', { name: 'Species' }).click();
-  await page.getByRole('button', { name: 'Blue wildebeest', exact: true }).click();
-  await page.waitForFunction(() => !window.__atlas.map.isMoving());
-  await scrubToClearMarker(page, 'blue-wildebeest');
+test('wildebeest marker opens the info sheet', async ({ page }, testInfo) => {
+  // Maasai Mara (day 250) is off the event pins on the Chromium frames.
+  // WebKit's short landscape piles a pin onto that point; day 319 is clear there.
+  const day = testInfo.project.name === 'landscape-webkit' ? 319 : 250;
+  await openAtlas(page, `species=blue-wildebeest&day=${day}`);
   await clickSpecies(page, 'blue-wildebeest');
-  const sheet = testInfo.project.name !== 'desktop';
-  const card = sheet ? page.locator('.event-sheet') : page.locator('.maplibregl-popup');
+  const card = infoCard(page, testInfo.project.name);
   await expect(card).toBeVisible();
   await expect(card).toContainText('Wildebeest');
   await expect(card.locator('.approx-mark')).toHaveText('approximate');
-  await page.locator(sheet ? '.sheet-close' : '.maplibregl-popup-close-button').click();
+  await closeCard(page, testInfo.project.name);
   await expect(card).toHaveCount(0);
-
-  await page.getByRole('button', { name: 'Calving', exact: true }).click();
-  await expect(card).toBeVisible();
-  await expect(card).toContainText('short-grass plains');
-  await page.locator(sheet ? '.sheet-close' : '.maplibregl-popup-close-button').click();
 });
 
-test('monarch, humpback, honey buzzard licence, and vegetation overlay', async ({ page }, testInfo) => {
-  const ndviStatuses: number[] = [];
-  page.on('response', (response) => {
-    if (response.url().includes('MODIS_Terra_L3_NDVI_Monthly')) ndviStatuses.push(response.status());
-  });
-  await page.getByRole('button', { name: 'Species' }).click();
-  await page.locator('#species-panel').getByRole('button', { name: 'European honey buzzard', exact: true }).click();
+test('pin and card clicks leave the info sheet open', async ({ page }, testInfo) => {
+  await openAtlas(page, 'species=blue-wildebeest&day=250');
+  await page.getByRole('button', { name: 'Calving', exact: true }).click();
+  const card = infoCard(page, testInfo.project.name);
+  await expect(card).toBeVisible();
+  await expect(card).toContainText('short-grass plains');
+  await card.locator('.popup-latin').click();
+  await expect(card).toBeVisible();
+  await expect(card).toContainText('short-grass plains');
+});
+
+test('honey buzzard licence is on the marker card', async ({ page }, testInfo) => {
+  // Day 196 is the July median, inside the route rather than on the framed edge.
+  await openAtlas(page, 'species=honey-buzzard-finland&day=196');
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('CC BY-NC 4.0');
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('not for a paid version');
   await expect(page.locator('#app')).toHaveAttribute('data-species', 'honey-buzzard-finland');
-  await page.waitForFunction(() => !window.__atlas.map.isMoving());
-  await scrubToClearMarker(page, 'honey-buzzard-finland');
   await clickSpecies(page, 'honey-buzzard-finland');
-  const sheet = testInfo.project.name !== 'desktop';
-  const card = sheet ? page.locator('.event-sheet') : page.locator('.maplibregl-popup');
+  const card = infoCard(page, testInfo.project.name);
   await expect(card).toContainText('Not for a paid version');
   await expect(card).toContainText('nonCommercialSources: movebank-10-5441-001-1-335');
-  await page.locator(sheet ? '.sheet-close' : '.maplibregl-popup-close-button').click();
+  await closeCard(page, testInfo.project.name);
   await expect(card).toHaveCount(0);
+});
 
+test('monarch and humpback months', async ({ page }) => {
+  await openAtlas(page);
   await page.getByRole('button', { name: 'Species' }).click();
   await page.locator('#species-panel').getByRole('button', { name: 'Monarch butterfly', exact: true }).click();
   await expect(page.locator('#app')).toHaveAttribute('data-species', 'monarch');
@@ -193,7 +195,14 @@ test('monarch, humpback, honey buzzard licence, and vegetation overlay', async (
   await page.getByRole('button', { name: 'Months' }).click();
   await expect(page.locator('#months-panel .month-option.is-estimated')).not.toHaveCount(0);
   await expect(page.locator('#months-panel .month-option.is-observed')).toHaveCount(0);
+});
 
+test('vegetation overlay loads an NDVI tile', async ({ page }) => {
+  const ndviStatuses: number[] = [];
+  page.on('response', (response) => {
+    if (response.url().includes('MODIS_Terra_L3_NDVI_Monthly')) ndviStatuses.push(response.status());
+  });
+  await openAtlas(page);
   await page.getByRole('button', { name: 'Layers' }).click();
   await page.getByRole('button', { name: 'MODIS NDVI, observed monthly' }).click();
   await expect(page.locator('#app')).toHaveAttribute('data-overlay', 'ndvi');
@@ -203,6 +212,7 @@ test('monarch, humpback, honey buzzard licence, and vegetation overlay', async (
 });
 
 test('content security policy allows the globe and NDVI tiles', async ({ page }) => {
+  await openAtlas(page);
   const response = await page.request.get('/');
   const headers = response.headers();
   const csp = headers['content-security-policy'] ?? '';
@@ -220,6 +230,24 @@ test('content security policy allows the globe and NDVI tiles', async ({ page })
   await expect(page.locator('#app')).toHaveAttribute('data-overlay', 'ndvi');
   await expect.poll(() => ndviStatuses.filter((status) => status === 200).length).toBeGreaterThan(0);
 });
+
+async function openAtlas(page: Page, search = '') {
+  await page.goto(search ? `/?${search}` : '/');
+  await page.locator('#app[data-ready="true"]').waitFor();
+  await page.waitForFunction(() => window.__atlas.map.getProjection().type === 'globe');
+  await page.waitForFunction(() => window.__atlas.map.isSourceLoaded('land'));
+  await page.waitForFunction(() => !window.__atlas.map.isMoving());
+  const day = new URLSearchParams(search).get('day');
+  if (day != null) await expect.poll(() => dayOf(page)).toBe(Number(day));
+}
+
+function infoCard(page: Page, project: string) {
+  return project === 'desktop' ? page.locator('.maplibregl-popup') : page.locator('.event-sheet');
+}
+
+async function closeCard(page: Page, project: string) {
+  await page.locator(project === 'desktop' ? '.maplibregl-popup-close-button' : '.sheet-close').click();
+}
 
 async function dayOf(page: Page): Promise<number> {
   const value = await page.locator('#app').getAttribute('data-day');
@@ -264,25 +292,6 @@ async function dragSlider(page: Page, fraction: number) {
   await page.mouse.down();
   await page.mouse.move(box.x + Math.max(8, box.width * fraction), y, { steps: 10 });
   await page.mouse.up();
-}
-
-async function scrubToClearMarker(page: Page, speciesId: string) {
-  for (const day of [90, 120, 150, 60, 180, 250, 300, 15]) {
-    await page.locator('#slider').fill(String(day));
-    // The day and the projected position update on the same frame. A miss used to
-    // sit on a 2s timeout, which pushed the desktop info-sheet check into the 90s test budget.
-    await expect.poll(() => dayOf(page), { timeout: 2_000 }).toBe(day);
-    const clear = await page.evaluate((id) => {
-      const position = window.__atlas.positions.find((item) => item.speciesId === id);
-      const canvas = document.querySelector('#map canvas');
-      if (!position || !(canvas instanceof HTMLCanvasElement)) return false;
-      const origin = window.__atlas.map.project([position.lng, position.lat]);
-      const rect = canvas.getBoundingClientRect();
-      return document.elementFromPoint(rect.left + origin.x, rect.top + origin.y) === canvas;
-    }, speciesId);
-    if (clear) return;
-  }
-  throw new Error(`no clear day for ${speciesId}`);
 }
 
 async function markerHit(page: Page, speciesId: string): Promise<{ x: number; y: number; clear: boolean } | null> {

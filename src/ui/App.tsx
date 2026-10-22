@@ -10,7 +10,7 @@ import { createTrackProvider, sampleVisible, type PositionProvider, type Positio
 import { createYearClock, type YearClock } from '../time/yearClock';
 import { ComparePopout } from './ComparePopout';
 import { IconButton } from './IconButton';
-import { IconMinus, IconPlus } from './icons';
+import { IconMinus, IconPlus, IconVegetation } from './icons';
 import { InfoSheet } from './InfoSheet';
 import { LayerPopout } from './LayerPopout';
 import { bindLongPress } from './longPress';
@@ -18,9 +18,23 @@ import { MonthsPopout } from './MonthsPopout';
 import { SpeciesPopout } from './SpeciesPopout';
 import { TimeBar } from './TimeBar';
 
+/** `/?species=blue-wildebeest&day=250` opens that population on that day. */
+function readLaunch(): { speciesId: string; day: number } {
+  const params = new URLSearchParams(window.location.search);
+  const species = params.get('species');
+  const dayText = params.get('day');
+  const parsed = dayText == null ? 15 : Number(dayText);
+  return {
+    speciesId: species && /^[a-z0-9-]+$/.test(species) ? species : 'blue-wildebeest',
+    day: Number.isInteger(parsed) && parsed >= 0 && parsed <= 364 ? parsed : 15,
+  };
+}
+
 export function App() {
+  const launchRef = useRef(readLaunch());
+  const launch = launchRef.current;
   const clockRef = useRef<YearClock | null>(null);
-  if (!clockRef.current) clockRef.current = createYearClock(15);
+  if (!clockRef.current) clockRef.current = createYearClock(launch.day);
   const clock = clockRef.current;
   const mapNode = useRef<HTMLDivElement>(null);
   const globeRef = useRef<GlobeController | null>(null);
@@ -29,7 +43,7 @@ export function App() {
   const filterRef = useRef<StatusFilter>('all');
 
   const [catalog, setCatalog] = useState<Species[]>([]);
-  const [selectedId, setSelectedId] = useState('blue-wildebeest');
+  const [selectedId, setSelectedId] = useState(launch.speciesId);
   const [partnerId, setPartnerId] = useState<string | null>(null);
   const [day, setDay] = useState(() => Math.floor(clock.day));
   const [playing, setPlaying] = useState(false);
@@ -44,6 +58,7 @@ export function App() {
   const [filter, setFilter] = useState<StatusFilter>('all');
   const [threats, setThreats] = useState(false);
   const [info, setInfo] = useState<PickHit | null>(null);
+  const [vegetationDegraded, setVegetationDegraded] = useState(false);
   const [snapshot, setSnapshot] = useState<FramePosition[]>([]);
   const closeAtlas = () => {
     setSpeciesOpen(false);
@@ -68,6 +83,11 @@ export function App() {
   visibleRef.current = visible;
   const visibleKey = visible.map((item) => item.id).join(',');
   const selectedSpecies = catalog.find((item) => item.id === selectedId) ?? null;
+
+  useEffect(() => {
+    if (catalog.length === 0) return;
+    if (!catalog.some((item) => item.id === selectedId)) setSelectedId('blue-wildebeest');
+  }, [catalog, selectedId]);
 
   useEffect(() => {
     let cancel = false;
@@ -101,6 +121,7 @@ export function App() {
       setPlaybackOpen(false);
       setInfo(hit);
     });
+    globe.onOverlayTile(setVegetationDegraded);
     return () => {
       globe.destroy();
       globeRef.current = null;
@@ -283,6 +304,13 @@ export function App() {
       </div>
       <div className="key-wrap">
         <div className="key-stack">
+          {vegetationDegraded && (
+            <div className="key-item">
+              <IconButton className="is-degraded" label="Vegetation tiles did not load">
+                <IconVegetation />
+              </IconButton>
+            </div>
+          )}
           <LayerPopout
             open={layersOpen}
             overlay={overlay}

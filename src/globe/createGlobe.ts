@@ -34,6 +34,7 @@ export interface GlobeController {
   zoomOut(): void;
   routePoint(speciesId: string): { lng: number; lat: number } | null;
   onPick(handler: (hit: PickHit | null) => void): void;
+  onOverlayTile(listener: (degraded: boolean) => void): void;
   destroy(): void;
 }
 
@@ -61,16 +62,28 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     map.triggerRepaint();
     root.dataset.landRepaint = '1';
   });
+  let overlayDegraded = false;
+  let overlayTileListener: (degraded: boolean) => void = () => {};
+  const setOverlayDegraded = (degraded: boolean) => {
+    if (overlayDegraded === degraded) return;
+    overlayDegraded = degraded;
+    if (degraded) root.dataset.overlayTile = 'degraded';
+    else delete root.dataset.overlayTile;
+    overlayTileListener(degraded);
+  };
   map.on('error', (event) => {
-    const detail = event as unknown as { sourceId?: string; tile?: unknown; error?: { message?: string } };
+    const detail = event as unknown as { sourceId?: string; tile?: unknown };
     if (!detail.sourceId && !detail.tile) return;
-    // A missing or CORS-blocked GIBS tile must not take the rest of the globe down.
+    // A missing or CORS-blocked tile must not take the rest of the globe down.
     map.triggerRepaint();
     root.dataset.tileRepaint = '1';
-    const message = detail.error?.message ?? '';
-    if (detail.sourceId === 'ndvi' || message.includes('gibs.earthdata.nasa.gov')) {
-      root.dataset.overlayTile = 'degraded';
-    }
+    // Land and Blue Marble are also GIBS. Only the NDVI source is the vegetation overlay.
+    if (detail.sourceId === 'ndvi') setOverlayDegraded(true);
+  });
+  map.on('sourcedata', (event) => {
+    if (event.sourceId !== 'ndvi') return;
+    const tile = (event as { tile?: { state?: string } }).tile;
+    if (tile?.state === 'loaded') setOverlayDegraded(false);
   });
 
   const ready = new Promise<void>((resolve) => {
@@ -366,6 +379,7 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
       appliedOverlay = month;
       overlayMonth = month;
       root.dataset.overlay = month == null ? 'off' : 'ndvi';
+      if (month == null) setOverlayDegraded(false);
       void ready.then(() => {
         if (!map.getLayer('ndvi')) return;
         map.setLayoutProperty('ndvi', 'visibility', month == null ? 'none' : 'visible');
@@ -398,6 +412,10 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     },
     onPick(handler) {
       pickHandler = handler;
+    },
+    onOverlayTile(listener) {
+      overlayTileListener = listener;
+      if (overlayDegraded) listener(true);
     },
     destroy() {
       overlays.destroy();
