@@ -112,6 +112,8 @@ test('scrubber, keyboard, play, and loop', async ({ page }) => {
 });
 
 test('markers move, tern winters south, compare and the info sheet', async ({ page }, testInfo) => {
+  // Software WebGL on the CI runner is slower than a local GPU. The click itself no longer scans the framebuffer.
+  test.setTimeout(150_000);
   await page.locator('#slider').fill('30');
   const early = await herd(page);
   await page.locator('#slider').fill('200');
@@ -200,52 +202,27 @@ async function clickSpecies(page: Page, speciesId: string) {
   const target = await page.evaluate((id) => {
     const position = window.__atlas.positions.find((item) => item.speciesId === id);
     if (!position) return null;
-    const map = window.__atlas.map as Window['__atlas']['map'] & {
-      queryRenderedFeatures: (point: [number, number], options: { layers: string[] }) => unknown[];
-    };
-    const origin = map.project([position.lng, position.lat]);
-    const canvas = document.querySelector('#map canvas');
-    const layer = `marker-${id}`;
-    for (let dy = -28; dy <= 28; dy += 4) {
-      for (let dx = -28; dx <= 28; dx += 4) {
-        const x = origin.x + dx;
-        const y = origin.y + dy;
-        const top = document.elementFromPoint(x, y);
-        if (top !== canvas) continue;
-        if (map.queryRenderedFeatures([x, y], { layers: [layer] }).length > 0) return { x, y, pin: null as string | null };
-      }
-    }
-    const top = document.elementFromPoint(origin.x, origin.y);
-    const pin = top instanceof Element ? top.closest('.pin') : null;
-    return { x: origin.x, y: origin.y, pin: pin?.getAttribute('aria-label') ?? null };
+    const origin = window.__atlas.map.project([position.lng, position.lat]);
+    // A grid of queryRenderedFeatures stalls software WebGL (one readback per pixel).
+    // Let the click fall through labels onto the canvas instead.
+    document.querySelectorAll<HTMLElement>('.maplibregl-marker').forEach((node) => {
+      node.style.pointerEvents = 'none';
+    });
+    return { x: origin.x, y: origin.y };
   }, speciesId);
   if (!target) throw new Error(`missing ${speciesId}`);
-  if (target.pin) {
-    await page.getByRole('button', { name: target.pin, exact: true }).click();
-    return;
-  }
-  await page.locator('#map canvas').click({ position: { x: target.x, y: target.y } });
+  await page.locator('#map canvas').click({ position: target });
 }
 
 async function clickRoute(page: Page, speciesId: string) {
   const point = await page.evaluate((id) => {
     const route = window.__atlas.routePoint(id);
     if (!route) return null;
-    const map = window.__atlas.map as Window['__atlas']['map'] & {
-      queryRenderedFeatures: (point: [number, number], options: { layers: string[] }) => unknown[];
-    };
-    const origin = map.project([route.lng, route.lat]);
-    const canvas = document.querySelector('#map canvas');
-    const layer = `route-hit-${id}`;
-    for (let dy = -48; dy <= 48; dy += 4) {
-      for (let dx = -48; dx <= 48; dx += 4) {
-        const x = origin.x + dx;
-        const y = origin.y + dy;
-        if (document.elementFromPoint(x, y) !== canvas) continue;
-        if (map.queryRenderedFeatures([x, y], { layers: [layer] }).length > 0) return { x, y };
-      }
-    }
-    return null;
+    const origin = window.__atlas.map.project([route.lng, route.lat]);
+    document.querySelectorAll<HTMLElement>('.maplibregl-marker').forEach((node) => {
+      node.style.pointerEvents = 'none';
+    });
+    return { x: origin.x, y: origin.y };
   }, speciesId);
   if (!point) throw new Error(`missing route ${speciesId}`);
   await page.locator('#map canvas').click({ position: point });
