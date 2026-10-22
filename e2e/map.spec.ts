@@ -119,6 +119,8 @@ test('markers move, tern winters south, compare and the info sheet', async ({ pa
   await page.getByRole('button', { name: 'Species' }).click();
   await page.getByRole('button', { name: 'Arctic tern', exact: true }).click();
   await page.locator('#slider').fill('15');
+  // WebKit can return from fill before the frame that publishes the winter position.
+  await expect.poll(() => dayOf(page)).toBe(15);
   await expect.poll(async () => ternLats(page)).toEqual(expect.arrayContaining([expect.any(Number)]));
   const lats = await ternLats(page);
   expect(lats.length).toBe(1);

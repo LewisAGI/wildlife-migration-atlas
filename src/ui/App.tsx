@@ -163,35 +163,45 @@ export function App() {
     let last = performance.now();
     let frame = 0;
     let shown = -1;
+    let publishedDay = Number.NaN;
+    let publishedKey = '';
     const tick = (now: number) => {
       const dt = Math.min(64, now - last);
       last = now;
       clock.advance(dt);
       const dayNow = clock.day;
-      const positions: FramePosition[] = [];
-      visibleRef.current.forEach((item) => {
-        item.tracks.forEach((track) => {
-          const sample = providersRef.current.get(`${item.id}:${track.id}`)?.positionAt(dayNow);
-          if (!sample || !sampleVisible(sample, filterRef.current)) return;
-          positions.push({ ...sample, speciesId: item.id, colour: sample.colour ?? item.colour });
-        });
-      });
-      globeRef.current?.setFrame(positions, dayNow);
       const root = document.querySelector<HTMLElement>('#app');
       if (root) {
         root.dataset.day = String(Math.floor(dayNow));
         root.dataset.playing = clock.playing ? '1' : '0';
-        if (positions.length > 0) {
+      }
+      // A paused day has one geometry. Rebuilding it every frame keeps the
+      // desktop globe rendering and pushes the info-sheet check past 90s.
+      const key = `${visibleRef.current.map((item) => item.id).join(',')}|${filterRef.current}`;
+      const moved = clock.playing ? dayNow !== publishedDay : Math.floor(dayNow) !== Math.floor(publishedDay);
+      if (moved || key !== publishedKey) {
+        publishedDay = dayNow;
+        publishedKey = key;
+        const positions: FramePosition[] = [];
+        visibleRef.current.forEach((item) => {
+          item.tracks.forEach((track) => {
+            const sample = providersRef.current.get(`${item.id}:${track.id}`)?.positionAt(dayNow);
+            if (!sample || !sampleVisible(sample, filterRef.current)) return;
+            positions.push({ ...sample, speciesId: item.id, colour: sample.colour ?? item.colour });
+          });
+        });
+        globeRef.current?.setFrame(positions, dayNow);
+        if (window.__atlas) window.__atlas.positions = positions;
+        const next = Math.floor(dayNow);
+        if (positions.length > 0 && next !== shown) {
+          shown = next;
+          setSnapshot(positions);
+        }
+        if (root && positions.length > 0) {
           void globeRef.current?.ready.then(() => {
             root.dataset.ready = 'true';
           });
         }
-      }
-      if (window.__atlas) window.__atlas.positions = positions;
-      const next = Math.floor(dayNow);
-      if (positions.length > 0 && next !== shown) {
-        shown = next;
-        setSnapshot(positions);
       }
       frame = requestAnimationFrame(tick);
     };

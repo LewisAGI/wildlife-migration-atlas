@@ -129,6 +129,17 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
       source?.setData(frameCollection([item], mine, providers, day, statusFilter));
     });
   };
+  // setFrame arrives once per animation frame. Collapse that burst into one
+  // geometry update, including the frames that arrive before the style loads.
+  let paintQueued = false;
+  const schedulePaint = () => {
+    if (paintQueued) return;
+    paintQueued = true;
+    void ready.then(() => {
+      paintQueued = false;
+      paint();
+    });
+  };
 
   const ensureSpecies = (item: Species) => {
     const id = sourceId(item.id);
@@ -341,14 +352,14 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     setFrame(next, nextDay) {
       positions = next;
       day = nextDay;
-      void ready.then(() => paint());
+      schedulePaint();
     },
     setSelected(speciesId) {
       overlays.setSelected(speciesId);
     },
     setFilter(filter) {
       statusFilter = filter;
-      void ready.then(() => paint());
+      schedulePaint();
     },
     setOverlay(month) {
       const changed = month !== appliedOverlay;
