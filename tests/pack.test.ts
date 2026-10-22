@@ -44,6 +44,7 @@ describe('v3 pack', () => {
     const restricted = catalog.species.filter((item) => item.nonCommercial);
     expect(restricted.map((item) => item.id).sort()).toEqual([
       'arctic-tern-obs',
+      'honey-buzzard-finland',
       'humpback-wap',
       'leatherback-south-africa-nc',
       'monarch-sightings',
@@ -62,10 +63,14 @@ describe('v3 pack', () => {
 
   it('labels the honey buzzard dataset CC BY-NC 4.0', () => {
     const buzzard = catalog.species.find((item) => item.id === 'honey-buzzard-finland');
+    expect(buzzard?.nonCommercial).toBe(true);
     expect(buzzard?.datasetLicence).toBe('CC BY-NC 4.0');
     const dataset = buzzard?.provenance.find((item) => item.id === 'movebank-10-5441-001-1-335');
     expect(dataset?.licence).toContain('CC BY-NC 4.0');
     expect(dataset?.licence.toLowerCase()).toContain('non commercial');
+    const licences = readFileSync(new URL('../data/LICENSES.md', import.meta.url), 'utf8');
+    expect(licences).toContain('honey-buzzard-finland');
+    expect(licences).toMatch(/movebank-10-5441-001-1-335/);
   });
 
   it('says the tern paper is free to read and gives the wildebeest circuit as 800–1,000 km', () => {
@@ -73,6 +78,14 @@ describe('v3 pack', () => {
     const paper = tern?.provenance.find((item) => item.id === 'doi-10-1073-pnas-0909493107');
     expect(paper?.licence).toContain('free to read');
     expect(paper?.licence.toLowerCase()).not.toContain('open access');
+    expect(paper?.licence.toLowerCase()).not.toContain('not copied');
+    expect(paper?.licence).toContain('arctic-tern-obs');
+    const tracked = catalog.species.find((item) => item.id === 'arctic-tern-obs');
+    expect(tracked?.provenance.some((item) => item.id === 'dataset-10-82144-f1e7b55e')).toBe(true);
+    const licences = readFileSync(new URL('../data/LICENSES.md', import.meta.url), 'utf8');
+    expect(licences).not.toMatch(/OBIS-SEAMAP[^.]{0,200}not copied/i);
+    expect(licences).toContain('Those monthly medians are in the catalog');
+    expect(licences).toContain('arctic-tern-obs');
     expect(tern?.citedKm).toBe(70900);
     const herd = catalog.species.find((item) => item.id === 'blue-wildebeest');
     expect(herd?.distance).toContain('800–1,000 km');

@@ -1,21 +1,23 @@
-import content from '../../data/pack/content.json';
-import sources from '../../data/pack/sources.json';
 import { buildCatalog } from './fromPack';
 import type { Species, SpeciesIndex } from './schema';
 
-const catalog = buildCatalog(content, sources);
-
-export function loadIndex(): SpeciesIndex {
-  return catalog.index;
-}
+let catalogPromise: Promise<{ index: SpeciesIndex; species: Species[] }> | null = null;
 
 /** The globe reads the v3 pack. Adding a population means extending that pack, not a new code path. */
-export async function loadSpecies(id: string): Promise<Species> {
-  const species = catalog.species.find((item) => item.id === id);
-  if (!species) throw new Error(`No data file for ${id}`);
-  return species;
+export function loadCatalog(): Promise<{ index: SpeciesIndex; species: Species[] }> {
+  catalogPromise ??= Promise.all([
+    import('../../data/pack/content.json'),
+    import('../../data/pack/sources.json'),
+  ]).then(([content, sources]) => buildCatalog(content.default, sources.default));
+  return catalogPromise;
 }
 
-export async function loadCatalog(): Promise<{ index: SpeciesIndex; species: Species[] }> {
-  return catalog;
+export async function loadIndex(): Promise<SpeciesIndex> {
+  return (await loadCatalog()).index;
+}
+
+export async function loadSpecies(id: string): Promise<Species> {
+  const species = (await loadCatalog()).species.find((item) => item.id === id);
+  if (!species) throw new Error(`No data file for ${id}`);
+  return species;
 }

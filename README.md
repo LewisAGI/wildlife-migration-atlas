@@ -25,7 +25,7 @@ npm run test:e2e
 
 Populations come from `data/pack/content.json`, with citations in `data/pack/sources.json`. Licences, and what was deliberately left out, are in [`data/LICENSES.md`](data/LICENSES.md).
 
-Each stored month is `observed`, `observed-sightings` (citizen-science medians), `representative` (shown as estimated), or `no-data`. A fix between months is `interpolated`. `simulated` is reserved for a later model. Nothing here is simulated. Entries whose source sets `nonCommercial` show CC BY-NC and are not for a paid version; see `data/LICENSES.md`.
+Each stored month is `observed`, `observed-sightings` (citizen-science medians), `representative` (shown as estimated), or `no-data`. A fix between months is `interpolated`. `simulated` is reserved for a later model. Nothing here is simulated. Entries whose source sets `nonCommercial`, or whose licence short form contains NC, show CC BY-NC and are not for a paid version; see `data/LICENSES.md`.
 
 ## Controls
 

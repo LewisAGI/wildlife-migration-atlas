@@ -268,7 +268,7 @@ function toSpecies(entry: PackSpecies, index: number, sources: Map<string, PackS
   const events = eventsFor(entry.id, months);
   const places = placesFor(months);
   const datasetLicence = strictLicence(sourceIds, sources);
-  const nonCommercial = sourceIds.some((id) => sources.get(id)?.nonCommercial === true);
+  const nonCommercial = sourceIds.some((id) => sourceIsNonCommercial(sources.get(id)));
   return {
     id: entry.id,
     names: { common: entry.commonName, scientific: entry.scientificName },
@@ -448,7 +448,7 @@ function cite(source: PackSource): string {
 
 function licenceText(source: PackSource): string {
   if (source.id === 'doi-10-1073-pnas-0909493107') {
-    return 'Cited paper, free to read. It is not under an open licence. OBIS-SEAMAP geolocator rows (CC BY-NC 4.0) were not copied.';
+    return 'Cited paper, free to read. It is not under an open licence. The representative Arctic tern cites this paper. The tracked entry arctic-tern-obs uses the OBIS-SEAMAP geolocator medians (CC BY-NC 4.0). Raw geolocator rows are not in this repository.';
   }
   const code = shortLicence(source.licence);
   if (source.licence && code) {
@@ -471,6 +471,14 @@ export function shortLicence(licence: string | undefined): string | null {
   if (text.includes('cc0') || text.includes('zero') || text.includes('public domain')) return 'CC0';
   if (text.includes('attribution')) return 'CC BY 4.0';
   return null;
+}
+
+/** Pack flag, or a dataset licence whose short form contains NC, such as CC BY-NC 4.0. */
+function sourceIsNonCommercial(source: PackSource | undefined): boolean {
+  if (!source) return false;
+  if (source.nonCommercial === true) return true;
+  const code = shortLicence(source.licence);
+  return code != null && code.includes('NC');
 }
 
 function strictLicence(ids: string[], sources: Map<string, PackSource>): string | null {

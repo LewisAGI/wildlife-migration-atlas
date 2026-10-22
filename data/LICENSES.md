@@ -23,12 +23,13 @@ Licences, from DataCite, are carried on each dataset's provenance entry:
 
 - Most datasets are CC0.
 - Some are CC BY 4.0. Those entries name the dataset.
-- **European honey buzzard (Finland), DOI `10.5441/001/1.335`, is Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).** The monthly medians for `honey-buzzard-finland` are under that licence. The sheet and the map attribution show `CC BY-NC 4.0` while that population is selected.
+- European honey buzzard (Finland), DOI `10.5441/001/1.335`, is listed with the non-commercial entries below.
 
-## Entries with `nonCommercial: true`
+## Non-commercial entries
 
-A source with `nonCommercial: true` is CC BY-NC. The populations below use one of those sources. **These entries cannot be used in a paid version** of this atlas. The sheet and the map attribution say `CC BY-NC 4.0. Not for a paid version.` while one of them is selected.
+An entry is non-commercial when a linked source sets `nonCommercial: true`, or when that source's licence short form contains `NC` (for example `CC BY-NC 4.0`). **These entries cannot be used in a paid version** of this atlas. The sheet and the map attribution say `CC BY-NC 4.0. Not for a paid version.` while one of them is selected.
 
+- `honey-buzzard-finland` — Movebank DOI `10.5441/001/1.335`, source `movebank-10-5441-001-1-335`. That source has no `nonCommercial` flag. Its licence is Creative Commons Attribution-NonCommercial 4.0 International, short form CC BY-NC 4.0, so the atlas treats the entry as non-commercial.
 - `arctic-tern-obs` — OBIS-SEAMAP geolocators, `dataset-10-82144-f1e7b55e`
 - `leatherback-south-africa-nc` — `dataset-10-82144-cf4235bc`
 - `humpback-wap` — Palmer LTER, `dataset-10-82144-a67782d6`
@@ -43,7 +44,7 @@ Tag `external-temperature` readings exist for the tracked white stork, the Ya Ha
 
 ## Representative populations
 
-Where the pack has no anonymous Movebank download, months are estimated regions from the cited seasonal cycle. Coordinates are named places, not copied tracks. Every such fix is `representative`. The Arctic tern paper (Egevang et al. 2010, PNAS) is free to read and is not under an open licence. OBIS-SEAMAP “Tracking of Arctic tern migrations 2007-2008” is CC BY-NC 4.0 and was **not** copied. The cited annual mean used for the tern distance clock is 70,900 km from that paper.
+Where the pack has no anonymous Movebank download, months are estimated regions from the cited seasonal cycle. Coordinates are named places, not copied tracks. Every such fix is `representative`. The Arctic tern paper (Egevang et al. 2010, PNAS) is free to read and is not under an open licence. It supplies the representative `arctic-tern` entry. The cited annual mean used for that distance clock is 70,900 km from the paper. The tracked entry `arctic-tern-obs` uses OBIS-SEAMAP “Tracking of Arctic tern migrations 2007-2008”, which is CC BY-NC 4.0. Those monthly medians are in the catalog. The raw geolocator rows are not in this repository.
 
 The Serengeti wildebeest circuit is given as 800–1,000 km. It is a representative seasonal round, not the 1999–2000 GPS tracks.
 

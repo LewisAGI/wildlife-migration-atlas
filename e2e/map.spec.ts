@@ -163,9 +163,14 @@ test('markers move, tern winters south, compare and the info sheet', async ({ pa
 });
 
 test('monarch, humpback, honey buzzard licence, and vegetation overlay', async ({ page }) => {
+  const ndviStatuses: number[] = [];
+  page.on('response', (response) => {
+    if (response.url().includes('MODIS_Terra_L3_NDVI_Monthly')) ndviStatuses.push(response.status());
+  });
   await page.getByRole('button', { name: 'Species' }).click();
   await page.locator('#species-panel').getByRole('button', { name: 'European honey buzzard', exact: true }).click();
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('CC BY-NC 4.0');
+  await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('not for a paid version');
 
   await page.getByRole('button', { name: 'Species' }).click();
   await page.locator('#species-panel').getByRole('button', { name: 'Monarch butterfly', exact: true }).click();
@@ -183,6 +188,27 @@ test('monarch, humpback, honey buzzard licence, and vegetation overlay', async (
   await page.getByRole('button', { name: 'MODIS NDVI, observed monthly' }).click();
   await expect(page.locator('#app')).toHaveAttribute('data-overlay', 'ndvi');
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('MODIS Terra NDVI');
+  await expect.poll(() => ndviStatuses.filter((status) => status === 200).length).toBeGreaterThan(0);
+  expect(ndviStatuses.filter((status) => status >= 400)).toEqual([]);
+});
+
+test('content security policy allows the globe and NDVI tiles', async ({ page }) => {
+  const response = await page.request.get('/');
+  const headers = response.headers();
+  const csp = headers['content-security-policy'] ?? '';
+  expect(csp).toMatch(/connect-src[^;]*https:\/\/gibs\.earthdata\.nasa\.gov/);
+  expect(csp).toMatch(/img-src[^;]*https:\/\/gibs\.earthdata\.nasa\.gov/);
+  expect(csp).toContain("worker-src 'self' blob:");
+  expect(headers['x-content-type-options']).toBe('nosniff');
+  expect(headers['referrer-policy']).toBe('strict-origin-when-cross-origin');
+  const ndviStatuses: number[] = [];
+  page.on('response', (response) => {
+    if (response.url().includes('MODIS_Terra_L3_NDVI_Monthly')) ndviStatuses.push(response.status());
+  });
+  await page.getByRole('button', { name: 'Layers' }).click();
+  await page.getByRole('button', { name: 'MODIS NDVI, observed monthly' }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-overlay', 'ndvi');
+  await expect.poll(() => ndviStatuses.filter((status) => status === 200).length).toBeGreaterThan(0);
 });
 
 async function dayOf(page: Page): Promise<number> {
@@ -294,7 +320,7 @@ function isAppAsset(url: string): boolean {
 }
 
 function ignorableConsole(text: string): boolean {
+  if (/content security policy|violates the following/i.test(text)) return false;
   if (/Worker failed to load/i.test(text)) return false;
-  if (/gibs\.earthdata\.nasa\.gov/i.test(text)) return true;
   return /^Failed to load resource: /i.test(text) && !/127\.0\.0\.1|\/assets\//.test(text);
 }
