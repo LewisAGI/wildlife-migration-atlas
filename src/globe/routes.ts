@@ -1,11 +1,27 @@
 import type { Feature, LineString } from 'geojson';
-import type { Species, Track } from '../data/schema';
+import type { Fix, Species, Track } from '../data/schema';
 import { pathCoordinates } from '../geo';
+import { segmentKind, type StatusFilter } from '../motion/interpolate';
 import type { Waypoint } from '../types';
 
 export interface RoutePoint {
   lng: number;
   lat: number;
+}
+
+/** 0 solid observed, 1 dashed estimated, 2 dotted dispersed, 3 dash-dot sightings. */
+export function segmentStroke(start: Fix, end: Fix): 0 | 1 | 2 | 3 {
+  const kind = segmentKind(start, end);
+  if (kind === 'dispersed') return 2;
+  if (kind === 'sightings') return 3;
+  if (kind === 'observed') return 0;
+  return 1;
+}
+
+export function strokeVisible(stroke: 0 | 1 | 2 | 3, filter: StatusFilter): boolean {
+  if (filter === 'all') return true;
+  if (filter === 'observed') return stroke !== 1;
+  return stroke === 1;
 }
 
 /** Ordered waypoints, including the return to the first fix when the track loops. */
@@ -28,21 +44,29 @@ export function trackWaypoints(track: Track): Waypoint[] {
   return points;
 }
 
-export function routeFeatures(species: Species): Feature<LineString>[] {
+export function routeFeatures(species: Species, filter: StatusFilter = 'all'): Feature<LineString>[] {
   const features: Feature<LineString>[] = [];
   species.tracks.forEach((track) => {
-    const dashed = track.fixes.some((fix) => fix.status !== 'observed') ? 1 : 0;
-    pathCoordinates(trackWaypoints(track)).forEach((coordinates) => {
-      features.push({
-        type: 'Feature',
-        properties: {
-          role: 'line',
-          speciesId: species.id,
-          trackId: track.id,
-          colour: species.colour,
-          dashed,
-        },
-        geometry: { type: 'LineString', coordinates },
+    const ordered = [...track.fixes].sort((a, b) => a.t - b.t);
+    const pairs: [Fix, Fix][] = [];
+    for (let index = 0; index < ordered.length - 1; index += 1) pairs.push([ordered[index], ordered[index + 1]]);
+    if (track.loop && ordered.length > 1) pairs.push([ordered[ordered.length - 1], ordered[0]]);
+    pairs.forEach(([start, end]) => {
+      const stroke = segmentStroke(start, end);
+      if (!strokeVisible(stroke, filter)) return;
+      const path = [{ lat: start.lat, lng: start.lng }, ...(end.via ?? []), { lat: end.lat, lng: end.lng }];
+      pathCoordinates(path).forEach((coordinates) => {
+        features.push({
+          type: 'Feature',
+          properties: {
+            role: 'line',
+            speciesId: species.id,
+            trackId: track.id,
+            colour: start.colour ?? species.colour,
+            stroke,
+          },
+          geometry: { type: 'LineString', coordinates },
+        });
       });
     });
   });

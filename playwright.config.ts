@@ -3,7 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { defineConfig, devices } from '@playwright/test';
 
-/** The Pages workflow installs Chromium only. WebKit projects are added when that browser can launch. */
+/** WebKit runs when the browser and libxslt are installed. CI uses `playwright install --with-deps webkit`. */
 function webkitInstalled(): boolean {
   const root = process.env.PLAYWRIGHT_BROWSERS_PATH || path.join(os.homedir(), '.cache', 'ms-playwright');
   let present = false;

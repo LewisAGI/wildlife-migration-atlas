@@ -6,10 +6,11 @@ import {
 } from 'maplibre-gl';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import type { Species } from '../data/schema';
-import type { PositionProvider } from '../motion/interpolate';
+import type { PositionProvider, StatusFilter } from '../motion/interpolate';
 import { flyToBBox, type BBox } from './camera';
 import { createOverlays, type PickHit } from './labels';
 import { frameCollection, type FramePosition } from './markers';
+import { ndviErrorStatus, noteNdviFailure, noteNdviSuccess, type NdviHealth } from './ndviHealth';
 import { routeSample } from './routes';
 import { mapStyle } from './style';
 
@@ -25,11 +26,16 @@ export interface GlobeController {
   setSpecies(species: Species[], providers: Map<string, PositionProvider>): void;
   setFrame(positions: FramePosition[], day: number): void;
   setSelected(speciesId: string): void;
+  setFilter(filter: StatusFilter): void;
+  setOverlay(month: number | null): void;
+  setNotice(parts: string[]): void;
+  setThreats(on: boolean): void;
   flyTo(bbox: BBox): void;
   zoomIn(): void;
   zoomOut(): void;
   routePoint(speciesId: string): { lng: number; lat: number } | null;
   onPick(handler: (hit: PickHit | null) => void): void;
+  onOverlayTile(listener: (degraded: boolean) => void): void;
   destroy(): void;
 }
 
@@ -57,11 +63,44 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     map.triggerRepaint();
     root.dataset.landRepaint = '1';
   });
+  let overlayDegraded = false;
+  let overlayTileListener: (degraded: boolean) => void = () => {};
+  let ndviHealth: NdviHealth = { loaded: 0, degraded: false };
+  const setOverlayDegraded = (degraded: boolean) => {
+    if (overlayDegraded === degraded) return;
+    overlayDegraded = degraded;
+    if (degraded) root.dataset.overlayTile = 'degraded';
+    else delete root.dataset.overlayTile;
+    overlayTileListener(degraded);
+  };
+  const markNdviLoaded = () => {
+    ndviHealth = noteNdviSuccess(ndviHealth);
+    root.dataset.ndviLoaded = '1';
+    setOverlayDegraded(false);
+  };
+  const markNdviFailed = (status: number | undefined) => {
+    const next = noteNdviFailure(ndviHealth, status);
+    ndviHealth = next;
+    if (next.degraded) setOverlayDegraded(true);
+  };
+  const resetNdvi = () => {
+    ndviHealth = { loaded: 0, degraded: false };
+    delete root.dataset.ndviLoaded;
+  };
   map.on('error', (event) => {
-    const detail = event as { sourceId?: string; tile?: unknown };
+    const detail = event as unknown as { sourceId?: string; tile?: unknown };
     if (!detail.sourceId && !detail.tile) return;
+    // A missing or CORS-blocked tile must not take the rest of the globe down.
     map.triggerRepaint();
     root.dataset.tileRepaint = '1';
+    // Land and Blue Marble are also GIBS. Only the NDVI source is the vegetation overlay.
+    // HTTP 404 never reaches this event; loadTile records those below.
+    if (detail.sourceId === 'ndvi') setOverlayDegraded(true);
+  });
+  map.on('sourcedata', (event) => {
+    if (event.sourceId !== 'ndvi') return;
+    const tile = (event as { tile?: { state?: string } }).tile;
+    if (tile?.state === 'loaded') markNdviLoaded();
   });
 
   const ready = new Promise<void>((resolve) => {
@@ -71,6 +110,23 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
       started = true;
       map.setProjection({ type: 'globe' });
       root.dataset.projection = 'globe';
+      if (!map.getSource('ndvi')) {
+        map.addSource('ndvi', {
+          type: 'raster',
+          tiles: [ndviTiles(0)],
+          tileSize: 256,
+          maxzoom: 7,
+          attribution: 'MODIS Terra NDVI',
+        });
+        map.addLayer({
+          id: 'ndvi',
+          type: 'raster',
+          source: 'ndvi',
+          layout: { visibility: 'none' },
+          paint: { 'raster-opacity': 0.78 },
+        });
+        watchNdviSource(map.getSource('ndvi'), markNdviLoaded, markNdviFailed);
+      }
       map.setSky({
         'sky-color': '#070b12',
         'horizon-color': '#8ec5ff',
@@ -88,6 +144,10 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
   let providers = new Map<string, PositionProvider>();
   let positions: FramePosition[] = [];
   let day = 0;
+  let statusFilter: StatusFilter = 'all';
+  let overlayMonth: number | null = null;
+  let appliedOverlay: number | null | undefined;
+  let notice: string[] = [];
   const sourceIds = new Set<string>();
 
   const overlays = createOverlays(map, (hit) => pickHandler(hit));
@@ -97,13 +157,28 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     species.forEach((item) => {
       const source = map.getSource(sourceId(item.id)) as GeoJSONSource | undefined;
       const mine = positions.filter((position) => position.speciesId === item.id);
-      source?.setData(frameCollection([item], mine, providers, day));
+      source?.setData(frameCollection([item], mine, providers, day, statusFilter));
+    });
+  };
+  // setFrame arrives once per animation frame. Collapse that burst into one
+  // geometry update, including the frames that arrive before the style loads.
+  let paintQueued = false;
+  const schedulePaint = () => {
+    if (paintQueued) return;
+    paintQueued = true;
+    void ready.then(() => {
+      paintQueued = false;
+      paint();
     });
   };
 
   const ensureSpecies = (item: Species) => {
     const id = sourceId(item.id);
     if (sourceIds.has(id)) return;
+    if (map.getSource(id)) {
+      sourceIds.add(id);
+      return;
+    }
     addArrow(map, item.id, item.colour);
     map.addSource(id, { type: 'geojson', data: EMPTY });
     map.addLayer({
@@ -118,20 +193,46 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
       id: `route-dash-${item.id}`,
       type: 'line',
       source: id,
-      filter: ['all', ['==', ['get', 'role'], 'line'], ['==', ['get', 'dashed'], 1]],
+      filter: ['all', ['==', ['get', 'role'], 'line'], ['==', ['get', 'stroke'], 1]],
       paint: {
         'line-color': ['get', 'colour'],
         'line-width': 2.2,
-        'line-dasharray': [2.2, 1.5],
+        'line-dasharray': [1.4, 1.6],
         'line-opacity': 0.9,
       },
       layout: { 'line-cap': 'butt', 'line-join': 'round' },
     });
     map.addLayer({
+      id: `route-sight-${item.id}`,
+      type: 'line',
+      source: id,
+      filter: ['all', ['==', ['get', 'role'], 'line'], ['==', ['get', 'stroke'], 3]],
+      paint: {
+        'line-color': ['get', 'colour'],
+        'line-width': 2.2,
+        'line-dasharray': [1.6, 1.1, 0.35, 1.1],
+        'line-opacity': 0.9,
+      },
+      layout: { 'line-cap': 'butt', 'line-join': 'round' },
+    });
+    map.addLayer({
+      id: `route-dot-${item.id}`,
+      type: 'line',
+      source: id,
+      filter: ['all', ['==', ['get', 'role'], 'line'], ['==', ['get', 'stroke'], 2]],
+      paint: {
+        'line-color': ['get', 'colour'],
+        'line-width': 2,
+        'line-dasharray': [0.2, 1.8],
+        'line-opacity': 0.55,
+      },
+      layout: { 'line-cap': 'round', 'line-join': 'round' },
+    });
+    map.addLayer({
       id: `route-solid-${item.id}`,
       type: 'line',
       source: id,
-      filter: ['all', ['==', ['get', 'role'], 'line'], ['==', ['get', 'dashed'], 0]],
+      filter: ['all', ['==', ['get', 'role'], 'line'], ['==', ['get', 'stroke'], 0]],
       paint: { 'line-color': ['get', 'colour'], 'line-width': 2.6, 'line-opacity': 0.95 },
       layout: { 'line-cap': 'round', 'line-join': 'round' },
     });
@@ -150,8 +251,8 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
       filter: ['==', ['get', 'role'], 'marker'],
       paint: {
         'circle-color': ['get', 'colour'],
-        'circle-radius': ['interpolate', ['linear'], ['get', 'uncertaintyKm'], 80, 9, 500, 22],
-        'circle-opacity': 0.2,
+        'circle-radius': ['interpolate', ['linear'], ['get', 'uncertaintyKm'], 80, 9, 500, 22, 1500, 36],
+        'circle-opacity': ['match', ['get', 'mark'], 'dispersed', 0.28, 'estimated', 0.12, 0.18],
         'circle-blur': 0.65,
       },
     });
@@ -163,11 +264,25 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
       paint: {
         'circle-color': ['get', 'colour'],
         'circle-radius': ['interpolate', ['linear'], ['zoom'], 0.6, 6, 4, 10],
-        'circle-opacity': ['match', ['get', 'status'], 'observed', 0.95, 'interpolated', 0.5, 'simulated', 0.4, 0.72],
+        'circle-opacity': [
+          'match',
+          ['get', 'mark'],
+          'observed',
+          0.95,
+          'sightings',
+          0.12,
+          'estimated',
+          0.08,
+          'dispersed',
+          0.2,
+          'interpolated',
+          0.38,
+          0.6,
+        ],
         'circle-stroke-color': '#f4efe6',
-        'circle-stroke-width': 1.6,
-        'circle-stroke-opacity': ['match', ['get', 'status'], 'observed', 0.95, 0.4],
-        'circle-blur': ['match', ['get', 'status'], 'observed', 0, 0.22],
+        'circle-stroke-width': ['match', ['get', 'mark'], 'sightings', 2.6, 'estimated', 2.4, 'dispersed', 2.2, 1.5],
+        'circle-stroke-opacity': ['match', ['get', 'mark'], 'sightings', 0.95, 'observed', 0.35, 'estimated', 0.95, 'dispersed', 0.85, 0.45],
+        'circle-blur': ['match', ['get', 'mark'], 'observed', 0, 'interpolated', 0.35, 0.05],
       },
     });
     map.addLayer({
@@ -192,17 +307,19 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     [...sourceIds].forEach((id) => {
       if (keep.has(id)) return;
       const speciesId = id.replace('species-', '');
-      [`route-hit-${speciesId}`, `route-dash-${speciesId}`, `route-solid-${speciesId}`, `trail-${speciesId}`, `halo-${speciesId}`, `marker-${speciesId}`, `head-${speciesId}`].forEach(
-        (layerId) => {
-          if (map.getLayer(layerId)) map.removeLayer(layerId);
-        },
-      );
+      speciesLayerIds(speciesId).forEach((layerId) => {
+        if (map.getLayer(layerId)) map.removeLayer(layerId);
+      });
       if (map.getSource(id)) map.removeSource(id);
-      sourceIds.delete(id);
+      if (!map.getSource(id)) sourceIds.delete(id);
     });
   };
 
   const onClick = (event: MapLayerMouseEvent) => {
+    const target = event.originalEvent.target;
+    // A pin or an open card sits in the canvas container. Its click already
+    // selected the species; treating it as an empty-map click clears the card.
+    if (target instanceof Element && target.closest('.pin, .maplibregl-popup, .event-sheet')) return;
     const layers = [...sourceIds].flatMap((id) => {
       const speciesId = id.replace('species-', '');
       return [`marker-${speciesId}`, `route-hit-${speciesId}`, `head-${speciesId}`];
@@ -230,6 +347,25 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
   };
   map.on('click', onClick);
 
+  const paintNotice = () => {
+    const parts = [...notice];
+    if (overlayMonth != null) parts.push('MODIS Terra NDVI, monthly observed composite, 2023');
+    const text = parts.length ? ` · ${parts.join(' · ')}` : '';
+    const inner = map.getContainer().querySelector('.maplibregl-ctrl-attrib-inner');
+    if (!inner) return;
+    let extra = inner.querySelector('.atlas-notice');
+    if (!extra) {
+      extra = document.createElement('span');
+      extra.className = 'atlas-notice';
+      inner.append(extra);
+    }
+    extra.textContent = text;
+  };
+  // Source attribution refreshes rewrite the control and drop the notice.
+  map.on('idle', paintNotice);
+  map.on('sourcedata', paintNotice);
+  map.on('styledata', paintNotice);
+
   window.addEventListener('resize', () => map.resize());
 
   return {
@@ -247,10 +383,38 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     setFrame(next, nextDay) {
       positions = next;
       day = nextDay;
-      void ready.then(() => paint());
+      schedulePaint();
     },
     setSelected(speciesId) {
       overlays.setSelected(speciesId);
+    },
+    setFilter(filter) {
+      statusFilter = filter;
+      schedulePaint();
+    },
+    setOverlay(month) {
+      const changed = month !== appliedOverlay;
+      appliedOverlay = month;
+      overlayMonth = month;
+      root.dataset.overlay = month == null ? 'off' : 'ndvi';
+      if (month == null) setOverlayDegraded(false);
+      if (month == null || changed) resetNdvi();
+      void ready.then(() => {
+        if (!map.getLayer('ndvi')) return;
+        map.setLayoutProperty('ndvi', 'visibility', month == null ? 'none' : 'visible');
+        if (month != null && changed) {
+          const source = map.getSource('ndvi') as { setTiles?: (tiles: string[]) => void } | undefined;
+          source?.setTiles?.([ndviTiles(month)]);
+        }
+        paintNotice();
+      });
+    },
+    setNotice(parts) {
+      notice = parts;
+      paintNotice();
+    },
+    setThreats(on) {
+      overlays.setThreats(on);
     },
     flyTo(bbox) {
       void ready.then(() => flyToBBox(map, bbox));
@@ -268,6 +432,10 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     onPick(handler) {
       pickHandler = handler;
     },
+    onOverlayTile(listener) {
+      overlayTileListener = listener;
+      if (overlayDegraded) listener(true);
+    },
     destroy() {
       overlays.destroy();
       map.remove();
@@ -275,8 +443,51 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
   };
 }
 
+type NdviTile = { state?: string };
+
+function watchNdviSource(
+  source: unknown,
+  onLoaded: () => void,
+  onFailed: (status: number | undefined) => void,
+) {
+  const raster = source as { loadTile?: (tile: NdviTile) => Promise<void>; atlasNdviWatch?: boolean } | undefined;
+  if (!raster?.loadTile || raster.atlasNdviWatch) return;
+  raster.atlasNdviWatch = true;
+  const loadTile = raster.loadTile.bind(raster);
+  raster.loadTile = async (tile) => {
+    try {
+      await loadTile(tile);
+      // state is 'loaded' only after the raster texture is uploaded.
+      if (tile.state === 'loaded') onLoaded();
+    } catch (error) {
+      onFailed(ndviErrorStatus(error));
+      throw error;
+    }
+  };
+}
+
 function sourceId(speciesId: string): string {
   return `species-${speciesId}`;
+}
+
+function speciesLayerIds(speciesId: string): string[] {
+  return [
+    `route-hit-${speciesId}`,
+    `route-dash-${speciesId}`,
+    `route-sight-${speciesId}`,
+    `route-dot-${speciesId}`,
+    `route-solid-${speciesId}`,
+    `trail-${speciesId}`,
+    `halo-${speciesId}`,
+    `marker-${speciesId}`,
+    `head-${speciesId}`,
+  ];
+}
+
+/** Observed monthly NDVI for 2023. Not a climatology, and not stored in this repo. */
+function ndviTiles(month: number): string {
+  const mm = String(month + 1).padStart(2, '0');
+  return `https://gibs.earthdata.nasa.gov/wmts/epsg3857/best/MODIS_Terra_L3_NDVI_Monthly/default/2023-${mm}-01/GoogleMapsCompatible_Level7/{z}/{y}/{x}.png`;
 }
 
 function addArrow(map: MapLibreMap, speciesId: string, colour: string) {
@@ -309,6 +520,7 @@ declare global {
       map: MapLibreMap;
       positions: FramePosition[];
       routePoint: (speciesId: string) => { lng: number; lat: number } | null;
+      setDay: (day: number) => void;
     };
   }
 }

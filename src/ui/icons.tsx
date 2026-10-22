@@ -78,6 +78,68 @@ export function IconSpecies() {
   );
 }
 
+export function IconLayers() {
+  return (
+    <Svg>
+      <path d="M12 4l8 4-8 4-8-4 8-4z" {...stroke} />
+      <path d="M4 12l8 4 8-4" {...stroke} />
+      <path d="M4 16l8 4 8-4" {...stroke} />
+    </Svg>
+  );
+}
+
+export function IconMonths() {
+  return (
+    <Svg>
+      <circle cx="8" cy="8" r="2.2" fill="currentColor" />
+      <circle cx="16" cy="12" r="2.2" {...stroke} />
+      <circle cx="10" cy="17" r="2.2" stroke="currentColor" strokeWidth="2" fill="none" opacity="0.35" />
+    </Svg>
+  );
+}
+
+export function IconVegetation() {
+  return (
+    <Svg>
+      <path d="M12 20V10" {...stroke} />
+      <path d="M12 13c-4-1-6-4-6-7 4 0 7 2 8 5-1 3-4 4-6 2 2 0 4-1 6-4 1 4-1 7-4 8" {...stroke} />
+    </Svg>
+  );
+}
+
+export function IconAll() {
+  return (
+    <Svg>
+      <circle cx="8" cy="12" r="2.3" fill="currentColor" />
+      <circle cx="16" cy="12" r="2.3" {...stroke} />
+    </Svg>
+  );
+}
+
+export function IconObserved() {
+  return (
+    <Svg>
+      <circle cx="12" cy="12" r="4" fill="currentColor" />
+    </Svg>
+  );
+}
+
+export function IconEstimated() {
+  return (
+    <Svg>
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" strokeDasharray="3 2" fill="none" />
+    </Svg>
+  );
+}
+
+export function IconThreat() {
+  return (
+    <Svg>
+      <path d="M12 4l8 14H4L12 4z" {...stroke} />
+    </Svg>
+  );
+}
+
 export function IconCompare() {
   return (
     <Svg>

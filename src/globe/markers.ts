@@ -1,7 +1,7 @@
 import type { Feature, FeatureCollection, LineString, Point } from 'geojson';
 import type { Species } from '../data/schema';
 import { pathCoordinates } from '../geo';
-import type { PositionProvider, PositionSample } from '../motion/interpolate';
+import type { PositionProvider, PositionSample, StatusFilter } from '../motion/interpolate';
 import type { Waypoint } from '../types';
 import { wrapDay } from '../time/yearClock';
 import { routeFeatures } from './routes';
@@ -18,10 +18,11 @@ export function frameCollection(
   positions: FramePosition[],
   providers: Map<string, PositionProvider>,
   day: number,
+  filter: StatusFilter = 'all',
 ): FeatureCollection {
   const features: Feature[] = [];
   species.forEach((item) => {
-    features.push(...routeFeatures(item));
+    features.push(...routeFeatures(item, filter));
     item.tracks.forEach((track) => {
       const provider = providers.get(`${item.id}:${track.id}`);
       if (!provider) return;
@@ -52,6 +53,7 @@ function pointFeature(position: FramePosition, role: 'marker' | 'head'): Feature
       trackId: position.trackId,
       colour: position.colour,
       status: position.status,
+      mark: position.mark,
       uncertaintyKm: position.uncertaintyKm,
       bearing: position.bearing,
       arrow: `arrow-${position.speciesId}`,

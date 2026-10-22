@@ -24,7 +24,10 @@ interface Drawn {
 
 export function createOverlays(map: MapLibreMap, onPick: (hit: PickHit) => void) {
   let drawn: Drawn[] = [];
+  let threats: Drawn[] = [];
   let selectedId = '';
+  let speciesList: Species[] = [];
+  let threatsOn = false;
 
   const refresh = () => {
     const zoom = map.getZoom();
@@ -65,9 +68,10 @@ export function createOverlays(map: MapLibreMap, onPick: (hit: PickHit) => void)
     const pins = drawn.filter((item) => item.element.classList.contains('pin'));
     const points = pins.flatMap((pin) => {
       const rect = pin.element.getBoundingClientRect();
-      if (rect.width < 2) return [];
-      const current = pin.marker.getOffset();
-      return [{ id: pin.id, x: rect.left + rect.width / 2 - current.x, y: rect.top + rect.height / 2 - current.y }];
+      if (rect.width < 2 || rect.height < 2) return [];
+      if (pin.element.classList.contains('maplibregl-marker-covered')) return [];
+      const projected = map.project(pin.marker.getLngLat());
+      return [{ id: pin.id, x: projected.x, y: projected.y }];
     });
     const extra = spreadOverlaps(points);
     pins.forEach((pin) => {
@@ -80,6 +84,7 @@ export function createOverlays(map: MapLibreMap, onPick: (hit: PickHit) => void)
 
   map.on('move', refresh);
   map.on('zoom', refresh);
+  map.on('moveend', refresh);
   map.on('idle', refresh);
 
   return {
@@ -87,7 +92,12 @@ export function createOverlays(map: MapLibreMap, onPick: (hit: PickHit) => void)
       selectedId = id;
       refresh();
     },
+    setThreats(on: boolean) {
+      threatsOn = on;
+      drawThreats();
+    },
     setSpecies(species: Species[]) {
+      speciesList = species;
       drawn.forEach((item) => item.marker.remove());
       drawn = [];
       const events = species.flatMap((item) =>
@@ -112,8 +122,7 @@ export function createOverlays(map: MapLibreMap, onPick: (hit: PickHit) => void)
         element.innerHTML = `<span class="dot"></span><span class="pin-label"></span>`;
         const label = element.querySelector('.pin-label') as HTMLElement;
         label.textContent = event.title;
-        element.addEventListener('click', (click) => {
-          click.stopPropagation();
+        element.addEventListener('click', () => {
           onPick({
             speciesId: event.speciesId,
             trackId: '',
@@ -148,10 +157,43 @@ export function createOverlays(map: MapLibreMap, onPick: (hit: PickHit) => void)
         });
       });
       refresh();
+      drawThreats();
     },
     destroy() {
       drawn.forEach((item) => item.marker.remove());
+      threats.forEach((item) => item.marker.remove());
       drawn = [];
+      threats = [];
     },
   };
+
+  function drawThreats() {
+    threats.forEach((item) => item.marker.remove());
+    threats = [];
+    if (!threatsOn) return;
+    speciesList.forEach((item) => {
+      if (!item.threats) return;
+      const fix = item.tracks[0]?.fixes[0];
+      if (!fix) return;
+      const element = document.createElement('button');
+      element.type = 'button';
+      element.className = 'pin threat-pin';
+      element.setAttribute('aria-label', 'Threats');
+      element.setAttribute('data-tip', 'Threats');
+      element.title = 'Threats';
+      element.innerHTML = '<span class="threat-glyph"></span>';
+      element.addEventListener('click', (click) => {
+        click.stopPropagation();
+        onPick({
+          speciesId: item.id,
+          trackId: item.tracks[0]?.id ?? '',
+          kind: 'marker',
+          lat: fix.lat,
+          lng: fix.lng,
+        });
+      });
+      const marker = new Marker({ element, anchor: 'center', offset: [16, -16] }).setLngLat([fix.lng, fix.lat]).addTo(map);
+      threats.push({ id: `${item.id}-threat`, speciesId: item.id, element, label: null, marker, lat: fix.lat });
+    });
+  }
 }

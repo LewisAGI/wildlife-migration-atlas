@@ -1,22 +1,23 @@
-import indexJson from '../../data/index.json';
-import { parseIndex, parseSpecies, type Species, type SpeciesIndex } from './schema';
+import { buildCatalog } from './fromPack';
+import type { Species, SpeciesIndex } from './schema';
 
-const modules = import.meta.glob('../../data/species/*.json', { import: 'default' });
+let catalogPromise: Promise<{ index: SpeciesIndex; species: Species[] }> | null = null;
 
-export function loadIndex(): SpeciesIndex {
-  return parseIndex(indexJson);
+/** The globe reads the v3.1 pack. Adding a population means extending that pack, not a new code path. */
+export function loadCatalog(): Promise<{ index: SpeciesIndex; species: Species[] }> {
+  catalogPromise ??= Promise.all([
+    import('../../data/pack/content.json'),
+    import('../../data/pack/sources.json'),
+  ]).then(([content, sources]) => buildCatalog(content.default, sources.default));
+  return catalogPromise;
 }
 
-/** Adding a species is a JSON file plus an index entry. The globe does not grow a branch for it. */
+export async function loadIndex(): Promise<SpeciesIndex> {
+  return (await loadCatalog()).index;
+}
+
 export async function loadSpecies(id: string): Promise<Species> {
-  const key = `../../data/species/${id}.json`;
-  const load = modules[key];
-  if (!load) throw new Error(`No data file for ${id}`);
-  return parseSpecies(await load());
-}
-
-export async function loadCatalog(): Promise<{ index: SpeciesIndex; species: Species[] }> {
-  const index = loadIndex();
-  const species = await Promise.all(index.species.map((entry) => loadSpecies(entry.id)));
-  return { index, species };
+  const species = (await loadCatalog()).species.find((item) => item.id === id);
+  if (!species) throw new Error(`No data file for ${id}`);
+  return species;
 }

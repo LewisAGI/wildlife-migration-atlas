@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 're
 import { createPortal } from 'react-dom';
 import { Popup, type Map as MapLibreMap } from 'maplibre-gl';
 import type { Species, SpeciesEvent } from '../data/schema';
+import { citedProgressKm, licenceMark, monthIndexForDay, monthWord } from '../data/months';
 import type { PositionSample } from '../motion/interpolate';
 import { formatDay, YEAR_LENGTH } from '../time/yearClock';
 import { clearSheetChrome, placeSheet, prefersSheet } from './sheetLayout';
@@ -38,7 +39,11 @@ export function InfoSheet(props: InfoSheetProps) {
 function SpeciesBody({ species, trackId, eventId, day, sample }: InfoSheetProps) {
   const track = species.tracks.find((item) => item.id === trackId) ?? species.tracks[0];
   const event = chosenEvent(species, day, eventId);
-  const status = sample?.status ?? 'representative';
+  const month = species.months[monthIndexForDay(day)];
+  const reading = species.temperature.find((item) => item.month === month?.month);
+  const status = statusLabel(sample, month?.status);
+  const licence = licenceMark(species.datasetLicence, species.nonCommercial);
+  const approximate = status !== 'Observed' && status !== 'Observed sightings' && status !== 'No data';
   return (
     <div className="sheet-copy" data-species={species.id}>
       <h2 className="popup-title">{species.names.common}</h2>
@@ -46,12 +51,18 @@ function SpeciesBody({ species, trackId, eventId, day, sample }: InfoSheetProps)
       <p className="popup-place">
         {species.population}
         {track?.branch ? ` · ${track.branch}` : ''}
+        {sample?.generation ? ` · ${sample.generation}` : ''}
       </p>
       <p className="popup-date">{formatDay(day, true)}</p>
       <p className="popup-status">
-        {statusLabel(status)}
-        {status !== 'observed' && <span className="approx-mark">approximate</span>}
+        {status}
+        {approximate && <span className="approx-mark">approximate</span>}
       </p>
+      {licence && <p className="licence-mark">{licence}</p>}
+      {species.nonCommercialSources.length > 0 && (
+        <p className="licence-sources">nonCommercialSources: {species.nonCommercialSources.join(', ')}</p>
+      )}
+      {species.iucn && <p className="iucn-mark">{species.iucn}</p>}
       <p className="popup-summary">{species.summary}</p>
       <dl className="popup-facts">
         <div>
@@ -60,7 +71,11 @@ function SpeciesBody({ species, trackId, eventId, day, sample }: InfoSheetProps)
         </div>
         <div>
           <dt>Distance</dt>
-          <dd>{species.distance}</dd>
+          <dd>
+            {species.distance}
+            {species.citedKm != null &&
+              ` Cited annual mean ${species.citedKm.toLocaleString('en-US')} km · ${citedProgressKm(species.citedKm, day).toLocaleString('en-US')} km through this day.`}
+          </dd>
         </div>
         <div>
           <dt>Timing</dt>
@@ -68,6 +83,22 @@ function SpeciesBody({ species, trackId, eventId, day, sample }: InfoSheetProps)
         </div>
       </dl>
       {event && <p className="popup-event">{event.text}</p>}
+      {species.threats && <p className="popup-event">{species.threats}</p>}
+      {month && (
+        <p className="popup-note">
+          {month.name}: {monthWord(month.status)}
+          {month.region ? ` · ${month.region}` : ''}
+          {month.nFixes != null ? ` · ${month.nFixes.toLocaleString('en-US')} fixes` : ''}
+          {month.dispersed ? ' · dispersed' : ''}
+          {month.ndvi != null ? ` · NDVI median at the animals ${month.ndvi}` : ''}
+          {month.nitrogen != null ? ` · grass nitrogen median ${month.nitrogen}` : ''}. {month.method}
+        </p>
+      )}
+      {reading && (
+        <p className="popup-note">
+          Tag temperature {reading.medianC}°C (n={reading.n.toLocaleString('en-US')}). Not air or water.
+        </p>
+      )}
       <p className="popup-note">{species.uncertaintyNote}</p>
       <ul className="sources">
         {species.provenance.map((item) => (
@@ -125,7 +156,7 @@ function DesktopPopup({
   const popupRef = useRef<Popup | null>(null);
   const [host, setHost] = useState<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const element = document.createElement('div');
     let suppress = false;
     const popup = new Popup({
@@ -152,6 +183,8 @@ function DesktopPopup({
       setHost(null);
     };
     // The popup is anchored once; later days only move it.
+    // Layout, not a passive effect: the card has to be in the DOM before paint,
+    // or a click assertion can observe the frame where it does not exist yet.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 
@@ -200,9 +233,17 @@ function chosenEvent(species: Species, day: number, eventId?: string): SpeciesEv
   return best;
 }
 
-function statusLabel(status: string): string {
-  if (status === 'observed') return 'Observed';
-  if (status === 'interpolated') return 'Interpolated';
-  if (status === 'simulated') return 'Simulated';
-  return 'Representative';
+function statusLabel(sample: PositionSample | null, monthStatus: Species['months'][number]['status'] | undefined): string {
+  if (monthStatus === 'no-data' && !sample) return 'No data';
+  if (!sample) return monthStatus ? capital(monthWord(monthStatus)) : 'Estimated';
+  if (sample.mark === 'observed') return 'Observed';
+  if (sample.mark === 'sightings') return 'Observed sightings';
+  if (sample.mark === 'dispersed') return 'Observed, dispersed';
+  if (sample.mark === 'interpolated') return 'Interpolated';
+  if (sample.status === 'simulated') return 'Simulated';
+  return 'Estimated';
+}
+
+function capital(value: string): string {
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }

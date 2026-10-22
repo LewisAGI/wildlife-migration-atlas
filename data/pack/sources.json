@@ -1,0 +1,2553 @@
+{
+  "sources": [
+    {
+      "id": "dataset-10-14286-bjkpp5",
+      "type": "dataset",
+      "doi": "10.14286/bjkpp5",
+      "url": "https://doi.org/10.14286/bjkpp5",
+      "title": "OTN Canada Pacific Sockeye Salmon Tagging Project 2",
+      "creators": [
+        "Ocean Tracking Network Data Centre"
+      ],
+      "year": 2012,
+      "licence": "Creative Commons Attribution 4.0 International",
+      "nonCommercial": false,
+      "repository": "GBIF / Ocean Tracking Network",
+      "publisher": "Ocean Tracking Network",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+      "reliability": "primary data"
+    },
+    {
+      "id": "dataset-10-15468-ab3s5x",
+      "type": "dataset",
+      "doi": "10.15468/ab3s5x",
+      "url": "https://doi.org/10.15468/ab3s5x",
+      "title": "iNaturalist Research-grade Observations (GBIF dataset 50c9509d-22c7-4a22-a47d-8c48425ef4a7)",
+      "licence": "CC BY-NC 4.0 (dataset-level, DataCite); individual records CC0/CC BY/CC BY-NC",
+      "nonCommercial": true,
+      "repository": "GBIF",
+      "verified": "DataCite API 2026-10-22: DOI resolves (title iNaturalist Research-grade Observations); records retrieved via GBIF occurrence search API",
+      "reliability": "citizen-science observations"
+    },
+    {
+      "id": "dataset-10-15468-raejtm",
+      "type": "dataset",
+      "doi": "10.15468/raejtm",
+      "url": "https://doi.org/10.15468/raejtm",
+      "title": "ECOCEAN Western Australia Whale Shark Tracking",
+      "creators": [
+        "ECOCEAN"
+      ],
+      "year": 2026,
+      "licence": "Creative Commons Attribution 4.0 International",
+      "nonCommercial": false,
+      "repository": "GBIF / ECOCEAN",
+      "publisher": "ECOCEAN",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+      "reliability": "primary data"
+    },
+    {
+      "id": "dataset-10-15468-vnwmrx",
+      "type": "dataset",
+      "doi": "10.15468/vnwmrx",
+      "url": "https://doi.org/10.15468/vnwmrx",
+      "title": "BirdMap Data - GPS tracking of Storks, Cranes and birds of prey, breeding in Northern and Eastern Europe",
+      "creators": [
+        "Adojaan",
+        "Sellis",
+        "Väli",
+        "Ojaste"
+      ],
+      "year": 2025,
+      "licence": "Creative Commons Attribution Non Commercial 4.0 International",
+      "nonCommercial": true,
+      "repository": "GBIF / PlutoF (BirdMap)",
+      "publisher": "PlutoF",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+      "reliability": "primary data"
+    },
+    {
+      "id": "dataset-10-5061-dryad-5tb2rbp76",
+      "type": "dataset",
+      "doi": "10.5061/dryad.5tb2rbp76",
+      "url": "https://doi.org/10.5061/dryad.5tb2rbp76",
+      "title": "Data for: Inferring spatially-varying animal movement characteristics using a hierarchical continuous-time velocity model",
+      "creators": [
+        "Torney"
+      ],
+      "year": 2022,
+      "licence": "Creative Commons Zero v1.0 Universal",
+      "nonCommercial": false,
+      "repository": "Dryad (via Zenodo mirror)",
+      "publisher": "Dryad",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via Dryad (via Zenodo mirror)",
+      "reliability": "primary data"
+    },
+    {
+      "id": "dataset-10-82144-a67782d6",
+      "type": "dataset",
+      "doi": "10.82144/a67782d6",
+      "url": "https://doi.org/10.82144/a67782d6",
+      "title": "LTER Antarctic satellite telemetry of humpback whales",
+      "creators": [
+        "Curtice",
+        "Friedlaender",
+        "Ducklow",
+        "Gales"
+      ],
+      "year": 2025,
+      "licence": "Creative Commons Attribution Non Commercial 4.0 International",
+      "nonCommercial": true,
+      "repository": "GBIF / OBIS-SEAMAP",
+      "publisher": "OBIS-SEAMAP",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+      "reliability": "primary data"
+    },
+    {
+      "id": "dataset-10-82144-cf4235bc",
+      "type": "dataset",
+      "doi": "10.82144/cf4235bc",
+      "url": "https://doi.org/10.82144/cf4235bc",
+      "title": "Revealing migratory behaviour of South African leatherback turtles",
+      "creators": [
+        "Robinson"
+      ],
+      "year": 2025,
+      "licence": "Creative Commons Attribution Non Commercial 4.0 International",
+      "nonCommercial": true,
+      "repository": "GBIF / OBIS-SEAMAP",
+      "publisher": "OBIS-SEAMAP",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+      "reliability": "primary data"
+    },
+    {
+      "id": "dataset-10-82144-e379e535",
+      "type": "dataset",
+      "doi": "10.82144/e379e535",
+      "url": "https://doi.org/10.82144/e379e535",
+      "title": "Leatherback Tracking in South Africa",
+      "creators": [
+        "Luschi"
+      ],
+      "year": 2025,
+      "licence": "Creative Commons Attribution 4.0 International",
+      "nonCommercial": false,
+      "repository": "GBIF / OBIS-SEAMAP",
+      "publisher": "OBIS-SEAMAP",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+      "reliability": "primary data"
+    },
+    {
+      "id": "dataset-10-82144-f1e7b55e",
+      "type": "dataset",
+      "doi": "10.82144/f1e7b55e",
+      "url": "https://doi.org/10.82144/f1e7b55e",
+      "title": "Tracking of Arctic tern migrations 2007-2008",
+      "creators": [
+        "Egevang"
+      ],
+      "year": 2025,
+      "licence": "Creative Commons Attribution Non Commercial 4.0 International",
+      "nonCommercial": true,
+      "repository": "GBIF / OBIS-SEAMAP",
+      "publisher": "OBIS-SEAMAP",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence from rightsList. Records retrieved anonymously via GBIF occurrence search API (api.gbif.org)",
+      "reliability": "primary data"
+    },
+    {
+      "id": "doi-10-1002-ece3-6370",
+      "type": "journal-article",
+      "doi": "10.1002/ece3.6370",
+      "url": "https://doi.org/10.1002/ece3.6370",
+      "title": "Movement patterns of large juvenile loggerhead turtles in the Mediterranean Sea: Ontogenetic space use in a small ocean basin",
+      "authors": [
+        "Chimienti",
+        "Blasi",
+        "Hochscheid"
+      ],
+      "year": 2020,
+      "journal": "Ecology and Evolution",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1002-jgrg-20096",
+      "type": "journal-article",
+      "doi": "10.1002/jgrg.20096",
+      "url": "https://doi.org/10.1002/jgrg.20096",
+      "title": "In search of greener pastures: Using satellite images to predict the effects of environmental change on zebra migration",
+      "authors": [
+        "Bartlam‐Brooks",
+        "Beck",
+        "Bohrer"
+      ],
+      "year": 2013,
+      "journal": "Journal of Geophysical Research: Biogeosciences",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1002-jwmg-22329",
+      "type": "journal-article",
+      "doi": "10.1002/jwmg.22329",
+      "url": "https://doi.org/10.1002/jwmg.22329",
+      "title": "Habitat selection and space use overlap between feral horses, pronghorn, and greater sage‐grouse in cold arid steppe",
+      "authors": [
+        "Hennig",
+        "Scasta",
+        "Pratt"
+      ],
+      "year": 2022,
+      "journal": "The Journal of Wildlife Management",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1007-s10336-004-0049-2",
+      "type": "journal-article",
+      "doi": "10.1007/s10336-004-0049-2",
+      "url": "https://doi.org/10.1007/s10336-004-0049-2",
+      "title": "Long-term satellite tracking of white stork (Ciconia ciconia) migration: constancy versus variability",
+      "authors": [
+        "Berthold",
+        "Kaatz",
+        "Querner"
+      ],
+      "year": 2004,
+      "journal": "Journal of Ornithology",
+      "verified": "Crossref API 2026-10-22: DOI resolves, title/authors match",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1007-s10531-018-1538-6",
+      "type": "journal-article",
+      "doi": "10.1007/s10531-018-1538-6",
+      "url": "https://doi.org/10.1007/s10531-018-1538-6",
+      "title": "Satellite tracking a wide-ranging endangered vulture species to target conservation actions in the Middle East and East Africa",
+      "authors": [
+        "Buechley",
+        "McGrady",
+        "Çoban"
+      ],
+      "year": 2018,
+      "journal": "Biodiversity and Conservation",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1016-j-anbehav-2025-123366",
+      "type": "journal-article",
+      "doi": "10.1016/j.anbehav.2025.123366",
+      "url": "https://doi.org/10.1016/j.anbehav.2025.123366",
+      "title": "Dispersal, maturation and recruitment in a long-lived, intercontinental migrant bird",
+      "authors": [
+        "Mirski",
+        "Vansteelant",
+        "Byholm"
+      ],
+      "year": 2025,
+      "journal": "Animal Behaviour",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1016-j-cub-2025-07-061",
+      "type": "journal-article",
+      "doi": "10.1016/j.cub.2025.07.061",
+      "url": "https://doi.org/10.1016/j.cub.2025.07.061",
+      "title": "Age-dependent response to anthropogenic habitat during migration of an endangered raptor",
+      "authors": [
+        "Efrat",
+        "Lehnardt",
+        "Bragin"
+      ],
+      "year": 2025,
+      "journal": "Current Biology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1016-j-gecco-2016-03-005",
+      "type": "journal-article",
+      "doi": "10.1016/j.gecco.2016.03.005",
+      "url": "https://doi.org/10.1016/j.gecco.2016.03.005",
+      "title": "Long-distance seed dispersal by straw-coloured fruit bats varies by season and landscape",
+      "authors": [
+        "Abedi-Lartey",
+        "Dechmann",
+        "Wikelski"
+      ],
+      "year": 2016,
+      "journal": "Global Ecology and Conservation",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1038-s41598-020-64230-x",
+      "type": "journal-article",
+      "doi": "10.1038/s41598-020-64230-x",
+      "url": "https://doi.org/10.1038/s41598-020-64230-x",
+      "title": "Flying on their own wings: young and adult cuckoos respond similarly to long-distance displacement during migration",
+      "authors": [
+        "Thorup",
+        "Vega",
+        "Snell"
+      ],
+      "year": 2020,
+      "journal": "Scientific Reports",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1073-pnas-0909493107",
+      "type": "journal-article",
+      "doi": "10.1073/pnas.0909493107",
+      "url": "https://doi.org/10.1073/pnas.0909493107",
+      "title": "Tracking of Arctic terns Sterna paradisaea reveals longest animal migration",
+      "authors": [
+        "Egevang",
+        "Stenhouse",
+        "Phillips"
+      ],
+      "year": 2010,
+      "journal": "Proceedings of the National Academy of Sciences",
+      "verified": "Crossref API 2026-10-22: DOI resolves, title/authors match",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1073-pnas-2311146121",
+      "type": "journal-article",
+      "doi": "10.1073/pnas.2311146121",
+      "url": "https://doi.org/10.1073/pnas.2311146121",
+      "title": "Predicting resilience of migratory birds to environmental change",
+      "authors": [
+        "Lisovski",
+        "Hoye",
+        "Conklin"
+      ],
+      "year": 2024,
+      "journal": "Proceedings of the National Academy of Sciences",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1073-pnas-2316827121",
+      "type": "journal-article",
+      "doi": "10.1073/pnas.2316827121",
+      "url": "https://doi.org/10.1073/pnas.2316827121",
+      "title": "Migratory birds modulate niche tradeoffs in rhythm with seasons and life history",
+      "authors": [
+        "Yanco",
+        "Oliver",
+        "Iannarilli"
+      ],
+      "year": 2024,
+      "journal": "Proceedings of the National Academy of Sciences",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1086-597229",
+      "type": "journal-article",
+      "doi": "10.1086/597229",
+      "url": "https://doi.org/10.1086/597229",
+      "title": "Opposing Rainfall and Plant Nutritional Gradients Best Explain the Wildebeest Migration in the Serengeti",
+      "authors": [
+        "Holdo",
+        "Holt",
+        "Fryxell"
+      ],
+      "year": 2009,
+      "journal": "The American Naturalist",
+      "verified": "Crossref API 2026-10-22: DOI resolves, title/authors match",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1098-rspb-2008-1142",
+      "type": "journal-article",
+      "doi": "10.1098/rspb.2008.1142",
+      "url": "https://doi.org/10.1098/rspb.2008.1142",
+      "title": "Extreme endurance flights by landbirds crossing the Pacific Ocean: ecological corridor rather than barrier?",
+      "authors": [
+        "Gill",
+        "Tibbitts",
+        "Douglas"
+      ],
+      "year": 2008,
+      "journal": "Proceedings of the Royal Society B: Biological Sciences",
+      "verified": "Crossref API 2026-10-22: DOI resolves, title/authors match",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1098-rspb-2013-2897",
+      "type": "journal-article",
+      "doi": "10.1098/rspb.2013.2897",
+      "url": "https://doi.org/10.1098/rspb.2013.2897",
+      "title": "Migratory connectivity and population-specific migration routes in a long-distance migratory bird",
+      "authors": [
+        "Trierweiler",
+        "Klaassen",
+        "Drent"
+      ],
+      "year": 2014,
+      "journal": "Proceedings of the Royal Society B: Biological Sciences",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1098-rspb-2016-2581",
+      "type": "journal-article",
+      "doi": "10.1098/rspb.2016.2581",
+      "url": "https://doi.org/10.1098/rspb.2016.2581",
+      "title": "How numbers of nesting sea turtles can be overestimated by nearly a factor of two",
+      "authors": [
+        "Esteban",
+        "Mortimer",
+        "Hays"
+      ],
+      "year": 2017,
+      "journal": "Proceedings of the Royal Society B: Biological Sciences",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1111-1365-2656-12281",
+      "type": "journal-article",
+      "doi": "10.1111/1365-2656.12281",
+      "url": "https://doi.org/10.1111/1365-2656.12281",
+      "title": "Forecasting spring from afar? Timing of migration and predictability of phenology along different migration routes of an avian herbivore",
+      "authors": [
+        "Kölzsch",
+        "Bauer",
+        "de Boer"
+      ],
+      "year": 2014,
+      "journal": "Journal of Animal Ecology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1111-1365-2656-12495",
+      "type": "journal-article",
+      "doi": "10.1111/1365-2656.12495",
+      "url": "https://doi.org/10.1111/1365-2656.12495",
+      "title": "Behavioural flexibility in migratory behaviour in a long‐lived large herbivore",
+      "authors": [
+        "Eggeman",
+        "Hebblewhite",
+        "Bohm"
+      ],
+      "year": 2016,
+      "journal": "Journal of Animal Ecology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1111-1365-2656-13201",
+      "type": "journal-article",
+      "doi": "10.1111/1365-2656.13201",
+      "url": "https://doi.org/10.1111/1365-2656.13201",
+      "title": "The gateway to Africa: What determines sea crossing performance of a migratory soaring bird at the Strait of Gibraltar?",
+      "authors": [
+        "Santos",
+        "Silva",
+        "Muñoz"
+      ],
+      "year": 2020,
+      "journal": "Journal of Animal Ecology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1111-1365-2656-13484",
+      "type": "journal-article",
+      "doi": "10.1111/1365-2656.13484",
+      "url": "https://doi.org/10.1111/1365-2656.13484",
+      "title": "Longer days enable higher diurnal activity for migratory birds",
+      "authors": [
+        "Pokrovsky",
+        "Kölzsch",
+        "Sherub"
+      ],
+      "year": 2021,
+      "journal": "Journal of Animal Ecology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1111-jav-02392",
+      "type": "journal-article",
+      "doi": "10.1111/jav.02392",
+      "url": "https://doi.org/10.1111/jav.02392",
+      "title": "Goose parents lead migration V",
+      "authors": [
+        "Kölzsch",
+        "Flack",
+        "Müskens"
+      ],
+      "year": 2020,
+      "journal": "Journal of Avian Biology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1111-jav-02515",
+      "type": "journal-article",
+      "doi": "10.1111/jav.02515",
+      "url": "https://doi.org/10.1111/jav.02515",
+      "title": "Population‐specific adjustment of the annual cycle in a super‐swift trans‐Saharan migrant",
+      "authors": [
+        "Meier",
+        "Karaardıç",
+        "Aymí"
+      ],
+      "year": 2020,
+      "journal": "Journal of Avian Biology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1126-sciadv-1501694",
+      "type": "journal-article",
+      "doi": "10.1126/sciadv.1501694",
+      "url": "https://doi.org/10.1126/sciadv.1501694",
+      "title": "Empirical observations of the spawning migration of European eels: The long and dangerous road to the Sargasso Sea",
+      "authors": [
+        "Righton",
+        "Westerberg",
+        "Feunteun"
+      ],
+      "year": 2016,
+      "journal": "Science Advances",
+      "verified": "Crossref API 2026-10-22: DOI resolves, title/authors match",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1186-s40462-021-00274-6",
+      "type": "journal-article",
+      "doi": "10.1186/s40462-021-00274-6",
+      "url": "https://doi.org/10.1186/s40462-021-00274-6",
+      "title": "Inclement weather forces stopovers and prevents migratory progress for obligate soaring migrants",
+      "authors": [
+        "Mallon",
+        "Bildstein",
+        "Fagan"
+      ],
+      "year": 2021,
+      "journal": "Movement Ecology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1186-s40462-022-00328-3",
+      "type": "journal-article",
+      "doi": "10.1186/s40462-022-00328-3",
+      "url": "https://doi.org/10.1186/s40462-022-00328-3",
+      "title": "Timing is critical: consequences of asynchronous migration for the performance and destination of a long-distance migrant",
+      "authors": [
+        "Acácio",
+        "Catry",
+        "Soriano-Redondo"
+      ],
+      "year": 2022,
+      "journal": "Movement Ecology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1650-0010-5422-2001-103-0715-fmrtaw-2-0-co-2",
+      "type": "journal-article",
+      "doi": "10.1650/0010-5422(2001)103[0715:FMRTAW]2.0.CO;2",
+      "url": "https://doi.org/10.1650/0010-5422(2001)103[0715:FMRTAW]2.0.CO;2",
+      "title": "Fall Migration Routes, Timing, and Wintering Sites of North American Ospreys as Determined by Satellite Telemetry",
+      "authors": [
+        "Martell",
+        "Henny",
+        "Nye"
+      ],
+      "year": 2001,
+      "journal": "The Condor",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1890-10-0489-1",
+      "type": "journal-article",
+      "doi": "10.1890/10-0489.1",
+      "url": "https://doi.org/10.1890/10-0489.1",
+      "title": "Monarch butterfly migration and parasite transmission in eastern North America",
+      "authors": [
+        "Bartel",
+        "Oberhauser",
+        "de Roode"
+      ],
+      "year": 2011,
+      "journal": "Ecology",
+      "verified": "Crossref API 2026-10-22: DOI resolves, title/authors match",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-1890-es11-00053-1",
+      "type": "journal-article",
+      "doi": "10.1890/ES11-00053.1",
+      "url": "https://doi.org/10.1890/ES11-00053.1",
+      "title": "Large-scale movements and high-use areas of western Pacific leatherback turtles,Dermochelys coriacea",
+      "authors": [
+        "Benson",
+        "Eguchi",
+        "Foley"
+      ],
+      "year": 2011,
+      "journal": "Ecosphere",
+      "verified": "Crossref API 2026-10-22: DOI resolves, title/authors match",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-3354-esr00239",
+      "type": "journal-article",
+      "doi": "10.3354/esr00239",
+      "url": "https://doi.org/10.3354/esr00239",
+      "title": "Behavioural estimation of blue whale movements in the Northeast Pacific from state-space model analysis of satellite tracks",
+      "authors": [
+        "Bailey",
+        "Mate",
+        "Palacios"
+      ],
+      "year": 2009,
+      "journal": "Endangered Species Research",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-3389-fevo-2022-846171",
+      "type": "journal-article",
+      "doi": "10.3389/fevo.2022.846171",
+      "url": "https://doi.org/10.3389/fevo.2022.846171",
+      "title": "Increasing Anthropogenic Disturbance Restricts Wildebeest Movement Across East African Grazing Systems",
+      "authors": [
+        "Stabach",
+        "Hughey",
+        "Crego"
+      ],
+      "year": 2022,
+      "journal": "Frontiers in Ecology and Evolution",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-10-3897-bdj-11-e114729",
+      "type": "journal-article",
+      "doi": "10.3897/BDJ.11.e114729",
+      "url": "https://doi.org/10.3897/BDJ.11.e114729",
+      "title": "Australia’s east coast humpback whales: Satellite tag-derived movements on breeding grounds, feeding grounds and along the northern and southern migration",
+      "authors": [
+        "Andrews-Goff",
+        "Gales",
+        "Childerhouse"
+      ],
+      "year": 2023,
+      "journal": "Biodiversity Data Journal",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1016-j-biocon-2010-04-026",
+      "type": "journal-article",
+      "doi": "doi:10.1016/j.biocon.2010.04.026",
+      "url": "https://doi.org/doi:10.1016/j.biocon.2010.04.026",
+      "title": "Saiga antelope calving site selection is increasingly driven by human disturbance",
+      "authors": [
+        "Singh",
+        "Grachev",
+        "Bekenov"
+      ],
+      "year": 2010,
+      "journal": "Biological Conservation",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1034-j-1600-048x-2001-320107-x",
+      "type": "journal-article",
+      "doi": "doi:10.1034/j.1600-048x.2001.320107.x",
+      "url": "https://doi.org/doi:10.1034/j.1600-048x.2001.320107.x",
+      "title": "Satellite tracking of Swedish Ospreys Pandion haliaetus : autumn migration routes and orientation",
+      "authors": [
+        "Hake",
+        "Kjellén",
+        "Alerstam"
+      ],
+      "year": 2001,
+      "journal": "Journal of Avian Biology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1038-srep12443",
+      "type": "journal-article",
+      "doi": "doi:10.1038/srep12443",
+      "url": "https://doi.org/doi:10.1038/srep12443",
+      "title": "Clock gene polymorphism and scheduling of migration: a geolocator study of the barn swallow Hirundo rustica",
+      "authors": [
+        "Bazzi",
+        "Ambrosini",
+        "Caprioli"
+      ],
+      "year": 2015,
+      "journal": "Scientific Reports",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1071-mf9960637",
+      "type": "journal-article",
+      "doi": "doi:10.1071/mf9960637",
+      "url": "https://doi.org/doi:10.1071/mf9960637",
+      "title": "Seasonal occurrence, distribution and movements of the whale shark, Rhincodon typus , at Ningaloo Reef, Western Australia",
+      "authors": [
+        "Taylor"
+      ],
+      "year": 1996,
+      "journal": "Marine and Freshwater Research",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1098-rsbl-2015-0071",
+      "type": "journal-article",
+      "doi": "doi:10.1098/rsbl.2015.0071",
+      "url": "https://doi.org/doi:10.1098/rsbl.2015.0071",
+      "title": "Critically endangered western gray whales migrate to the eastern North Pacific",
+      "authors": [
+        "Mate",
+        "Ilyashenko",
+        "Bradford"
+      ],
+      "year": 2015,
+      "journal": "Biology Letters",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1111-j-1365-2486-2010-02225-x",
+      "type": "journal-article",
+      "doi": "doi:10.1111/j.1365-2486.2010.02225.x",
+      "url": "https://doi.org/doi:10.1111/j.1365-2486.2010.02225.x",
+      "title": "Modelling the future hydroclimatology of the lower Fraser River and its impacts on the spawning migration survival of sockeye salmon",
+      "authors": [
+        "HAGUE",
+        "FERRARI",
+        "MILLER"
+      ],
+      "year": 2010,
+      "journal": "Global Change Biology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1111-j-1469-7998-2008-00425-x",
+      "type": "journal-article",
+      "doi": "doi:10.1111/j.1469-7998.2008.00425.x",
+      "url": "https://doi.org/doi:10.1111/j.1469-7998.2008.00425.x",
+      "title": "First application of satellite telemetry to track African straw‐coloured fruit bat migration",
+      "authors": [
+        "Richter",
+        "Cumming"
+      ],
+      "year": 2008,
+      "journal": "Journal of Zoology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1126-sciadv-1500931",
+      "type": "journal-article",
+      "doi": "doi:10.1126/sciadv.1500931",
+      "url": "https://doi.org/doi:10.1126/sciadv.1500931",
+      "title": "Costs of migratory decisions: A comparison across eight white stork populations",
+      "authors": [
+        "Flack",
+        "Fiedler",
+        "Blas"
+      ],
+      "year": 2016,
+      "journal": "Science Advances",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1139-z91-242",
+      "type": "journal-article",
+      "doi": "doi:10.1139/z91-242",
+      "url": "https://doi.org/doi:10.1139/z91-242",
+      "title": "Selection of calving sites by Porcupine herd caribou",
+      "authors": [
+        "Fancy",
+        "Whitten"
+      ],
+      "year": 1991,
+      "journal": "Canadian Journal of Zoology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1186-s40462-017-0120-2",
+      "type": "journal-article",
+      "doi": "doi:10.1186/s40462-017-0120-2",
+      "url": "https://doi.org/doi:10.1186/s40462-017-0120-2",
+      "title": "Temporal migration patterns between natal locations of ruby-throated hummingbirds (Archilochus colubris) and their Gulf Coast stopover site",
+      "authors": [
+        "Zenzal",
+        "Contina",
+        "Kelly"
+      ],
+      "year": 2018,
+      "journal": "Movement Ecology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1242-jeb-201-23-3221",
+      "type": "journal-article",
+      "doi": "doi:10.1242/jeb.201.23.3221",
+      "url": "https://doi.org/doi:10.1242/jeb.201.23.3221",
+      "title": "Strategies for migration in the terrestrial christmas island red crab gecarcoidea natalis: intermittent versus continuous locomotion",
+      "authors": [
+        "Adamczewska",
+        "Morris"
+      ],
+      "year": 1998,
+      "journal": "Journal of Experimental Biology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1371-journal-pbio-0060171",
+      "type": "journal-article",
+      "doi": "doi:10.1371/journal.pbio.0060171",
+      "url": "https://doi.org/doi:10.1371/journal.pbio.0060171",
+      "title": "Persistent Leatherback Turtle Migrations Present Opportunities for Conservation",
+      "authors": [
+        "Shillinger",
+        "Palacios",
+        "Bailey"
+      ],
+      "year": 2008,
+      "journal": "PLoS Biology",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-1642-auk-15-160-1",
+      "type": "journal-article",
+      "doi": "doi:10.1642/auk-15-160.1",
+      "url": "https://doi.org/doi:10.1642/auk-15-160.1",
+      "title": "Stopover biology of Ruby-throated Hummingbirds (Archilochus colubris) during autumn migration",
+      "authors": [
+        "Zenzal",
+        "Moore"
+      ],
+      "year": 2016,
+      "journal": "The Auk",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-22353-mjbs-2009-07-07",
+      "type": "journal-article",
+      "doi": "doi:10.22353/mjbs.2009.07.07",
+      "url": "https://doi.org/doi:10.22353/mjbs.2009.07.07",
+      "title": "Fences Impede Long-distance Mongolian Gazelle (Procapra gutturosa) Movements in Drought-stricken Landscapes",
+      "authors": [],
+      "year": 2009,
+      "journal": "Mongolian Journal of Biological Sciences",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-2307-1543512",
+      "type": "journal-article",
+      "doi": "doi:10.2307/1543512",
+      "url": "https://doi.org/doi:10.2307/1543512",
+      "title": "Ecology and Behavior ofGecarcoidea natalis, the Christmas Island Red Crab, During the Annual Breeding Migration",
+      "authors": [
+        "Adamczewska",
+        "Morris"
+      ],
+      "year": 2001,
+      "journal": "The Biological Bulletin",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-3354-esr00447",
+      "type": "journal-article",
+      "doi": "doi:10.3354/esr00447",
+      "url": "https://doi.org/doi:10.3354/esr00447",
+      "title": "Movements of gray whales between the western and eastern North Pacific",
+      "authors": [
+        "Weller",
+        "Klimek",
+        "Bradford"
+      ],
+      "year": 2012,
+      "journal": "Endangered Species Research",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "doi-doi-10-7557-2-10-3-850",
+      "type": "journal-article",
+      "doi": "doi:10.7557/2.10.3.850",
+      "url": "https://doi.org/doi:10.7557/2.10.3.850",
+      "title": "Seasonal movements of caribou in arctic Alaska as determined by satellite",
+      "authors": [
+        "Fancy",
+        "Pank",
+        "Whitten"
+      ],
+      "year": 1990,
+      "journal": "Rangifer",
+      "verified": "Crossref API 2026-10-22",
+      "reliability": "primary/peer-reviewed"
+    },
+    {
+      "id": "movebank-10-5441-001-1-137cn005",
+      "type": "dataset",
+      "doi": "10.5441/001/1.137cn005",
+      "url": "https://doi.org/10.5441/001/1.137cn005",
+      "title": "Data from: Timing is critical: consequences of asynchronous migration for the performance and destination of a long-distance migrant",
+      "creators": [
+        "Acácio",
+        "Catry",
+        "Soriano-Redondo",
+        "Silva"
+      ],
+      "year": 2023,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-1f1h87r8",
+      "type": "dataset",
+      "doi": "10.5441/001/1.1f1h87r8",
+      "url": "https://doi.org/10.5441/001/1.1f1h87r8",
+      "title": "Data from: Study \"Satellite Tracking of Oceanic Loggerhead Turtles in the Mediterranean\"",
+      "creators": [
+        "Hochscheid"
+      ],
+      "year": 2020,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-294",
+      "type": "dataset",
+      "doi": "10.5441/001/1.294",
+      "url": "https://doi.org/10.5441/001/1.294",
+      "title": "Data from: Australia’s east coast humpback whales: satellite tag derived movements on breeding grounds, feeding grounds and along the northern and southern migration.",
+      "creators": [
+        "Andrews-Goff",
+        "Gales",
+        "Childerhouse",
+        "Laverick"
+      ],
+      "year": 2023,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-313",
+      "type": "dataset",
+      "doi": "10.5441/001/1.313",
+      "url": "https://doi.org/10.5441/001/1.313",
+      "title": "Data from: Study \"Green turtles (Chelonia Mydas); Hays; Chagos Archipelago, Western Indian Ocean\"",
+      "creators": [
+        "Hays",
+        "Esteban",
+        "Rattray"
+      ],
+      "year": 2024,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-327",
+      "type": "dataset",
+      "doi": "10.5441/001/1.327",
+      "url": "https://doi.org/10.5441/001/1.327",
+      "title": "Data from: Study \"Bar-tailed Godwit geolocator tracking New Zealand 2013-2014\"",
+      "creators": [
+        "Battley",
+        "Lisovski",
+        "Conklin"
+      ],
+      "year": 2024,
+      "licence": "Attribution 4.0 International",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-335",
+      "type": "dataset",
+      "doi": "10.5441/001/1.335",
+      "url": "https://doi.org/10.5441/001/1.335",
+      "title": "Data from: Study \"GPS tracking of honey buzzards in Finland\"",
+      "creators": [
+        "Byholm",
+        "Mirski",
+        "Vansteelant"
+      ],
+      "year": 2025,
+      "licence": "Creative Commons Attribution Non Commercial 4.0 International",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": true
+    },
+    {
+      "id": "movebank-10-5441-001-1-385gk270",
+      "type": "dataset",
+      "doi": "10.5441/001/1.385gk270",
+      "url": "https://doi.org/10.5441/001/1.385gk270",
+      "title": "Data from: Satellite tracking a wide‐ranging endangered vulture species to target conservation actions in the Middle East and East Africa",
+      "creators": [
+        "Buechley",
+        "Şekercioğlu"
+      ],
+      "year": 2019,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-44183438",
+      "type": "dataset",
+      "doi": "10.5441/001/1.44183438",
+      "url": "https://doi.org/10.5441/001/1.44183438",
+      "title": "Data from: Long-distance seed dispersal by straw-coloured fruit bats varies by season and landscape",
+      "creators": [
+        "Abedi-Lartey",
+        "Dechmann",
+        "Wikelski",
+        "Scharf"
+      ],
+      "year": 2016,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-4n2501f5",
+      "type": "dataset",
+      "doi": "10.5441/001/1.4n2501f5",
+      "url": "https://doi.org/10.5441/001/1.4n2501f5",
+      "title": "Data from: Longer days enable higher diurnal activity for migratory birds [Himalayan griffons]",
+      "creators": [
+        "Sherub",
+        "Wikelski"
+      ],
+      "year": 2021,
+      "licence": "CC0 1.0 Universal",
+      "nonCommercial": false,
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22; zipped GPS CSV downloaded anonymously and unzipped",
+      "reliability": "primary data"
+    },
+    {
+      "id": "movebank-10-5441-001-1-593",
+      "type": "dataset",
+      "doi": "10.5441/001/1.593",
+      "url": "https://doi.org/10.5441/001/1.593",
+      "title": "Data from: Study \"1000 Cranes. Russia. Common Crane.\"",
+      "creators": [
+        "Ilyashenko",
+        "Pokrovsky",
+        "Ilyashenko",
+        "Korepov"
+      ],
+      "year": 2024,
+      "licence": "Attribution 4.0 International",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-597",
+      "type": "dataset",
+      "doi": "10.5441/001/1.597",
+      "url": "https://doi.org/10.5441/001/1.597",
+      "title": "Data from: Study \"GPS telemetry of Common Cranes, Sweden\"",
+      "creators": [
+        "Žydelis",
+        "Desholm",
+        "Månsson",
+        "Nilsson"
+      ],
+      "year": 2024,
+      "licence": "Attribution 4.0 International",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-5d3f0664",
+      "type": "dataset",
+      "doi": "10.5441/001/1.5d3f0664",
+      "url": "https://doi.org/10.5441/001/1.5d3f0664",
+      "title": "Data from: Forecasting spring from afar? Timing of migration and predictability of phenology along different migration routes of an avian herbivore [Greenland data]",
+      "creators": [
+        "Cabot"
+      ],
+      "year": 2014,
+      "licence": "Creative Commons Zero v1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-5g4h5t6c",
+      "type": "dataset",
+      "doi": "10.5441/001/1.5g4h5t6c",
+      "url": "https://doi.org/10.5441/001/1.5g4h5t6c",
+      "title": "Data from: Study \"Ya Ha Tinda elk project, Banff National Park, 2001-2020 (females)\"",
+      "creators": [
+        "Hebblewhite",
+        "Merrill",
+        "Martin",
+        "Berg"
+      ],
+      "year": 2020,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-5ph88fk2",
+      "type": "dataset",
+      "doi": "10.5441/001/1.5ph88fk2",
+      "url": "https://doi.org/10.5441/001/1.5ph88fk2",
+      "title": "Data from: Behavioural estimation of blue whale movements in the Northeast Pacific from state-space model analysis of satellite tracks",
+      "creators": [
+        "Mate",
+        "Palacios",
+        "Irvine",
+        "Follett"
+      ],
+      "year": 2019,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-695",
+      "type": "dataset",
+      "doi": "10.5441/001/1.695",
+      "url": "https://doi.org/10.5441/001/1.695",
+      "title": "Data from: Age-dependent response to anthropogenic habitat during migration of an endangered raptor",
+      "creators": [
+        "Efrat",
+        "Lehnardt",
+        "Bragin",
+        "Bragin"
+      ],
+      "year": 2025,
+      "licence": "Creative Commons Zero v1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-74pf3n2p",
+      "type": "dataset",
+      "doi": "10.5441/001/1.74pf3n2p",
+      "url": "https://doi.org/10.5441/001/1.74pf3n2p",
+      "title": "Data from: Study \"Pronghorn (Antilocapra americana), Wyoming/Colorado, USA\"",
+      "creators": [
+        "Beck",
+        "Hennig",
+        "Scasta"
+      ],
+      "year": 2022,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-95r77m9k",
+      "type": "dataset",
+      "doi": "10.5441/001/1.95r77m9k",
+      "url": "https://doi.org/10.5441/001/1.95r77m9k",
+      "title": "Data from: Study \"HawkWatch International Golden Eagles\"",
+      "creators": [
+        "Smith"
+      ],
+      "year": 2019,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-f3550b4f",
+      "type": "dataset",
+      "doi": "10.5441/001/1.f3550b4f",
+      "url": "https://doi.org/10.5441/001/1.f3550b4f",
+      "title": "Data from: In search of greener pastures: using satellite images to predict the effects of environmental change on zebra migration",
+      "creators": [
+        "Bartlam-Brooks",
+        "Harris"
+      ],
+      "year": 2013,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-f3qt46r2",
+      "type": "dataset",
+      "doi": "10.5441/001/1.f3qt46r2",
+      "url": "https://doi.org/10.5441/001/1.f3qt46r2",
+      "title": "Data from: Study \"Vultures Acopian Center USA GPS\" (2003-2021)",
+      "creators": [
+        "Bildstein",
+        "Barber",
+        "Bechard",
+        "Graña Grilli"
+      ],
+      "year": 2021,
+      "licence": "Creative Commons Attribution 4.0 International",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-h0t27719",
+      "type": "dataset",
+      "doi": "10.5441/001/1.h0t27719",
+      "url": "https://doi.org/10.5441/001/1.h0t27719",
+      "title": "Data from: Comparison of movement strategies of three populations of white-bearded wildebeest",
+      "creators": [
+        "Stabach",
+        "Hughey",
+        "Reid",
+        "Worden"
+      ],
+      "year": 2020,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-ms87s2m6",
+      "type": "dataset",
+      "doi": "10.5441/001/1.ms87s2m6",
+      "url": "https://doi.org/10.5441/001/1.ms87s2m6",
+      "title": "Data from: Goose parents lead migration V",
+      "creators": [
+        "Kölzsch",
+        "Müskens",
+        "Glazov",
+        "Kruckenberg"
+      ],
+      "year": 2020,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-nn518dc4",
+      "type": "dataset",
+      "doi": "10.5441/001/1.nn518dc4",
+      "url": "https://doi.org/10.5441/001/1.nn518dc4",
+      "title": "Data from: Study \"Switzerland Solothurn - Long term study on migratory movement of Alpine swifts (Apus melba)\"",
+      "creators": [
+        "Meier",
+        "Liechti"
+      ],
+      "year": 2020,
+      "licence": "Creative Commons Zero v1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-r9g07dr8",
+      "type": "dataset",
+      "doi": "10.5441/001/1.r9g07dr8",
+      "url": "https://doi.org/10.5441/001/1.r9g07dr8",
+      "title": "Data from: The gateway to Africa: what determines sea crossing performance of a migratory soaring bird at the strait of Gibraltar?",
+      "creators": [
+        "Santos",
+        "Silva",
+        "Muñoz",
+        "Onrubia"
+      ],
+      "year": 2020,
+      "licence": "Creative Commons Universal Public Domain Dedication (CC0 1.0)",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-sv6335t3",
+      "type": "dataset",
+      "doi": "10.5441/001/1.sv6335t3",
+      "url": "https://doi.org/10.5441/001/1.sv6335t3",
+      "title": "Data from: Fall migration routes, timing, and wintering sites of North American ospreys as determined by satellite telemetry",
+      "creators": [
+        "Martell",
+        "Douglas"
+      ],
+      "year": 2019,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-tb272jc1",
+      "type": "dataset",
+      "doi": "10.5441/001/1.tb272jc1",
+      "url": "https://doi.org/10.5441/001/1.tb272jc1",
+      "title": "Data from: Migratory connectivity and population specific migration routes in a long-distance migratory bird",
+      "creators": [
+        "Trierweiler",
+        "Klaassen",
+        "Drent",
+        "Exo"
+      ],
+      "year": 2013,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "movebank-10-5441-001-1-vk36vq82",
+      "type": "dataset",
+      "doi": "10.5441/001/1.vk36vq82",
+      "url": "https://doi.org/10.5441/001/1.vk36vq82",
+      "title": "Data from: Flying on their own wings: young and adult cuckoos respond similarly to long-distance displacement during migration",
+      "creators": [
+        "Thorup",
+        "Vega",
+        "Snell",
+        "Lubkovskaia"
+      ],
+      "year": 2020,
+      "licence": "CC0 1.0 Universal",
+      "repository": "Movebank Data Repository",
+      "verified": "DataCite API 2026-10-22: DOI resolves; licence read from DataCite rightsList; CSV downloaded anonymously",
+      "reliability": "primary data",
+      "nonCommercial": false
+    },
+    {
+      "id": "url-fisheries-noaa-gov-species-humpback-whale",
+      "type": "web",
+      "url": "https://www.fisheries.noaa.gov/species/humpback-whale",
+      "title": "https://www.fisheries.noaa.gov/species/humpback-whale",
+      "retrieved": "2026-10-22",
+      "verified": "HTTP 200 via curl 2026-10-22",
+      "reliability": "secondary/agency"
+    },
+    {
+      "id": "url-iucnredlist-org",
+      "type": "web",
+      "url": "https://www.iucnredlist.org/",
+      "title": "https://www.iucnredlist.org/",
+      "retrieved": "2026-10-22",
+      "verified": "HTTP 200 via curl 2026-10-22",
+      "reliability": "secondary/agency"
+    },
+    {
+      "id": "url-movebank-org",
+      "type": "web",
+      "url": "https://www.movebank.org/",
+      "title": "https://www.movebank.org/",
+      "retrieved": "2026-10-22",
+      "verified": "HTTP 200 via curl 2026-10-22",
+      "reliability": "secondary/agency"
+    },
+    {
+      "id": "wp-adams-river-british-columbia",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Adams River (British Columbia)",
+      "url": "https://en.wikipedia.org/wiki/Adams_River_(British_Columbia)",
+      "revision": 1372165859,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-alpine-swift",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Alpine swift",
+      "url": "https://en.wikipedia.org/wiki/Alpine_swift",
+      "revision": 1369099051,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-amur-falcon",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Amur falcon",
+      "url": "https://en.wikipedia.org/wiki/Amur_falcon",
+      "revision": 1379271534,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-arabian-sea",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Arabian Sea",
+      "url": "https://en.wikipedia.org/wiki/Arabian_Sea",
+      "revision": 1377979400,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-arctic-national-wildlife-refuge",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Arctic National Wildlife Refuge",
+      "url": "https://en.wikipedia.org/wiki/Arctic_National_Wildlife_Refuge",
+      "revision": 1379961345,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-arctic-tern",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Arctic tern",
+      "url": "https://en.wikipedia.org/wiki/Arctic_tern",
+      "revision": 1381390398,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-atlantic-ocean",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Atlantic Ocean",
+      "url": "https://en.wikipedia.org/wiki/Atlantic_Ocean",
+      "revision": 1381231733,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-azores",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Azores",
+      "url": "https://en.wikipedia.org/wiki/Azores",
+      "revision": 1379703166,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-bar-tailed-godwit",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Bar-tailed godwit",
+      "url": "https://en.wikipedia.org/wiki/Bar-tailed_godwit",
+      "revision": 1373652716,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-barn-swallow",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Barn swallow",
+      "url": "https://en.wikipedia.org/wiki/Barn_swallow",
+      "revision": 1380253423,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-barnacle-goose",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Barnacle goose",
+      "url": "https://en.wikipedia.org/wiki/Barnacle_goose",
+      "revision": 1369802615,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-bay-of-biscay",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Bay of Biscay",
+      "url": "https://en.wikipedia.org/wiki/Bay_of_Biscay",
+      "revision": 1376386885,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-benguela-current",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Benguela Current",
+      "url": "https://en.wikipedia.org/wiki/Benguela_Current",
+      "revision": 1317012430,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-bering-sea",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Bering Sea",
+      "url": "https://en.wikipedia.org/wiki/Bering_Sea",
+      "revision": 1378002021,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-betpak-dala",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Betpak-Dala",
+      "url": "https://en.wikipedia.org/wiki/Betpak-Dala",
+      "revision": 1370518968,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-bird-s-head-peninsula",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Bird's Head Peninsula",
+      "url": "https://en.wikipedia.org/wiki/Bird%27s_Head_Peninsula",
+      "revision": 1363902661,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-black-kite",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Black kite",
+      "url": "https://en.wikipedia.org/wiki/Black_kite",
+      "revision": 1380538340,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-blue-whale",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Blue whale",
+      "url": "https://en.wikipedia.org/wiki/Blue_whale",
+      "revision": 1379041047,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-blue-wildebeest",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Blue wildebeest",
+      "url": "https://en.wikipedia.org/wiki/Blue_wildebeest",
+      "revision": 1377633143,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-british-mountains",
+      "type": "encyclopedia",
+      "title": "Wikipedia: British Mountains",
+      "url": "https://en.wikipedia.org/wiki/British_Mountains",
+      "revision": 1372172049,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-california-current",
+      "type": "encyclopedia",
+      "title": "Wikipedia: California Current",
+      "url": "https://en.wikipedia.org/wiki/California_Current",
+      "revision": 1361984400,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-canary-islands",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Canary Islands",
+      "url": "https://en.wikipedia.org/wiki/Canary_Islands",
+      "revision": 1377833834,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-central-african-republic",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Central African Republic",
+      "url": "https://en.wikipedia.org/wiki/Central_African_Republic",
+      "revision": 1380074967,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-central-america",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Central America",
+      "url": "https://en.wikipedia.org/wiki/Central_America",
+      "revision": 1381101746,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-channel-islands-california",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Channel Islands (California)",
+      "url": "https://en.wikipedia.org/wiki/Channel_Islands_(California)",
+      "revision": 1377852366,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-christmas-island",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Christmas Island",
+      "url": "https://en.wikipedia.org/wiki/Christmas_Island",
+      "revision": 1381369195,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-christmas-island-red-crab",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Christmas Island red crab",
+      "url": "https://en.wikipedia.org/wiki/Christmas_Island_red_crab",
+      "revision": 1353959820,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-chukchi-sea",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Chukchi Sea",
+      "url": "https://en.wikipedia.org/wiki/Chukchi_Sea",
+      "revision": 1370181748,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-common-crane",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Common crane",
+      "url": "https://en.wikipedia.org/wiki/Common_crane",
+      "revision": 1378429580,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-common-cuckoo",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Common cuckoo",
+      "url": "https://en.wikipedia.org/wiki/Common_cuckoo",
+      "revision": 1380574688,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-congo-basin",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Congo Basin",
+      "url": "https://en.wikipedia.org/wiki/Congo_Basin",
+      "revision": 1377202244,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-eastern-united-states",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Eastern United States",
+      "url": "https://en.wikipedia.org/wiki/Eastern_United_States",
+      "revision": 1357181416,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-egyptian-vulture",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Egyptian vulture",
+      "url": "https://en.wikipedia.org/wiki/Egyptian_vulture",
+      "revision": 1380324299,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-elk",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Elk",
+      "url": "https://en.wikipedia.org/wiki/Elk",
+      "revision": 1375970035,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-european-eel",
+      "type": "encyclopedia",
+      "title": "Wikipedia: European eel",
+      "url": "https://en.wikipedia.org/wiki/European_eel",
+      "revision": 1375874598,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-european-honey-buzzard",
+      "type": "encyclopedia",
+      "title": "Wikipedia: European honey buzzard",
+      "url": "https://en.wikipedia.org/wiki/European_honey_buzzard",
+      "revision": 1374911661,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-firth-of-thames",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Firth of Thames",
+      "url": "https://en.wikipedia.org/wiki/Firth_of_Thames",
+      "revision": 1362731021,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-fox-islands-passes",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Fox Islands Passes",
+      "url": "https://en.wikipedia.org/wiki/Fox_Islands_Passes",
+      "revision": 1380538482,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-fraser-river",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Fraser River",
+      "url": "https://en.wikipedia.org/wiki/Fraser_River",
+      "revision": 1373823691,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-golden-eagle",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Golden eagle",
+      "url": "https://en.wikipedia.org/wiki/Golden_eagle",
+      "revision": 1380682560,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-gray-whale",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Gray whale",
+      "url": "https://en.wikipedia.org/wiki/Gray_whale",
+      "revision": 1380697293,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-great-lakes",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Great Lakes",
+      "url": "https://en.wikipedia.org/wiki/Great_Lakes",
+      "revision": 1379976071,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-greater-white-fronted-goose",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Greater white-fronted goose",
+      "url": "https://en.wikipedia.org/wiki/Greater_white-fronted_goose",
+      "revision": 1365150756,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-green-sea-turtle",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Green sea turtle",
+      "url": "https://en.wikipedia.org/wiki/Green_sea_turtle",
+      "revision": 1380412424,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-grumeti-river",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Grumeti River",
+      "url": "https://en.wikipedia.org/wiki/Grumeti_River",
+      "revision": 1367431322,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-gulf-of-alaska",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Gulf of Alaska",
+      "url": "https://en.wikipedia.org/wiki/Gulf_of_Alaska",
+      "revision": 1376765205,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-gulf-of-mexico",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Gulf of Mexico",
+      "url": "https://en.wikipedia.org/wiki/Gulf_of_Mexico",
+      "revision": 1381254537,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-gulf-stream",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Gulf Stream",
+      "url": "https://en.wikipedia.org/wiki/Gulf_Stream",
+      "revision": 1370152616,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-hawaiian-islands-humpback-whale-national-marine-sanctuary",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Hawaiian Islands Humpback Whale National Marine Sanctuary",
+      "url": "https://en.wikipedia.org/wiki/Hawaiian_Islands_Humpback_Whale_National_Marine_Sanctuary",
+      "revision": 1372184487,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-himalayan-vulture",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Himalayan vulture",
+      "url": "https://en.wikipedia.org/wiki/Himalayan_vulture",
+      "revision": 1333870528,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists; infobox status NT (IUCN 3.1)",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-humpback-whale",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Humpback whale",
+      "url": "https://en.wikipedia.org/wiki/Humpback_whale",
+      "revision": 1380210410,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-iberian-peninsula",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Iberian Peninsula",
+      "url": "https://en.wikipedia.org/wiki/Iberian_Peninsula",
+      "revision": 1380437572,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-indian-ocean",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Indian Ocean",
+      "url": "https://en.wikipedia.org/wiki/Indian_Ocean",
+      "revision": 1381132441,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-kai-islands",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Kai Islands",
+      "url": "https://en.wikipedia.org/wiki/Kai_Islands",
+      "revision": 1381158049,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-kasanka-national-park",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Kasanka National Park",
+      "url": "https://en.wikipedia.org/wiki/Kasanka_National_Park",
+      "revision": 1362778759,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-kyzylkum-desert",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Kyzylkum Desert",
+      "url": "https://en.wikipedia.org/wiki/Kyzylkum_Desert",
+      "revision": 1362236178,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-lake-ndutu",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Lake Ndutu",
+      "url": "https://en.wikipedia.org/wiki/Lake_Ndutu",
+      "revision": 1381088980,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-leatherback-sea-turtle",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Leatherback sea turtle",
+      "url": "https://en.wikipedia.org/wiki/Leatherback_sea_turtle",
+      "revision": 1379959082,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-loggerhead-sea-turtle",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Loggerhead sea turtle",
+      "url": "https://en.wikipedia.org/wiki/Loggerhead_sea_turtle",
+      "revision": 1379927033,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-maasai-mara",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Maasai Mara",
+      "url": "https://en.wikipedia.org/wiki/Maasai_Mara",
+      "revision": 1381360462,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-manchuria",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Manchuria",
+      "url": "https://en.wikipedia.org/wiki/Manchuria",
+      "revision": 1380699299,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-mara-river",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Mara River",
+      "url": "https://en.wikipedia.org/wiki/Mara_River",
+      "revision": 1367600528,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-mid-atlantic-ridge",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Mid-Atlantic Ridge",
+      "url": "https://en.wikipedia.org/wiki/Mid-Atlantic_Ridge",
+      "revision": 1377004821,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-missouri",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Missouri",
+      "url": "https://en.wikipedia.org/wiki/Missouri",
+      "revision": 1379047470,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-monarch-butterfly",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Monarch butterfly",
+      "url": "https://en.wikipedia.org/wiki/Monarch_butterfly",
+      "revision": 1380059724,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-monarch-butterfly-biosphere-reserve",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Monarch Butterfly Biosphere Reserve",
+      "url": "https://en.wikipedia.org/wiki/Monarch_Butterfly_Biosphere_Reserve",
+      "revision": 1371504981,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-mongolian-gazelle",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Mongolian gazelle",
+      "url": "https://en.wikipedia.org/wiki/Mongolian_gazelle",
+      "revision": 1321070347,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-mongolian-manchurian-grassland",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Mongolian–Manchurian grassland",
+      "url": "https://en.wikipedia.org/wiki/Mongolian%E2%80%93Manchurian_grassland",
+      "revision": 1315348058,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-montagu-s-harrier",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Montagu's harrier",
+      "url": "https://en.wikipedia.org/wiki/Montagu%27s_harrier",
+      "revision": 1375049542,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-monterey-bay",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Monterey Bay",
+      "url": "https://en.wikipedia.org/wiki/Monterey_Bay",
+      "revision": 1379307282,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-nagaland",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Nagaland",
+      "url": "https://en.wikipedia.org/wiki/Nagaland",
+      "revision": 1377164241,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-ningaloo-coast",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Ningaloo Coast",
+      "url": "https://en.wikipedia.org/wiki/Ningaloo_Coast",
+      "revision": 1374867190,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-north-atlantic-current",
+      "type": "encyclopedia",
+      "title": "Wikipedia: North Atlantic Current",
+      "url": "https://en.wikipedia.org/wiki/North_Atlantic_Current",
+      "revision": 1369618783,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-northeast-greenland-national-park",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Northeast Greenland National Park",
+      "url": "https://en.wikipedia.org/wiki/Northeast_Greenland_National_Park",
+      "revision": 1375609424,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-ogilvie-mountains",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Ogilvie Mountains",
+      "url": "https://en.wikipedia.org/wiki/Ogilvie_Mountains",
+      "revision": 1372347356,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-ojo-de-liebre-lagoon",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Ojo de Liebre Lagoon",
+      "url": "https://en.wikipedia.org/wiki/Ojo_de_Liebre_Lagoon",
+      "revision": 1375274079,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-oklahoma",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Oklahoma",
+      "url": "https://en.wikipedia.org/wiki/Oklahoma",
+      "revision": 1378781497,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-old-crow-flats",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Old Crow Flats",
+      "url": "https://en.wikipedia.org/wiki/Old_Crow_Flats",
+      "revision": 1362889598,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-osprey",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Osprey",
+      "url": "https://en.wikipedia.org/wiki/Osprey",
+      "revision": 1379339911,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-pacific-ocean",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Pacific Ocean",
+      "url": "https://en.wikipedia.org/wiki/Pacific_Ocean",
+      "revision": 1379062720,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-plains-zebra",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Plains zebra",
+      "url": "https://en.wikipedia.org/wiki/Plains_zebra",
+      "revision": 1378842863,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-porcupine-caribou",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Porcupine caribou",
+      "url": "https://en.wikipedia.org/wiki/Porcupine_caribou",
+      "revision": 1377538470,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-pronghorn",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Pronghorn",
+      "url": "https://en.wikipedia.org/wiki/Pronghorn",
+      "revision": 1380732916,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-reindeer",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Reindeer",
+      "url": "https://en.wikipedia.org/wiki/Reindeer",
+      "revision": 1381399658,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-ruby-throated-hummingbird",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Ruby-throated hummingbird",
+      "url": "https://en.wikipedia.org/wiki/Ruby-throated_hummingbird",
+      "revision": 1371881443,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-sahara",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Sahara",
+      "url": "https://en.wikipedia.org/wiki/Sahara",
+      "revision": 1380508422,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-sahel",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Sahel",
+      "url": "https://en.wikipedia.org/wiki/Sahel",
+      "revision": 1381280199,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-saiga-antelope",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Saiga antelope",
+      "url": "https://en.wikipedia.org/wiki/Saiga_antelope",
+      "revision": 1380902810,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-san-ignacio-lagoon",
+      "type": "encyclopedia",
+      "title": "Wikipedia: San Ignacio Lagoon",
+      "url": "https://en.wikipedia.org/wiki/San_Ignacio_Lagoon",
+      "revision": 1376176401,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-sargasso-sea",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Sargasso Sea",
+      "url": "https://en.wikipedia.org/wiki/Sargasso_Sea",
+      "revision": 1381071299,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-scotland",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Scotland",
+      "url": "https://en.wikipedia.org/wiki/Scotland",
+      "revision": 1380878651,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-senegal",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Senegal",
+      "url": "https://en.wikipedia.org/wiki/Senegal",
+      "revision": 1378494883,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-serengeti-national-park",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Serengeti National Park",
+      "url": "https://en.wikipedia.org/wiki/Serengeti_National_Park",
+      "revision": 1381186131,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-seronera",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Seronera",
+      "url": "https://en.wikipedia.org/wiki/Seronera",
+      "revision": 1313227077,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-sockeye-salmon",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Sockeye salmon",
+      "url": "https://en.wikipedia.org/wiki/Sockeye_salmon",
+      "revision": 1374925949,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-somalia",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Somalia",
+      "url": "https://en.wikipedia.org/wiki/Somalia",
+      "revision": 1381001342,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-south-africa",
+      "type": "encyclopedia",
+      "title": "Wikipedia: South Africa",
+      "url": "https://en.wikipedia.org/wiki/South_Africa",
+      "revision": 1380576339,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-southeast-alaska",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Southeast Alaska",
+      "url": "https://en.wikipedia.org/wiki/Southeast_Alaska",
+      "revision": 1374713089,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-southern-africa",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Southern Africa",
+      "url": "https://en.wikipedia.org/wiki/Southern_Africa",
+      "revision": 1378420954,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-southern-ontario",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Southern Ontario",
+      "url": "https://en.wikipedia.org/wiki/Southern_Ontario",
+      "revision": 1380963575,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-steppe-eagle",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Steppe eagle",
+      "url": "https://en.wikipedia.org/wiki/Steppe_eagle",
+      "revision": 1374681801,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-strait-of-georgia",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Strait of Georgia",
+      "url": "https://en.wikipedia.org/wiki/Strait_of_Georgia",
+      "revision": 1370656379,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-strait-of-gibraltar",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Strait of Gibraltar",
+      "url": "https://en.wikipedia.org/wiki/Strait_of_Gibraltar",
+      "revision": 1375073257,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-straw-coloured-fruit-bat",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Straw-coloured fruit bat",
+      "url": "https://en.wikipedia.org/wiki/Straw-coloured_fruit_bat",
+      "revision": 1354404640,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-texas",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Texas",
+      "url": "https://en.wikipedia.org/wiki/Texas",
+      "revision": 1381234622,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-turkey-vulture",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Turkey vulture",
+      "url": "https://en.wikipedia.org/wiki/Turkey_vulture",
+      "revision": 1380709489,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-weddell-sea",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Weddell Sea",
+      "url": "https://en.wikipedia.org/wiki/Weddell_Sea",
+      "revision": 1373098102,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-western-corridor",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Western Corridor",
+      "url": "https://en.wikipedia.org/wiki/Western_Corridor",
+      "revision": 1372739545,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-western-europe",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Western Europe",
+      "url": "https://en.wikipedia.org/wiki/Western_Europe",
+      "revision": 1380008153,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-whale-shark",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Whale shark",
+      "url": "https://en.wikipedia.org/wiki/Whale_shark",
+      "revision": 1380653407,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-white-stork",
+      "type": "encyclopedia",
+      "title": "Wikipedia: White stork",
+      "url": "https://en.wikipedia.org/wiki/White_stork",
+      "revision": 1380253532,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-yellow-sea",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Yellow Sea",
+      "url": "https://en.wikipedia.org/wiki/Yellow_Sea",
+      "revision": 1366935043,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-yucat-n-peninsula",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Yucatán Peninsula",
+      "url": "https://en.wikipedia.org/wiki/Yucat%C3%A1n_Peninsula",
+      "revision": 1380960609,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    },
+    {
+      "id": "wp-yukon-kuskokwim-delta",
+      "type": "encyclopedia",
+      "title": "Wikipedia: Yukon–Kuskokwim Delta",
+      "url": "https://en.wikipedia.org/wiki/Yukon%E2%80%93Kuskokwim_Delta",
+      "revision": 1365955914,
+      "retrieved": "2026-10-22",
+      "verified": "Wikipedia API: page exists, not a disambiguation, revision recorded",
+      "reliability": "tertiary"
+    }
+  ]
+}

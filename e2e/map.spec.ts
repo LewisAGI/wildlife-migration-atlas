@@ -10,9 +10,11 @@ declare global {
         isSourceLoaded: (id: string) => boolean;
         project: (lngLat: [number, number]) => { x: number; y: number };
         getCenter: () => { lng: number; lat: number };
+        queryRenderedFeatures: (point: [number, number]) => { layer?: { id?: string } }[];
       };
       positions: { speciesId: string; trackId: string; lat: number; lng: number }[];
       routePoint: (speciesId: string) => { lng: number; lat: number } | null;
+      setDay: (day: number) => void;
     };
   }
 }
@@ -40,11 +42,6 @@ test.beforeEach(async ({ page }) => {
     if (!isAppAsset(url)) return;
     faults.push(`failed: ${url} ${request.failure()?.errorText ?? ''}`);
   });
-  await page.goto('/');
-  await page.locator('#app[data-ready="true"]').waitFor();
-  await page.waitForFunction(() => window.__atlas.map.getProjection().type === 'globe');
-  await page.waitForFunction(() => window.__atlas.map.isSourceLoaded('land'));
-  await page.waitForFunction(() => !window.__atlas.map.isMoving());
 });
 
 test.afterEach(() => {
@@ -52,7 +49,9 @@ test.afterEach(() => {
 });
 
 test('globe, land, and icon labels', async ({ page }) => {
+  await openAtlas(page);
   await expect(page.locator('#map canvas')).toBeVisible();
+  await expect(page.locator('#app')).not.toHaveAttribute('data-overlay-tile', 'degraded');
   await expect(page.locator('#app')).toHaveAttribute('data-projection', 'globe');
   await expect(page.locator('.maplibregl-ctrl-attrib')).toBeVisible();
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('NASA Blue Marble');
@@ -64,7 +63,7 @@ test('globe, land, and icon labels', async ({ page }) => {
     return attrib.bottom <= time.top + 1;
   });
   expect(attributionClear).toBe(true);
-  for (const name of ['Play', 'Zoom in', 'Zoom out', 'Species', 'Playback', 'Previous day', 'Next day']) {
+  for (const name of ['Play', 'Zoom in', 'Zoom out', 'Species', 'Compare', 'Months', 'Layers', 'Playback', 'Previous day', 'Next day']) {
     const button = page.getByRole('button', { name, exact: true });
     await expect(button).toHaveAttribute('aria-label', name);
     await expect(button).toHaveAttribute('title', name);
@@ -84,6 +83,7 @@ test('globe, land, and icon labels', async ({ page }) => {
 });
 
 test('scrubber, keyboard, play, and loop', async ({ page }) => {
+  await openAtlas(page);
   await page.locator('#slider').fill('20');
   await expect.poll(() => dayOf(page)).toBe(20);
   await dragSlider(page, 0.72);
@@ -111,60 +111,173 @@ test('scrubber, keyboard, play, and loop', async ({ page }) => {
   await page.getByRole('button', { name: 'Pause', exact: true }).click();
 });
 
-test('markers move, tern winters south, compare and the info sheet', async ({ page }, testInfo) => {
-  // Software WebGL on the CI runner is slower than a local GPU. The click itself no longer scans the framebuffer.
-  test.setTimeout(150_000);
-  await page.locator('#slider').fill('30');
-  const early = await herd(page);
-  await page.locator('#slider').fill('200');
-  const later = await herd(page);
+test('markers move between seasons', async ({ page }) => {
+  await openAtlas(page);
+  const early = await herdOnDay(page, 30);
+  const later = await herdOnDay(page, 200);
   expect(Math.abs(early.lat - later.lat) + Math.abs(early.lng - later.lng)).toBeGreaterThan(0.4);
+});
 
+test('arctic tern winters south', async ({ page }) => {
+  await openAtlas(page);
   await page.getByRole('button', { name: 'Species' }).click();
-  await page.getByRole('button', { name: 'Arctic tern' }).click();
-  await page.locator('#slider').fill('15');
+  await page.locator('#species-panel').getByRole('button', { name: 'Arctic tern', exact: true }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-species', 'arctic-tern');
+  await expect.poll(() => dayOf(page)).toBe(15);
   await expect.poll(async () => ternLats(page)).toEqual(expect.arrayContaining([expect.any(Number)]));
   const lats = await ternLats(page);
-  expect(lats.length).toBe(2);
+  expect(lats.length).toBe(1);
   lats.forEach((lat) => expect(lat).toBeLessThan(-50));
+});
 
+test('compare frames wildebeest and the tern together', async ({ page }) => {
+  await openAtlas(page, 'species=arctic-tern&day=15');
   const before = await centerOf(page);
   await page.getByRole('button', { name: 'Species' }).click();
-  await page.getByRole('button', { name: 'Wildebeest' }).click();
+  await page.getByRole('button', { name: 'Blue wildebeest', exact: true }).click();
   await expect.poll(async () => {
     const center = await centerOf(page);
     return Math.abs(center.lng - before.lng) > 4 || Math.abs(center.zoom - before.zoom) > 0.4;
   }).toBe(true);
   await page.waitForFunction(() => !window.__atlas.map.isMoving());
 
-  await page.getByRole('button', { name: 'Species' }).click();
   await page.getByRole('button', { name: 'Compare' }).click();
-  await expect.poll(async () => idsOf(page)).toEqual(expect.arrayContaining(['wildebeest', 'arctic-tern']));
+  await page.getByRole('button', { name: 'Arctic tern', exact: true }).click();
+  await expect(page.locator('#compare-panel')).toBeVisible();
+  await expect(page.locator('#compare-panel')).toContainText('Arctic tern');
+  await expect(page.locator('#compare-panel')).toContainText('Blue wildebeest');
+  await expect.poll(async () => idsOf(page)).toEqual(expect.arrayContaining(['blue-wildebeest', 'arctic-tern']));
+});
 
-  await page.locator('#slider').fill('15');
-  await page.waitForFunction(() => !window.__atlas.map.isMoving());
-  await clickSpecies(page, 'wildebeest');
-  const sheet = testInfo.project.name !== 'desktop';
-  const card = sheet ? page.locator('.event-sheet') : page.locator('.maplibregl-popup');
+test('wildebeest marker opens the info sheet', async ({ page }, testInfo) => {
+  await openAtlas(page, 'species=blue-wildebeest');
+  await showClearMarker(page, 'blue-wildebeest');
+  await clickSpecies(page, 'blue-wildebeest');
+  const card = infoCard(page, testInfo.project.name);
   await expect(card).toBeVisible();
   await expect(card).toContainText('Wildebeest');
   await expect(card.locator('.approx-mark')).toHaveText('approximate');
-  await page.locator(sheet ? '.sheet-close' : '.maplibregl-popup-close-button').click();
+  await closeCard(page, testInfo.project.name);
   await expect(card).toHaveCount(0);
-
-  await clickRoute(page, 'wildebeest');
-  await expect(card).toBeVisible();
-  await expect(card).toContainText('Connochaetes taurinus');
 });
+
+test('pin click keeps the sheet open and an empty map click closes it', async ({ page }, testInfo) => {
+  // Day 250 is far from every event, so a map click that re-picks the route
+  // cannot keep the calving sentence. Only the pin's own pick does.
+  await openAtlas(page, 'species=blue-wildebeest&day=250');
+  await page.getByRole('button', { name: 'Calving', exact: true }).click();
+  const card = infoCard(page, testInfo.project.name);
+  await expect(card).toBeVisible();
+  await expect(card).toContainText('roughly January to March');
+  await clickEmptyMap(page);
+  await expect(card).toHaveCount(0);
+});
+
+test('honey buzzard licence is on the marker card', async ({ page }, testInfo) => {
+  await openAtlas(page, 'day=196');
+  const before = await centerOf(page);
+  await page.getByRole('button', { name: 'Species' }).click();
+  await page.locator('#species-panel').getByRole('button', { name: 'European honey buzzard', exact: true }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-species', 'honey-buzzard-finland');
+  await expect.poll(async () => {
+    const center = await centerOf(page);
+    return Math.abs(center.lng - before.lng) > 4 || Math.abs(center.lat - before.lat) > 4;
+  }).toBe(true);
+  await page.waitForFunction(() => !window.__atlas.map.isMoving());
+  await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('CC BY-NC 4.0');
+  await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('not for a paid version');
+  await expect.poll(() => dayOf(page)).toBe(196);
+  await clickSpecies(page, 'honey-buzzard-finland');
+  const card = infoCard(page, testInfo.project.name);
+  await expect(card).toContainText('Not for a paid version');
+  await expect(card).toContainText('nonCommercialSources: movebank-10-5441-001-1-335');
+  await closeCard(page, testInfo.project.name);
+  await expect(card).toHaveCount(0);
+});
+
+test('monarch and humpback months', async ({ page }) => {
+  await openAtlas(page);
+  await page.getByRole('button', { name: 'Species' }).click();
+  await page.locator('#species-panel').getByRole('button', { name: 'Monarch butterfly', exact: true }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-species', 'monarch');
+
+  await page.getByRole('button', { name: 'Species' }).click();
+  await page.locator('#species-panel').getByRole('button', { name: 'Humpback whale, Hawaii', exact: true }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-species', 'humpback-hawaii');
+
+  await page.getByRole('button', { name: 'Months' }).click();
+  await expect(page.locator('#months-panel .month-option.is-estimated')).not.toHaveCount(0);
+  await expect(page.locator('#months-panel .month-option.is-observed')).toHaveCount(0);
+});
+
+test('vegetation overlay loads an NDVI tile', async ({ page }) => {
+  const ndviStatuses: number[] = [];
+  page.on('response', (response) => {
+    if (response.url().includes('MODIS_Terra_L3_NDVI_Monthly')) ndviStatuses.push(response.status());
+  });
+  await openAtlas(page);
+  await page.getByRole('button', { name: 'Layers' }).click();
+  await page.getByRole('button', { name: 'MODIS NDVI, observed monthly' }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-overlay', 'ndvi');
+  await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('MODIS Terra NDVI');
+  await expect.poll(() => ndviStatuses.filter((status) => status === 200).length).toBeGreaterThan(0);
+  expect(ndviStatuses.filter((status) => status >= 400)).toEqual([]);
+  // A CORS-blocked 200 still increments the status list. The attribute is set
+  // only after MapLibre uploads the raster texture.
+  await expect(page.locator('#app')).toHaveAttribute('data-ndvi-loaded', '1');
+  await expect(page.locator('#app')).not.toHaveAttribute('data-overlay-tile', 'degraded');
+});
+
+test('content security policy allows the globe and NDVI tiles', async ({ page }) => {
+  await openAtlas(page);
+  const response = await page.request.get('/');
+  const headers = response.headers();
+  const csp = headers['content-security-policy'] ?? '';
+  expect(csp).toMatch(/connect-src[^;]*https:\/\/gibs\.earthdata\.nasa\.gov/);
+  expect(csp).toMatch(/img-src[^;]*https:\/\/gibs\.earthdata\.nasa\.gov/);
+  expect(csp).toContain("worker-src 'self' blob:");
+  expect(headers['x-content-type-options']).toBe('nosniff');
+  expect(headers['referrer-policy']).toBe('strict-origin-when-cross-origin');
+  const ndviStatuses: number[] = [];
+  page.on('response', (response) => {
+    if (response.url().includes('MODIS_Terra_L3_NDVI_Monthly')) ndviStatuses.push(response.status());
+  });
+  await page.getByRole('button', { name: 'Layers' }).click();
+  await page.getByRole('button', { name: 'MODIS NDVI, observed monthly' }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-overlay', 'ndvi');
+  await expect.poll(() => ndviStatuses.filter((status) => status === 200).length).toBeGreaterThan(0);
+});
+
+async function openAtlas(page: Page, search = '') {
+  await page.goto(search ? `/?${search}` : '/');
+  await page.locator('#app[data-ready="true"]').waitFor();
+  await page.waitForFunction(() => window.__atlas.map.getProjection().type === 'globe');
+  await page.waitForFunction(() => window.__atlas.map.isSourceLoaded('land'));
+  await page.waitForFunction(() => !window.__atlas.map.isMoving());
+  const day = new URLSearchParams(search).get('day');
+  if (day != null) await expect.poll(() => dayOf(page)).toBe(Number(day));
+}
+
+function infoCard(page: Page, project: string) {
+  return project === 'desktop' ? page.locator('.maplibregl-popup') : page.locator('.event-sheet');
+}
+
+async function closeCard(page: Page, project: string) {
+  await page.locator(project === 'desktop' ? '.maplibregl-popup-close-button' : '.sheet-close').click();
+}
 
 async function dayOf(page: Page): Promise<number> {
   const value = await page.locator('#app').getAttribute('data-day');
   return Number(value);
 }
 
-async function herd(page: Page): Promise<{ lat: number; lng: number }> {
+async function herdOnDay(page: Page, day: number): Promise<{ lat: number; lng: number }> {
+  await page.locator('#slider').fill(String(day));
+  // Positions are published on the animation frame that also writes data-day.
+  // WebKit can return from fill before that frame, so both samples used to be the same day.
+  await expect.poll(() => dayOf(page), { timeout: 2_000 }).toBe(day);
   return page.evaluate(() => {
-    const position = window.__atlas.positions.find((item) => item.speciesId === 'wildebeest');
+    const position = window.__atlas.positions.find((item) => item.speciesId === 'blue-wildebeest');
     if (!position) throw new Error('missing wildebeest');
     return { lat: position.lat, lng: position.lng };
   });
@@ -198,34 +311,72 @@ async function dragSlider(page: Page, fraction: number) {
   await page.mouse.up();
 }
 
-async function clickSpecies(page: Page, speciesId: string) {
-  const target = await page.evaluate((id) => {
+async function markerHit(page: Page, speciesId: string): Promise<{ x: number; y: number; clear: boolean } | null> {
+  return page.evaluate((id) => {
     const position = window.__atlas.positions.find((item) => item.speciesId === id);
-    if (!position) return null;
+    const canvas = document.querySelector('#map canvas');
+    if (!position || !(canvas instanceof HTMLCanvasElement)) return null;
     const origin = window.__atlas.map.project([position.lng, position.lat]);
-    // A grid of queryRenderedFeatures stalls software WebGL (one readback per pixel).
-    // Let the click fall through labels onto the canvas instead.
-    document.querySelectorAll<HTMLElement>('.maplibregl-marker').forEach((node) => {
-      node.style.pointerEvents = 'none';
-    });
-    return { x: origin.x, y: origin.y };
+    const rect = canvas.getBoundingClientRect();
+    const x = rect.left + origin.x;
+    const y = rect.top + origin.y;
+    const top = document.elementFromPoint(x, y);
+    return { x, y, clear: top === canvas };
   }, speciesId);
-  if (!target) throw new Error(`missing ${speciesId}`);
-  await page.locator('#map canvas').click({ position: target });
 }
 
-async function clickRoute(page: Page, speciesId: string) {
-  const point = await page.evaluate((id) => {
-    const route = window.__atlas.routePoint(id);
-    if (!route) return null;
-    const origin = window.__atlas.map.project([route.lng, route.lat]);
-    document.querySelectorAll<HTMLElement>('.maplibregl-marker').forEach((node) => {
-      node.style.pointerEvents = 'none';
-    });
-    return { x: origin.x, y: origin.y };
+async function showClearMarker(page: Page, speciesId: string) {
+  const day = await page.evaluate(async (id) => {
+    const canvas = document.querySelector('#map canvas');
+    if (!(canvas instanceof HTMLCanvasElement)) return null;
+    const candidates = [250, 227, 258, 220, 15, 105, 300, 319, 90, 166, 196, 135, 45, 74];
+    for (const next of candidates) {
+      window.__atlas.setDay(next);
+      await new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      });
+      const position = window.__atlas.positions.find((item) => item.speciesId === id);
+      if (!position) continue;
+      const origin = window.__atlas.map.project([position.lng, position.lat]);
+      const rect = canvas.getBoundingClientRect();
+      const x = rect.left + origin.x;
+      const y = rect.top + origin.y;
+      if (x < rect.left || y < rect.top || x > rect.right || y > rect.bottom) continue;
+      if (document.elementFromPoint(x, y) === canvas) return next;
+    }
+    return null;
   }, speciesId);
-  if (!point) throw new Error(`missing route ${speciesId}`);
-  await page.locator('#map canvas').click({ position: point });
+  if (day == null) throw new Error(`no canvas-clear day for ${speciesId}`);
+  await expect.poll(() => dayOf(page)).toBe(day);
+}
+
+async function clickEmptyMap(page: Page) {
+  const point = await page.evaluate(() => {
+    const canvas = document.querySelector('#map canvas');
+    if (!(canvas instanceof HTMLCanvasElement)) return null;
+    const rect = canvas.getBoundingClientRect();
+    const blocked = (id: string) => id.startsWith('marker-') || id.startsWith('route-hit-') || id.startsWith('head-');
+    for (let y = 24; y < rect.height - 24; y += 22) {
+      for (let x = 24; x < rect.width - 24; x += 22) {
+        const clientX = rect.left + x;
+        const clientY = rect.top + y;
+        if (document.elementFromPoint(clientX, clientY) !== canvas) continue;
+        const hits = window.__atlas.map.queryRenderedFeatures([x, y]);
+        if (hits.some((feature) => blocked(feature.layer?.id ?? ''))) continue;
+        return { x: clientX, y: clientY };
+      }
+    }
+    return null;
+  });
+  if (!point) throw new Error('no empty map point');
+  await page.mouse.click(point.x, point.y);
+}
+
+async function clickSpecies(page: Page, speciesId: string) {
+  const target = await markerHit(page, speciesId);
+  if (!target) throw new Error(`missing ${speciesId}`);
+  expect(target.clear, 'marker should sit on the canvas, clear of a pin').toBe(true);
+  await page.mouse.click(target.x, target.y);
 }
 
 async function expectNoHorizontalScroll(page: Page) {
@@ -252,7 +403,16 @@ function isAppAsset(url: string): boolean {
 }
 
 function ignorableConsole(text: string): boolean {
+  if (/content security policy|violates the following/i.test(text)) return false;
   if (/Worker failed to load/i.test(text)) return false;
-  if (/gibs\.earthdata\.nasa\.gov/i.test(text)) return true;
+  // The one external message CI records when a MODIS NDVI tile response omits
+  // Access-Control-Allow-Origin. The date and tile indices vary; the sentence does not.
+  if (
+    /^Access to fetch at 'https:\/\/gibs\.earthdata\.nasa\.gov\/wmts\/epsg3857\/best\/MODIS_Terra_L3_NDVI_Monthly\/[^']+' from origin 'http:\/\/127\.0\.0\.1:4173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource\.$/.test(
+      text,
+    )
+  ) {
+    return true;
+  }
   return /^Failed to load resource: /i.test(text) && !/127\.0\.0\.1|\/assets\//.test(text);
 }
