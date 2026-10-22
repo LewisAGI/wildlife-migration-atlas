@@ -17,6 +17,7 @@ import { bindLongPress } from './longPress';
 import { MonthsPopout } from './MonthsPopout';
 import { SpeciesPopout } from './SpeciesPopout';
 import { TimeBar } from './TimeBar';
+import { framePublishKey, shouldPublishFrame } from './framePublish';
 
 /** `/?species=blue-wildebeest&day=250` opens that population on that day. */
 function readLaunch(): { speciesId: string; day: number } {
@@ -115,6 +116,7 @@ export function App() {
       map: globe.map,
       positions: [],
       routePoint: (id) => globe.routePoint(id),
+      setDay: (day) => clock.setDay(day),
     };
     globe.onPick((hit) => {
       closeAtlas();
@@ -198,9 +200,24 @@ export function App() {
       }
       // A paused day has one geometry. Rebuilding it every frame keeps the
       // desktop globe rendering and pushes the info-sheet check past 90s.
-      const key = `${visibleRef.current.map((item) => item.id).join(',')}|${filterRef.current}`;
-      const moved = clock.playing ? dayNow !== publishedDay : Math.floor(dayNow) !== Math.floor(publishedDay);
-      if (moved || key !== publishedKey) {
+      const providerIds: string[] = [];
+      visibleRef.current.forEach((item) => {
+        item.tracks.forEach((track) => {
+          const id = `${item.id}:${track.id}`;
+          if (providersRef.current.has(id)) providerIds.push(id);
+        });
+      });
+      const key = framePublishKey(
+        visibleRef.current.map((item) => item.id),
+        filterRef.current,
+        providerIds,
+      );
+      if (
+        shouldPublishFrame(
+          { key: publishedKey, day: publishedDay },
+          { key, day: dayNow, playing: clock.playing },
+        )
+      ) {
         publishedDay = dayNow;
         publishedKey = key;
         const positions: FramePosition[] = [];
@@ -306,9 +323,15 @@ export function App() {
         <div className="key-stack">
           {vegetationDegraded && (
             <div className="key-item">
-              <IconButton className="is-degraded" label="Vegetation tiles did not load">
+              <span
+                className="icon-button is-degraded"
+                role="img"
+                data-tip="Vegetation tiles did not load"
+                title="Vegetation tiles did not load"
+                aria-label="Vegetation tiles did not load"
+              >
                 <IconVegetation />
-              </IconButton>
+              </span>
             </div>
           )}
           <LayerPopout

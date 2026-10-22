@@ -10,6 +10,7 @@ import type { PositionProvider, StatusFilter } from '../motion/interpolate';
 import { flyToBBox, type BBox } from './camera';
 import { createOverlays, type PickHit } from './labels';
 import { frameCollection, type FramePosition } from './markers';
+import { ndviErrorStatus, noteNdviFailure, noteNdviSuccess, type NdviHealth } from './ndviHealth';
 import { routeSample } from './routes';
 import { mapStyle } from './style';
 
@@ -64,12 +65,27 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
   });
   let overlayDegraded = false;
   let overlayTileListener: (degraded: boolean) => void = () => {};
+  let ndviHealth: NdviHealth = { loaded: 0, degraded: false };
   const setOverlayDegraded = (degraded: boolean) => {
     if (overlayDegraded === degraded) return;
     overlayDegraded = degraded;
     if (degraded) root.dataset.overlayTile = 'degraded';
     else delete root.dataset.overlayTile;
     overlayTileListener(degraded);
+  };
+  const markNdviLoaded = () => {
+    ndviHealth = noteNdviSuccess(ndviHealth);
+    root.dataset.ndviLoaded = '1';
+    setOverlayDegraded(false);
+  };
+  const markNdviFailed = (status: number | undefined) => {
+    const next = noteNdviFailure(ndviHealth, status);
+    ndviHealth = next;
+    if (next.degraded) setOverlayDegraded(true);
+  };
+  const resetNdvi = () => {
+    ndviHealth = { loaded: 0, degraded: false };
+    delete root.dataset.ndviLoaded;
   };
   map.on('error', (event) => {
     const detail = event as unknown as { sourceId?: string; tile?: unknown };
@@ -78,12 +94,13 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     map.triggerRepaint();
     root.dataset.tileRepaint = '1';
     // Land and Blue Marble are also GIBS. Only the NDVI source is the vegetation overlay.
+    // HTTP 404 never reaches this event; loadTile records those below.
     if (detail.sourceId === 'ndvi') setOverlayDegraded(true);
   });
   map.on('sourcedata', (event) => {
     if (event.sourceId !== 'ndvi') return;
     const tile = (event as { tile?: { state?: string } }).tile;
-    if (tile?.state === 'loaded') setOverlayDegraded(false);
+    if (tile?.state === 'loaded') markNdviLoaded();
   });
 
   const ready = new Promise<void>((resolve) => {
@@ -108,6 +125,7 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
           layout: { visibility: 'none' },
           paint: { 'raster-opacity': 0.78 },
         });
+        watchNdviSource(map.getSource('ndvi'), markNdviLoaded, markNdviFailed);
       }
       map.setSky({
         'sky-color': '#070b12',
@@ -380,6 +398,7 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
       overlayMonth = month;
       root.dataset.overlay = month == null ? 'off' : 'ndvi';
       if (month == null) setOverlayDegraded(false);
+      if (month == null || changed) resetNdvi();
       void ready.then(() => {
         if (!map.getLayer('ndvi')) return;
         map.setLayoutProperty('ndvi', 'visibility', month == null ? 'none' : 'visible');
@@ -421,6 +440,29 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
       overlays.destroy();
       map.remove();
     },
+  };
+}
+
+type NdviTile = { state?: string };
+
+function watchNdviSource(
+  source: unknown,
+  onLoaded: () => void,
+  onFailed: (status: number | undefined) => void,
+) {
+  const raster = source as { loadTile?: (tile: NdviTile) => Promise<void>; atlasNdviWatch?: boolean } | undefined;
+  if (!raster?.loadTile || raster.atlasNdviWatch) return;
+  raster.atlasNdviWatch = true;
+  const loadTile = raster.loadTile.bind(raster);
+  raster.loadTile = async (tile) => {
+    try {
+      await loadTile(tile);
+      // state is 'loaded' only after the raster texture is uploaded.
+      if (tile.state === 'loaded') onLoaded();
+    } catch (error) {
+      onFailed(ndviErrorStatus(error));
+      throw error;
+    }
   };
 }
 
@@ -478,6 +520,7 @@ declare global {
       map: MapLibreMap;
       positions: FramePosition[];
       routePoint: (speciesId: string) => { lng: number; lat: number } | null;
+      setDay: (day: number) => void;
     };
   }
 }

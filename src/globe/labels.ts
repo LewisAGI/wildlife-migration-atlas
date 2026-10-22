@@ -122,8 +122,7 @@ export function createOverlays(map: MapLibreMap, onPick: (hit: PickHit) => void)
         element.innerHTML = `<span class="dot"></span><span class="pin-label"></span>`;
         const label = element.querySelector('.pin-label') as HTMLElement;
         label.textContent = event.title;
-        element.addEventListener('click', (click) => {
-          click.stopPropagation();
+        element.addEventListener('click', () => {
           onPick({
             speciesId: event.speciesId,
             trackId: '',

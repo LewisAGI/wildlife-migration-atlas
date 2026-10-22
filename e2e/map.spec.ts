@@ -10,9 +10,11 @@ declare global {
         isSourceLoaded: (id: string) => boolean;
         project: (lngLat: [number, number]) => { x: number; y: number };
         getCenter: () => { lng: number; lat: number };
+        queryRenderedFeatures: (point: [number, number]) => { layer?: { id?: string } }[];
       };
       positions: { speciesId: string; trackId: string; lat: number; lng: number }[];
       routePoint: (speciesId: string) => { lng: number; lat: number } | null;
+      setDay: (day: number) => void;
     };
   }
 }
@@ -117,7 +119,11 @@ test('markers move between seasons', async ({ page }) => {
 });
 
 test('arctic tern winters south', async ({ page }) => {
-  await openAtlas(page, 'species=arctic-tern&day=15');
+  await openAtlas(page);
+  await page.getByRole('button', { name: 'Species' }).click();
+  await page.locator('#species-panel').getByRole('button', { name: 'Arctic tern', exact: true }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-species', 'arctic-tern');
+  await expect.poll(() => dayOf(page)).toBe(15);
   await expect.poll(async () => ternLats(page)).toEqual(expect.arrayContaining([expect.any(Number)]));
   const lats = await ternLats(page);
   expect(lats.length).toBe(1);
@@ -144,10 +150,8 @@ test('compare frames wildebeest and the tern together', async ({ page }) => {
 });
 
 test('wildebeest marker opens the info sheet', async ({ page }, testInfo) => {
-  // Maasai Mara (day 250) is off the event pins on the Chromium frames.
-  // WebKit's short landscape piles a pin onto that point; day 319 is clear there.
-  const day = testInfo.project.name === 'landscape-webkit' ? 319 : 250;
-  await openAtlas(page, `species=blue-wildebeest&day=${day}`);
+  await openAtlas(page, 'species=blue-wildebeest');
+  await showClearMarker(page, 'blue-wildebeest');
   await clickSpecies(page, 'blue-wildebeest');
   const card = infoCard(page, testInfo.project.name);
   await expect(card).toBeVisible();
@@ -157,23 +161,32 @@ test('wildebeest marker opens the info sheet', async ({ page }, testInfo) => {
   await expect(card).toHaveCount(0);
 });
 
-test('pin and card clicks leave the info sheet open', async ({ page }, testInfo) => {
+test('pin click keeps the sheet open and an empty map click closes it', async ({ page }, testInfo) => {
+  // Day 250 is far from every event, so a map click that re-picks the route
+  // cannot keep the calving sentence. Only the pin's own pick does.
   await openAtlas(page, 'species=blue-wildebeest&day=250');
   await page.getByRole('button', { name: 'Calving', exact: true }).click();
   const card = infoCard(page, testInfo.project.name);
   await expect(card).toBeVisible();
-  await expect(card).toContainText('short-grass plains');
-  await card.locator('.popup-latin').click();
-  await expect(card).toBeVisible();
-  await expect(card).toContainText('short-grass plains');
+  await expect(card).toContainText('roughly January to March');
+  await clickEmptyMap(page);
+  await expect(card).toHaveCount(0);
 });
 
 test('honey buzzard licence is on the marker card', async ({ page }, testInfo) => {
-  // Day 196 is the July median, inside the route rather than on the framed edge.
-  await openAtlas(page, 'species=honey-buzzard-finland&day=196');
+  await openAtlas(page, 'day=196');
+  const before = await centerOf(page);
+  await page.getByRole('button', { name: 'Species' }).click();
+  await page.locator('#species-panel').getByRole('button', { name: 'European honey buzzard', exact: true }).click();
+  await expect(page.locator('#app')).toHaveAttribute('data-species', 'honey-buzzard-finland');
+  await expect.poll(async () => {
+    const center = await centerOf(page);
+    return Math.abs(center.lng - before.lng) > 4 || Math.abs(center.lat - before.lat) > 4;
+  }).toBe(true);
+  await page.waitForFunction(() => !window.__atlas.map.isMoving());
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('CC BY-NC 4.0');
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('not for a paid version');
-  await expect(page.locator('#app')).toHaveAttribute('data-species', 'honey-buzzard-finland');
+  await expect.poll(() => dayOf(page)).toBe(196);
   await clickSpecies(page, 'honey-buzzard-finland');
   const card = infoCard(page, testInfo.project.name);
   await expect(card).toContainText('Not for a paid version');
@@ -209,6 +222,10 @@ test('vegetation overlay loads an NDVI tile', async ({ page }) => {
   await expect(page.locator('.maplibregl-ctrl-attrib')).toContainText('MODIS Terra NDVI');
   await expect.poll(() => ndviStatuses.filter((status) => status === 200).length).toBeGreaterThan(0);
   expect(ndviStatuses.filter((status) => status >= 400)).toEqual([]);
+  // A CORS-blocked 200 still increments the status list. The attribute is set
+  // only after MapLibre uploads the raster texture.
+  await expect(page.locator('#app')).toHaveAttribute('data-ndvi-loaded', '1');
+  await expect(page.locator('#app')).not.toHaveAttribute('data-overlay-tile', 'degraded');
 });
 
 test('content security policy allows the globe and NDVI tiles', async ({ page }) => {
@@ -306,6 +323,53 @@ async function markerHit(page: Page, speciesId: string): Promise<{ x: number; y:
     const top = document.elementFromPoint(x, y);
     return { x, y, clear: top === canvas };
   }, speciesId);
+}
+
+async function showClearMarker(page: Page, speciesId: string) {
+  const day = await page.evaluate(async (id) => {
+    const canvas = document.querySelector('#map canvas');
+    if (!(canvas instanceof HTMLCanvasElement)) return null;
+    const candidates = [250, 227, 258, 220, 15, 105, 300, 319, 90, 166, 196, 135, 45, 74];
+    for (const next of candidates) {
+      window.__atlas.setDay(next);
+      await new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      });
+      const position = window.__atlas.positions.find((item) => item.speciesId === id);
+      if (!position) continue;
+      const origin = window.__atlas.map.project([position.lng, position.lat]);
+      const rect = canvas.getBoundingClientRect();
+      const x = rect.left + origin.x;
+      const y = rect.top + origin.y;
+      if (x < rect.left || y < rect.top || x > rect.right || y > rect.bottom) continue;
+      if (document.elementFromPoint(x, y) === canvas) return next;
+    }
+    return null;
+  }, speciesId);
+  if (day == null) throw new Error(`no canvas-clear day for ${speciesId}`);
+  await expect.poll(() => dayOf(page)).toBe(day);
+}
+
+async function clickEmptyMap(page: Page) {
+  const point = await page.evaluate(() => {
+    const canvas = document.querySelector('#map canvas');
+    if (!(canvas instanceof HTMLCanvasElement)) return null;
+    const rect = canvas.getBoundingClientRect();
+    const blocked = (id: string) => id.startsWith('marker-') || id.startsWith('route-hit-') || id.startsWith('head-');
+    for (let y = 24; y < rect.height - 24; y += 22) {
+      for (let x = 24; x < rect.width - 24; x += 22) {
+        const clientX = rect.left + x;
+        const clientY = rect.top + y;
+        if (document.elementFromPoint(clientX, clientY) !== canvas) continue;
+        const hits = window.__atlas.map.queryRenderedFeatures([x, y]);
+        if (hits.some((feature) => blocked(feature.layer?.id ?? ''))) continue;
+        return { x: clientX, y: clientY };
+      }
+    }
+    return null;
+  });
+  if (!point) throw new Error('no empty map point');
+  await page.mouse.click(point.x, point.y);
 }
 
 async function clickSpecies(page: Page, speciesId: string) {
