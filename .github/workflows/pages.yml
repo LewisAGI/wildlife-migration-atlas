@@ -24,7 +24,8 @@ jobs:
       - run: npm test
       - run: npm run build
       - run: npx playwright install --with-deps chromium
-      - run: npx playwright test --project=desktop --project=iphone --project=landscape
+      - run: npx playwright install --with-deps webkit
+      - run: npx playwright test --project=desktop --project=iphone --project=landscape --project=landscape-webkit
 
   deploy-preview:
     needs: test

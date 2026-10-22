@@ -156,7 +156,7 @@ function DesktopPopup({
   const popupRef = useRef<Popup | null>(null);
   const [host, setHost] = useState<HTMLDivElement | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const element = document.createElement('div');
     let suppress = false;
     const popup = new Popup({
@@ -183,6 +183,8 @@ function DesktopPopup({
       setHost(null);
     };
     // The popup is anchored once; later days only move it.
+    // Layout, not a passive effect: the card has to be in the DOM before paint,
+    // or a click assertion can observe the frame where it does not exist yet.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [map]);
 

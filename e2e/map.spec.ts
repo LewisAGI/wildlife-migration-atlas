@@ -112,10 +112,8 @@ test('scrubber, keyboard, play, and loop', async ({ page }) => {
 });
 
 test('markers move, tern winters south, compare and the info sheet', async ({ page }, testInfo) => {
-  await page.locator('#slider').fill('30');
-  const early = await herd(page);
-  await page.locator('#slider').fill('200');
-  const later = await herd(page);
+  const early = await herdOnDay(page, 30);
+  const later = await herdOnDay(page, 200);
   expect(Math.abs(early.lat - later.lat) + Math.abs(early.lng - later.lng)).toBeGreaterThan(0.4);
 
   await page.getByRole('button', { name: 'Species' }).click();
@@ -226,7 +224,11 @@ async function dayOf(page: Page): Promise<number> {
   return Number(value);
 }
 
-async function herd(page: Page): Promise<{ lat: number; lng: number }> {
+async function herdOnDay(page: Page, day: number): Promise<{ lat: number; lng: number }> {
+  await page.locator('#slider').fill(String(day));
+  // Positions are published on the animation frame that also writes data-day.
+  // WebKit can return from fill before that frame, so both samples used to be the same day.
+  await expect.poll(() => dayOf(page), { timeout: 2_000 }).toBe(day);
   return page.evaluate(() => {
     const position = window.__atlas.positions.find((item) => item.speciesId === 'blue-wildebeest');
     if (!position) throw new Error('missing wildebeest');
@@ -265,21 +267,17 @@ async function dragSlider(page: Page, fraction: number) {
 async function scrubToClearMarker(page: Page, speciesId: string) {
   for (const day of [90, 120, 150, 60, 180, 250, 300, 15]) {
     await page.locator('#slider').fill(String(day));
-    const clear = await page
-      .waitForFunction(
-        (id) => {
-          const position = window.__atlas.positions.find((item) => item.speciesId === id);
-          const canvas = document.querySelector('#map canvas');
-          if (!position || !(canvas instanceof HTMLCanvasElement)) return false;
-          const origin = window.__atlas.map.project([position.lng, position.lat]);
-          const rect = canvas.getBoundingClientRect();
-          return document.elementFromPoint(rect.left + origin.x, rect.top + origin.y) === canvas;
-        },
-        speciesId,
-        { timeout: 2_000 },
-      )
-      .then(() => true)
-      .catch(() => false);
+    // The day and the projected position update on the same frame. A miss used to
+    // sit on a 2s timeout, which pushed the desktop info-sheet check into the 90s test budget.
+    await expect.poll(() => dayOf(page), { timeout: 2_000 }).toBe(day);
+    const clear = await page.evaluate((id) => {
+      const position = window.__atlas.positions.find((item) => item.speciesId === id);
+      const canvas = document.querySelector('#map canvas');
+      if (!position || !(canvas instanceof HTMLCanvasElement)) return false;
+      const origin = window.__atlas.map.project([position.lng, position.lat]);
+      const rect = canvas.getBoundingClientRect();
+      return document.elementFromPoint(rect.left + origin.x, rect.top + origin.y) === canvas;
+    }, speciesId);
     if (clear) return;
   }
   throw new Error(`no clear day for ${speciesId}`);
@@ -332,5 +330,14 @@ function isAppAsset(url: string): boolean {
 function ignorableConsole(text: string): boolean {
   if (/content security policy|violates the following/i.test(text)) return false;
   if (/Worker failed to load/i.test(text)) return false;
+  // The one external message CI records when a MODIS NDVI tile response omits
+  // Access-Control-Allow-Origin. The date and tile indices vary; the sentence does not.
+  if (
+    /^Access to fetch at 'https:\/\/gibs\.earthdata\.nasa\.gov\/wmts\/epsg3857\/best\/MODIS_Terra_L3_NDVI_Monthly\/[^']+' from origin 'http:\/\/127\.0\.0\.1:4173' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource\.$/.test(
+      text,
+    )
+  ) {
+    return true;
+  }
   return /^Failed to load resource: /i.test(text) && !/127\.0\.0\.1|\/assets\//.test(text);
 }

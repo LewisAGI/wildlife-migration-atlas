@@ -62,10 +62,15 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
     root.dataset.landRepaint = '1';
   });
   map.on('error', (event) => {
-    const detail = event as { sourceId?: string; tile?: unknown };
+    const detail = event as unknown as { sourceId?: string; tile?: unknown; error?: { message?: string } };
     if (!detail.sourceId && !detail.tile) return;
+    // A missing or CORS-blocked GIBS tile must not take the rest of the globe down.
     map.triggerRepaint();
     root.dataset.tileRepaint = '1';
+    const message = detail.error?.message ?? '';
+    if (detail.sourceId === 'ndvi' || message.includes('gibs.earthdata.nasa.gov')) {
+      root.dataset.overlayTile = 'degraded';
+    }
   });
 
   const ready = new Promise<void>((resolve) => {
@@ -269,6 +274,10 @@ export function createGlobe(container: HTMLElement, root: HTMLElement): GlobeCon
   };
 
   const onClick = (event: MapLayerMouseEvent) => {
+    const target = event.originalEvent.target;
+    // A pin or an open card sits in the canvas container. Its click already
+    // selected the species; treating it as an empty-map click clears the card.
+    if (target instanceof Element && target.closest('.pin, .maplibregl-popup, .event-sheet')) return;
     const layers = [...sourceIds].flatMap((id) => {
       const speciesId = id.replace('species-', '');
       return [`marker-${speciesId}`, `route-hit-${speciesId}`, `head-${speciesId}`];
